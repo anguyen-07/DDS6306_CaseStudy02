@@ -1,0 +1,48 @@
+---
+title: "Income-StockOptions"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Income and Stock Options
+
+How invested are our employees? This chart correlates Monthly Income levels with Stock Options and the impact on Attrition levels:
+
+```{r}
+# Comparing Stock Option levels by Monthly Income between current and prior employees
+options(repr.plot.width=10, repr.plot.height=7)
+
+stockoption <- df %>% select(StockOptionLevel, Attrition) %>% group_by(StockOptionLevel, Attrition) %>% summarize(n=n())  %>%
+ggplot(aes(x=reorder(StockOptionLevel, -n), y=n, fill=factor(StockOptionLevel))) + geom_bar(stat="identity") + coord_flip() + 
+facet_wrap(~Attrition) + theme_economist() + scale_fill_manual(values=c("#DF0101", "#F5A9A9", "#BEF781", "#04B404")) + 
+guides(fill=guide_legend(title="Stock Option \n Level")) + 
+theme(legend.position="none", plot.background=element_rect(fill="#0D7680"), plot.title=element_text(hjust=0.5, color="white"), 
+     axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"),
+     strip.text.x = element_text(color="white"), 
+     legend.text=element_text(color="white"))  + 
+geom_label(aes(label=n, fill = factor(StockOptionLevel)), colour = "white", fontface = "italic", hjust=0.55) + 
+labs(title="Number of Employees", x="StockOptionLevel", y="Amount")
+
+# Average income by StockOption
+income_stockoption <- df %>% select(StockOptionLevel, MonthlyIncome, Attrition) %>% group_by(StockOptionLevel, Attrition) %>%
+ggplot(aes(x=MonthlyIncome)) + geom_area(aes(fill=factor(StockOptionLevel)), stat ="bin", bins=100, alpha=0.8) + facet_wrap(~Attrition) + 
+theme_economist() +   scale_fill_manual(values=c("#DF0101", "#F5A9A9", "#BEF781", "#04B404")) + 
+guides(fill=guide_legend(title="Stock Option \n Level")) + 
+theme(legend.position="bottom", plot.background=element_rect(fill="#0D7680"), plot.title=element_text(hjust=0.5, color="white"), 
+     axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"),
+     strip.text.x = element_text(color="white"),
+     legend.text=element_text(color="black"), 
+     legend.background = element_rect(fill="#FFF9F5",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black"))
+
+
+plot_grid(stockoption, income_stockoption, nrow=2)
+```
