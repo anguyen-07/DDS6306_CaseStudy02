@@ -1,0 +1,73 @@
+---
+title: "Generational-Attrition_BarChart"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Bar Chart overview of Attrtition by Generation
+
+Code provides an overview of attrition by generation:
+
+```{r}
+
+options(repr.plot.width=8, repr.plot.height=5)
+
+df$Generation <- ifelse(df$Age<37,"Millenials",
+ifelse(df$Age>=38 & df$Age<54,"Generation X",
+ifelse(df$Age>=54 & df$Age<73,"Boomers","Silent"
+)))
+
+conti_df <- as.data.frame.matrix(table(df$Generation, df$Attrition))
+
+conti_df$groupSum <- rowSums(conti_df)
+conti_df$xmax <- cumsum(conti_df$groupSum)
+conti_df$xmin <- conti_df$xmax - conti_df$groupSum
+# The groupSum column needs to be removed; don't remove this line
+conti_df$groupSum <- NULL
+
+conti_df$Generation <- rownames(conti_df)
+
+melt_df <- melt(conti_df, id.vars = c("Generation", "xmin", "xmax"), variable.name = "Attrition")
+
+df_melt <- melt_df %>%
+  group_by(Generation) %>%
+  mutate(ymax = cumsum(value/sum(value)),
+         ymin = ymax - value/sum(value))
+
+index <- df_melt$xmax == max(df_melt$xmax)
+df_melt$yposn <- df_melt$ymin[index] + (df_melt$ymax[index] - df_melt$ymin[index])/2
+
+df_melt$xposn <- df_melt$xmin + (df_melt$xmax - df_melt$xmin)/2
+
+# geom_text creating age breakout (i.e. the x axis)
+p1<- ggplot(df_melt, aes(ymin = ymin,
+                 ymax = ymax,
+                 xmin = xmin,
+                 xmax = xmax,
+                 fill = Attrition)) +
+  geom_rect(colour = "white") +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  scale_fill_manual(values=c("#98fb98", "#ff6347")) +
+theme(plot.title=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"),
+     legend.text=element_text(color="#595959",size=12),
+     plot.subtitle=element_text(color="white", size=10, face= 'italic', hjust=0.5),
+     legend.title=element_text(color="#595959"),
+     legend.position="bottom", legend.background = element_rect(fill="#FFF9F5",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black"))
+p1 + 
+  geom_text(aes(x = xposn, label = Generation),
+            y = 0.15, angle = 90,
+            size = 3, hjust = -1.22,
+            show.legend = FALSE) + labs(title="Mosaic Plot", subtitle="Understanding both levels and frequencies of Attrition by Generation", 
+                                       x="Share of Employees", y="Frequency") + 
+theme(plot.title=element_text(hjust=0.5))
+```
