@@ -1,0 +1,42 @@
+---
+title: "Attrition-BusinessTravel"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Attrition rates correlated with amount of travel required for business
+
+File helps us look at whether the amount of travel required for business impacts Attrition levels:
+
+```{r}
+options(repr.plot.width=8, repr.plot.height=5)
+
+# Start with Percent Attrition by Work Life Balance
+work_bal_cnt <- df %>% select(Attrition, BusinessTravel, WorkLifeBalance) %>% group_by(Attrition, BusinessTravel) %>% 
+summarize(count=n()) %>% mutate(pct=round(prop.table(count),2) * 100) %>%
+ggplot(aes(x=Attrition, y=count, fill=BusinessTravel, color=Attrition)) + geom_bar(stat='identity') + facet_wrap(~BusinessTravel) + 
+geom_label(aes(label=count, fill = BusinessTravel), colour = "white", fontface = "italic")  + theme_minimal() + theme(legend.position="none") + 
+scale_fill_manual(values=c("#00dbdb", "#00db6e", "#fa8072")) +
+scale_color_manual(values=c("#808080", "#808080")) + labs(title="Attrition by Business Travel of Employees", 
+                                                          x="Attrition", y="Number of Employees") + coord_flip() + 
+theme(plot.title=element_text(hjust=0.5), plot.background=element_rect(fill="#FFF1E0")) 
+        
+work_bal_pct <- df %>% select(Attrition, BusinessTravel, WorkLifeBalance) %>% group_by(Attrition, BusinessTravel) %>% 
+summarize(count=n()) %>% mutate(pct=round(prop.table(count),2) * 100) %>%
+ggplot(aes(x=Attrition, y=pct, fill=BusinessTravel, color=Attrition)) + geom_bar(stat='identity') + facet_wrap(~BusinessTravel) + theme_minimal() +  
+theme(legend.position="none") + 
+geom_label(aes(label=paste0(pct, "%"), fill = BusinessTravel), colour = "white", fontface = "italic")  + 
+scale_fill_manual(values=c("#00dbdb", "#00db6e", "#fa8072")) +
+scale_color_manual(values=c("#808080", "#808080")) + labs(x="Attrition", y="Percentage (%)") + coord_flip() + 
+theme(plot.background=element_rect(fill="#FFF1E0"))
+
+plot_grid(work_bal_cnt, work_bal_pct, nrow=2)
+
+# Need to return Job Satisfaction to integer status for further analysis
+df$JobSatisfaction <- as.integer(df$JobSatisfaction)
+```
