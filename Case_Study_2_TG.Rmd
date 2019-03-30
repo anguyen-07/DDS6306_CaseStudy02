@@ -42,7 +42,6 @@ library(Hmisc)
 
 library(RCurl)
 library(ngram)
-library(base)
 library(XML)
 library(openxlsx)
 library(plyr)
@@ -58,7 +57,6 @@ library(base)
 
 ```{r Q1, echo=TRUE}
 ## input attrition file
-setwd("~/Documents/SMU/Doing DS/Unit 14")
 
 emp <- read.xlsx("CaseStudy2-data.xlsx", sheet = 1, startRow = 1, colNames = TRUE)
 #emp <- read.xlsx("CaseStudy2-data.xlsx", sheet = 1, startRow = 1, colNames = TRUE, rowNames = FALSE, detectDates = FALSE, skipEmptyRows = TRUE, skipEmptyCols = TRUE, rows = NULL, cols = NULL, check.names = FALSE, namedRegion = NULL, na.strings = "NA", fillMergedCells = FALSE)
