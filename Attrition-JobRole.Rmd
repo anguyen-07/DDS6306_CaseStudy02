@@ -1,0 +1,30 @@
+---
+title: "Attrition-JobRole"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Attrition levels by Job Role
+
+chart shows Attrition levels by Job Role:
+
+```{r}
+options(repr.plot.width=10, repr.plot.height=6) 
+attr.job <- df %>% select(JobRole, Attrition) %>% group_by(JobRole, Attrition) %>% summarize(amount=n()) %>%
+mutate(pct=round(prop.table(amount),2) * 100) %>% arrange(pct)
+
+nofunc <- colorRampPalette(c("#A9F5A9", "#58FA58", "#01DF01"))
+yesfunc <- colorRampPalette(c("#F5A9A9", "#FE2E2E", "#B40404"))
+
+yes.attr <- attr.job %>% filter(Attrition == "Yes") %>% arrange(JobRole) 
+no.attr <- attr.job %>% filter(Attrition == "No") %>% arrange(JobRole)
+
+par(mar = pyramid.plot(no.attr$pct, yes.attr$pct, labels = unique(attr.job$JobRole),
+                       top.labels=c("No","","Yes"), main = "Attrition by Job Role", 
+                       gap=30, show.values = T, rxcol = yesfunc(9), lxcol = nofunc(9)))
+```
