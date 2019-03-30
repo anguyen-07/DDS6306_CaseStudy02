@@ -1,0 +1,30 @@
+---
+title: "Plot_Gender-Income"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Box Plot - Inequalities by Gender
+
+This code is used to build a boxplot showing salary differences by gender. Embedded R code chunk:
+
+```{r echo=TRUE}
+pacman::p_load(tidyverse, skimr, GGally, plotly, viridis, caret, randomForest, e1071, rpart, xgboost, h2o, ggcorrplot, rpart.plot, corrgram, gbm, ggplot2, highcharter, ggthemes, psych, scales, treemap, treemapify, repr, cowplot, magrittr, ggpubr, RColorBrewer, plotrix, ggrepel, forcats, reshape2, caTools, tree, rattle)
+options(repr.plot.width=8, repr.plot.height=6)
+options(warn=-1)
+df <- read.csv("CaseStudy2-singlesheet.csv")
+p <-ggplot(df, aes(x=Gender, y=MonthlyIncome, color=Gender, fill=Gender)) + geom_boxplot() +
+scale_fill_manual(values=c("#F5A9F2", "#5882FA")) + scale_color_manual(values=c("#FE2EF7", "#5858FA")) + coord_flip() + labs(title="Are there any Gender Disparities in Income?")
+
+```
+
+## And the Plot
+
+```{r p, echo=FALSE}
+p
+```
