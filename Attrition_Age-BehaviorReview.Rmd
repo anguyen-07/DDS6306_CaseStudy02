@@ -1,0 +1,68 @@
+---
+title: "Attrition_Age-BehaviorReview"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+(echo = TRUE)
+```
+
+## Charts showing Attrtion by age groups
+
+This code identifies how various age groups typically behave with regards to attrition. Identifies what age groups have worked for a higher number of different companies, thus suggesting that some age groups may be more naturally mobile than others.
+
+```{r}
+options(repr.plot.width=8, repr.plot.height=7) 
+
+# create your categories by Age
+df$Generation <- ifelse(df$Age<37,"Millenials",
+ifelse(df$Age>=38 & df$Age<54,"Generation X",
+ifelse(df$Age>=54 & df$Age<73,"Boomers","Silent"
+)))
+
+# Set distribution by generation
+generation.dist <- df %>% select(Generation, NumCompaniesWorked, Attrition) %>% 
+ggplot() + geom_boxplot(aes(x=reorder(Generation, NumCompaniesWorked, FUN=median), 
+                                      y=NumCompaniesWorked, fill=Generation)) + 
+theme_tufte() + facet_wrap(~Attrition) + 
+scale_fill_brewer(palette="RdBu") + coord_flip() + 
+labs(title="Knowing Past Generations",x="Generation", y="Number of Companies Previously Worked") + 
+theme(legend.position="bottom", legend.background = element_rect(fill="#FFF9F5",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) + theme(strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"))
+
+# 2.69
+overall.avg <- df %>% select(Generation, NumCompaniesWorked) %>% summarize(avg_ov=mean(NumCompaniesWorked))
+
+# Average Number of Companies worked (grouped by Generation)
+avg.comp <- df %>% select(Generation, NumCompaniesWorked, Attrition) %>% group_by(Generation, Attrition) %>%
+summarize(avg=mean(NumCompaniesWorked)) %>% 
+ggplot(aes(x=Generation, y=avg, color=Attrition)) + 
+  geom_point(size=3) + theme_tufte() +  # Draw points
+  geom_segment(aes(x=Generation, 
+                   xend=Generation, 
+                   y=min(avg), 
+                   yend=max(avg)), 
+               linetype="dashed", 
+               size=0.1,
+              color="white") +  
+  labs(title="", 
+       subtitle="Behavioral Difference between Generations",
+       y="Average Number of Companies worked for",
+      x="Generation") +  
+  coord_flip() + scale_color_manual(values=c("#58FA58", "#FA5858")) + 
+theme(legend.position="bottom", legend.background = element_rect(fill="#FFF9F5",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) + theme(strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"),plot.subtitle=element_text(color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"))
+
+
+plot_grid(generation.dist, avg.comp, nrow=2)
+```
