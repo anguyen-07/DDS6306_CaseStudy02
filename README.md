@@ -1,12 +1,14 @@
 # DDSAnalytics - Talent Management for a Changing World
-Git repository for the case study projects. Members of this project include Amy, Andy, Richard, and Tom.
+Git repository for DDSAnalytics employee turnover review. Members of this project include Amy, Andy, Richard, and Tom.
 
-Taking an in-depth look at employee turnover. Why do employees leave? Generally speaking, there are several broad categories which employees of any company cite as primary reasons for leaving:
+# Take a closer look at employee turnover 
 
-  Accepting a higher paying position
-  Seeking better opportunities for professional and/or personal growth
-  Negative work environment, to include poor leadership
-  Excessive work demands (hours, safety, etc) at current organization
+Why do employees leave? Generally speaking, there are several broad categories which employees of any company cite as primary reasons for leaving:
+
+  - Accepting a higher paying position
+  - Seeking better opportunities for professional and/or personal growth
+  - Negative work environment, to include poor leadership
+  - Excessive work demands (hours, safety, etc) at current organization
   
 We take a look at industry employment numbers and compare how our organization measures up. We will also break our analysis into topics to allow for ease in understanding.
 
