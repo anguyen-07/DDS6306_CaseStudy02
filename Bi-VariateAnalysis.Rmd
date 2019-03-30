@@ -1,0 +1,57 @@
+---
+title: "Bi-VariateAnalysis"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Bi-Variate Analysis
+
+Continuation of the correlation and analysis portion of the project
+
+```{r}
+options(repr.plot.width=10, repr.plot.height=8) 
+
+# Positive Correlations
+p1 <- df %>% select(TotalWorkingYears, MonthlyIncome) %>%
+ggplot(aes(x=TotalWorkingYears, y=MonthlyIncome)) + geom_point(colour = "#F2DFCE", alpha=1/2) + geom_smooth(method="loess",color="#EE4037") + 
+theme_economist() + theme(legend.position="bottom", strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"), plot.subtitle=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white")) + 
+labs(title="Positive Correlation", subtitle="Monthly Income vs Working Years")
+
+p2 <-  df %>% select(PerformanceRating, PercentSalaryHike) %>%
+ggplot(aes(x=factor(PerformanceRating), y=PercentSalaryHike)) + geom_boxplot(colour = "#FE642E", fill="#A9D0F5") + 
+geom_jitter(color="#F2DFCE",alpha=1/3)  + 
+theme_economist() + theme(legend.position="bottom", strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"), plot.subtitle=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white")) + 
+labs(title="Possitive Correlation", subtitle="Percent Salary Hike vs Performance Rating", x="Performance Rating")
+
+# Years with Current Manager, Years since Last Promotion
+p3 <-  df %>% select(YearsWithCurrManager, YearsSinceLastPromotion) %>%
+ggplot(aes(x=factor(YearsWithCurrManager), y=YearsSinceLastPromotion)) + geom_boxplot(colour = "#FE642E", fill="#A9D0F5") + 
+geom_jitter(color="#F2DFCE",alpha=1/3) + geom_smooth(method='loess',aes(group=1),color='#EE4037',lty=2,size=.5) + 
+theme_economist() + theme(legend.position="bottom", strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"),plot.subtitle=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white")) + 
+labs(title="Possitive Correlation", subtitle="Years since Last Promotions vs Years with Current Manager", x="Years with Current Manager")
+
+# Age & Monthly Income
+p4 <-  df %>% select(Age, MonthlyIncome) %>%
+ggplot(aes(x=Age, y=MonthlyIncome)) + geom_point(colour = "#F2DFCE", alpha=1/2) + geom_smooth(method="loess", color="#EE4037") + 
+theme_economist() + theme(legend.position="bottom", strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"), plot.subtitle=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white")) + 
+labs(title="Positive Correlation", subtitle="Monthly Income vs Age")
+
+plot_grid(p1, p2, p3,p4, ncol=2, nrow=2)
+```
