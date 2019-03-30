@@ -1,0 +1,28 @@
+---
+title: "Attrition-Education_Percent"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Different way to look at attrtition by Education
+
+This breaks out Attrition correlated with Education by percentage. Just a different way of
+looking at the same data:
+
+```{r}
+edu.pct <- df %>% select(Educational_Levels, Attrition) %>% group_by(Educational_Levels, Attrition) %>% 
+summarize(n=n()) %>% mutate(pct=round(prop.table(n),2) * 100) %>% arrange(desc(pct)) %>%
+ggplot(aes(x=fct_reorder(Educational_Levels,pct), y=pct, fill=Attrition, color=Attrition)) + geom_bar(stat="identity") + facet_wrap(~Attrition) + 
+coord_flip() + geom_label(aes(label=paste0(pct, "%"), fill = Attrition), colour = "white", fontface = "italic") + 
+scale_fill_manual(values=c("#2EF688", "#F63A2E")) + scale_color_manual(values=c("#09C873","#DD1509")) + 
+labs(x="", y="Number of Employees (%)", title="Attrition by Educational Level", subtitle="Percentage (%) by Employee")+ theme_economist() + 
+theme(legend.position="none", plot.background=element_rect(fill="#FFF1E0"))
+
+edu.pct
+```
+
