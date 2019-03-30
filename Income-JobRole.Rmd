@@ -1,0 +1,40 @@
+---
+title: "Income-JobRole"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Income broken out by Job Role
+
+Simple code breaking out Median/Mean Income levels by Job Role:
+
+```{r}
+options(repr.plot.width=8, repr.plot.height=5) 
+
+# Median Salary
+job.sal <- df %>% select(JobRole, MonthlyIncome) %>% group_by(JobRole) %>% summarize(med=median(MonthlyIncome), avg=mean(MonthlyIncome))
+
+
+p1 <- ggplot(job.sal, aes(x=reorder(JobRole,-med), y=med)) +  geom_bar(stat="identity", width=.5, fill="#FE9A2E") + 
+  labs(title="Salary by Job Role", 
+       subtitle="Median",
+      x="Job Role",
+      y="Median Income") + 
+  theme(axis.text.x = element_text(angle=90, vjust=0.6))
+
+
+p2 <- ggplot(job.sal, aes(x=reorder(JobRole,-avg), y=avg)) +  geom_bar(stat="identity", width=.5, fill="#BE81F7") + 
+  labs(title="Salary by Job Role", 
+       subtitle="Mean",
+      x="Job Role",
+      y="Mean Income") + 
+  theme(axis.text.x = element_text(angle=90, vjust=0.6))
+
+
+plot_grid(p1, p2, ncol=2)
+```
