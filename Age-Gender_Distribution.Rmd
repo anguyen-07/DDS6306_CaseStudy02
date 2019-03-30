@@ -1,0 +1,49 @@
+---
+title: "Age-Gender_Distribution"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Histogram of Age Distribution by Gender
+
+We need to review the distribution of average employee age. Why? Because unlike older generations, millenials tend to switch workplaces more than that may be a contributing factor to our current levels of attrition. Here is the embedded R code chunk:
+
+```{r}
+
+options(repr.plot.width=8, repr.plot.height=6) 
+
+dat_text <- data.frame(
+  label = c("Mean = 37.33 \n Years Old", "Mean = 36.65 \n Years Old"),
+  Gender   = c("Female", "Male")
+)
+
+
+
+gender.dist <- df %>% select(Gender, Age) %>% filter(Gender == 'Male' | Gender== "Female") %>% 
+filter(!is.na(Age)) %>% group_by(Gender) %>% 
+ggplot(aes(x=Age)) + geom_density(aes(fill=Gender), alpha=0.8, show.legend=FALSE) + facet_wrap(~Gender) + theme_minimal() + 
+geom_vline(aes(xintercept=mean(Age)),
+            color="red", linetype="dashed", size=1) + labs(title="Age Distribution") + 
+theme(plot.title=element_text(hjust=0.5)) + scale_fill_manual(values=c("#F781F3", "#819FF7")) + 
+geom_text(
+  data    = dat_text,
+  mapping = aes(x = 45, y = 0.03, label = label),
+  hjust   = -0.1,
+  vjust   = -1
+)
+
+
+overall.dist <- df %>% select(Gender, Age) %>% filter(!is.na(Age)) %>% 
+ggplot(data=df, mapping=aes(x=Age)) + geom_density(color="darkblue", fill="lightblue") + 
+geom_vline(aes(xintercept=mean(Age)),
+            color="red", linetype="dashed", size=1) +  theme_minimal() + labs(x="Overall Age") + 
+annotate("text", label = "Mean = 36.92 Years Old", x = 50, y = 0.03, color = "black")
+
+
+plot_grid(gender.dist, overall.dist, nrow=2)
+```
