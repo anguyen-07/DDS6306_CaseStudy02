@@ -1,0 +1,38 @@
+---
+title: "Impact_Income-Attrition"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Impact of Income on Attrtion Rates
+
+This visualization helps identify whether Income levels impact Attrition Rates:
+
+```{r}
+options(repr.plot.width=8, repr.plot.height=7) 
+
+per.sal <- df %>% select(Attrition, PercentSalaryHike, MonthlyIncome) %>% 
+ggplot(aes(x=PercentSalaryHike, y=MonthlyIncome)) + geom_jitter(aes(col=Attrition), alpha=0.5) + 
+theme_economist() + theme(legend.position="none") + scale_color_manual(values=c("#58FA58", "#FA5858")) + 
+labs(title="Income and its Impact on Attrition") + theme(plot.title=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"))
+
+perf.inc <- df %>% select(PerformanceRating, MonthlyIncome, Attrition) %>% group_by(factor(PerformanceRating), Attrition) %>% 
+ggplot(aes(x=factor(PerformanceRating), y=MonthlyIncome, fill=Attrition)) + geom_violin() + coord_flip() + facet_wrap(~Attrition) + 
+scale_fill_manual(values=c("#58FA58", "#FA5858")) + theme_economist() + 
+theme(legend.position="bottom", strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"), 
+     legend.text=element_text(color="white")) + 
+labs(x="Performance Rating",y="Monthly Income") 
+
+
+plot_grid(per.sal, perf.inc, nrow=2)
+```
