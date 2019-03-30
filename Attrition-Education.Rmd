@@ -1,0 +1,35 @@
+---
+title: "Attrition-Education"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Bar Chart showing attrtion by education level
+
+This visualization shows attrition levels for various education backgrounds:
+
+```{r}
+options(repr.plot.width=8, repr.plot.height=4) 
+
+# Identify your education levels
+df$Educational_Levels <-  ifelse(df$Education == 1, "Without College D.",
+                            ifelse(df$Education == 2 , "College D.",
+                                  ifelse(df$Education == 3, "Bachelors D.",
+                                        ifelse(df$Education == 4, "Masters D.", "Phd D."))))
+
+# Show proportions of key talent.
+edu.level <- df %>% select(Educational_Levels, Attrition) %>% group_by(Educational_Levels, Attrition) %>% 
+summarize(n=n()) %>% 
+ggplot(aes(x=fct_reorder(Educational_Levels,n), y=n, fill=Attrition, color=Attrition)) + geom_bar(stat="identity") + facet_wrap(~Attrition) + 
+coord_flip() + scale_fill_manual(values=c("#2EF688", "#F63A2E")) + scale_color_manual(values=c("#09C873","#DD1509")) + 
+geom_label(aes(label=n, fill = Attrition), colour = "white", fontface = "italic") + 
+labs(x="", y="Number of Employees", title="Attrition by Educational Level") + theme_economist() + 
+theme(legend.position="none", plot.background=element_rect(fill="#FFF1E0"), plot.title=element_text(hjust=0.5))
+
+edu.level
+```
