@@ -1,0 +1,38 @@
+---
+title: "FeatureImportance"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Visualization of which Features are most Important
+
+This chart clearly delineates which features have the greatest impact on Attrition rates:
+
+```{r}
+# Identifies the level of importance for each variable
+var_imp <- data.frame(rpart.tree$variable.importance)
+var_imp$features <- rownames(var_imp)
+var_imp <- var_imp[, c(2, 1)]
+var_imp$importance <- round(var_imp$rpart.tree.variable.importance, 2)
+var_imp$rpart.tree.variable.importance <- NULL
+
+colorCount <- length(unique(var_imp$features))
+feature_importance <- var_imp %>%
+ggplot(aes(x=reorder(features, importance), y=importance, fill=features)) + geom_bar(stat='identity') + coord_flip() + 
+  theme_minimal() + theme(legend.position="none", strip.background = element_blank(), strip.text.x = element_blank(), 
+     plot.title=element_text(hjust=0.5, color="white"), plot.subtitle=element_text(color="white"), plot.background=element_rect(fill="#0D7680"),
+                                                        axis.text.x=element_text(colour="white"), axis.text.y=element_text(colour="white"),
+                                                        axis.title=element_text(colour="white"), 
+     legend.background = element_rect(fill="#FFF9F5",
+                                  size=0.5, linetype="solid", 
+                                  colour ="black")) + scale_fill_manual(values = colorRampPalette(brewer.pal(24, "Set2"))(colorCount)) + 
+geom_label(aes(label=paste0(importance, "%")), colour = "white", fontface = "italic", hjust=0.6) + 
+labs(title="Feature Importance for our Decision Tree Model", x="Features", y="Importance")
+
+feature_importance
+```
