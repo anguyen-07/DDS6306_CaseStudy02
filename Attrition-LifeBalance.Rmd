@@ -1,0 +1,32 @@
+---
+title: "Attrition-LifeBalance"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Attrition levels correlated to Work/Life Balance
+
+Identifies Attrition by Department and is part of an overview of why people leave:
+
+```{r}
+options(repr.plot.width=8, repr.plot.height=4)
+
+attritions <- df %>% filter(Attrition == "Yes")
+
+attritions$WorkLifeBalance <- as.factor(attritions$WorkLifeBalance)
+
+by.department <- attritions %>% select(Department, WorkLifeBalance) %>% group_by(Department, WorkLifeBalance) %>%
+summarize(count=n()) %>% 
+ggplot(aes(x=fct_reorder(WorkLifeBalance, -count), y=count, fill=Department)) + geom_bar(stat='identity') + facet_wrap(~Department) + 
+theme_economist() + theme(legend.position="bottom", plot.title=element_text(hjust=0.5), plot.background=element_rect(fill="#FFF1E0")) + 
+scale_fill_manual(values=c("#FA5882", "#819FF7", "#FE2E2E")) + 
+geom_label(aes(label=count, fill = Department), colour = "white", fontface = "italic") + 
+labs(title="Is there a Work Life Balance Environment?", x="Work and Life Balance", y="Number of Employees")
+
+by.department
+```
