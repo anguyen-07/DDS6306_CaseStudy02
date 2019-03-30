@@ -1,0 +1,32 @@
+---
+title: "DO_THIS_FIRST"
+author: "AMarkum"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## This imports your data set and pulls up all the necessary libraries for this project
+
+Use this code to read in your data set, then install all of the various r packages that are used in creating the rest of the visualizations:
+
+```{r}
+# packages are loaded in bulk using the "pacman" package 
+
+pacman::p_load(tidyverse, skimr, GGally, plotly, viridis, caret, randomForest, e1071, rpart, xgboost, h2o, ggcorrplot, rpart.plot, corrgram, gbm, ggplot2, highcharter, ggthemes, psych, scales, treemap, treemapify, repr, cowplot, magrittr, ggpubr, RColorBrewer, plotrix, ggrepel, forcats, reshape2, caTools, tree, rattle)
+
+options(repr.plot.width=8, repr.plot.height=6)
+options(warn=-1)
+
+# You will need to change the path to indicate where your dataset is stored
+df <- read.csv("CaseStudy2-singlesheet.csv")
+head(df)
+
+# create a new dataset which will be the one used for training and testing 
+original_df <- df
+df %>% glimpse()
+```
+
