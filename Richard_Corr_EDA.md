@@ -16,7 +16,7 @@ library(xlsx)
 library(corrplot)
 ```
 
-# Read in and Setup Data
+## Read in and Setup Data
 
 ```r
 # Load the CaseStudy2 Data set as a dataframe
@@ -24,7 +24,7 @@ jobsdf <- read.xlsx("CaseStudy2-data.xlsx", sheetIndex = 1, header = T)
 ```
 
 
-# Get information about the data frame jobsdf
+## Get information about the data frame jobsdf
 
 ```r
 class(jobsdf)
@@ -244,19 +244,19 @@ summary(jobsdf)
 ## 
 ```
 
-# Change Attrition to values from Yes/No to 1 and 0
+## Change Attrition to values from Yes/No to 1 and 0
 
 ```r
 jobsdf <- jobsdf %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
 ```
 
-#Remove non-numberical columns for correlation.
+## Remove non-numberical columns for correlation.
 
 ```r
 jobcor <- jobsdf[-c(3,5,8:9,12,16,18,22,23,27)]
 ```
 
-# Build Correlation Plot
+## Build Correlation Plot
 
 ```r
 JobsCorr <- cor(jobcor)
@@ -264,3 +264,182 @@ corrplot(JobsCorr, method = 'number', number.cex = 0.65, type = 'lower')
 ```
 
 ![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+# Exploratory Data Analysis and Graphs
+
+## Build the data frames for each of the following:
+
+* Job Roles
+* Departments
+* Business Travel 
+* Education Field
+* Gender
+* Years of Education
+* Marital Status
+
+
+```r
+# Percent Attrition by Job Role
+roles <- jobsdf %>% group_by(JobRole, Attrition) %>% summarise(n = n())
+roles[,c("Totals", "Percents")] <- NA
+for (x in roles$JobRole)
+{
+  roles$Totals[roles$JobRole == x] <- sum(jobsdf$JobRole == x)
+  roles$Percents[roles$JobRole == x] <- roles$n[roles$JobRole == x] / roles$Totals[roles$JobRole == x] * 100
+}
+roles <- as.data.frame(roles)
+
+# Percent Attrition by Department
+depts <- jobsdf %>% group_by(Department, Attrition) %>% summarise(n = n())
+depts[,c("Totals", "Percents")] <- NA
+for (x in depts$Department)
+{
+  depts$Totals[depts$Department == x] <- sum(jobsdf$Department == x)
+  depts$Percents[depts$Department == x] <- depts$n[depts$Department == x] / depts$Totals[depts$Department == x] * 100
+}
+depts <- as.data.frame(depts)
+
+# Percent Attrition by Travel
+travel <- jobsdf %>% group_by(BusinessTravel, Attrition) %>% summarise(n = n())
+travel[,c("Totals", "Percents")] <- NA
+for (x in travel$BusinessTravel)
+{
+  travel$Totals[travel$BusinessTravel == x] <- sum(jobsdf$BusinessTravel == x )
+  travel$Percents[travel$BusinessTravel == x] <- travel$n[travel$BusinessTravel == x] / travel$Totals[travel$BusinessTravel == x] * 100
+}
+travel <- as.data.frame(travel)
+
+# Percent Attrition by Education Field
+educfield <- jobsdf %>% group_by(EducationField, Attrition) %>% summarise(n = n())
+educfield[,c("Totals", "Percents")] <- NA
+for (x in educfield$EducationField)
+{
+  educfield$Totals[educfield$EducationField == x] <- sum(jobsdf$EducationField == x)
+  educfield$Percents[educfield$EducationField == x] <- educfield$n[educfield$EducationField == x] / educfield$Totals[educfield$EducationField == x] * 100
+}
+educfield <- as.data.frame(educfield)
+
+# Percent Attrition by Gender
+gender <- jobsdf %>% group_by(Gender, Attrition) %>% summarise(n = n())
+gender[,c("Totals", "Percents")] <- NA
+for (x in gender$Gender)
+{
+  gender$Totals[gender$Gender == x] <- sum(jobsdf$Gender == x)
+  gender$Percents[gender$Gender == x] <- gender$n[gender$Gender == x] / gender$Totals[gender$Gender == x] * 100
+}
+gender <- as.data.frame(gender)
+
+# Percent Attrition by Years of Education
+educyr <- jobsdf %>% group_by(Education, Attrition) %>% summarise(n = n())
+educyr[,c("Totals", "Percents")] <- NA
+for (x in educyr$Education)
+{
+  educyr$Totals[educyr$Education == x] <- sum(jobsdf$Education == x)
+  educyr$Percents[educyr$Education == x] <- educyr$n[educyr$Education == x] / educyr$Totals[educyr$Education == x] * 100
+}
+educyr <- as.data.frame(educyr)
+
+# Percent Attrition by Marital Status
+marital_status <- jobsdf %>% group_by(MaritalStatus, Attrition) %>% summarise(n = n())
+marital_status[,c("Totals", "Percents")] <- NA
+for (x in marital_status$MaritalStatus)
+{
+  marital_status$Totals[marital_status$MaritalStatus == x] <- sum(jobsdf$MaritalStatus == x)
+  marital_status$Percents[marital_status$MaritalStatus == x] <- marital_status$n[marital_status$MaritalStatus == x] / marital_status$Totals[marital_status$MaritalStatus == x] * 100
+}
+marital_status <- as.data.frame(marital_status)
+```
+
+## EDA Graphs
+
+```r
+# Percent Attrition by JobRole
+roles %>% filter(Attrition == 1) %>% ggplot(aes(x = JobRole, y = Percents, fill=JobRole)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  xlab("Job Role") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Job Role") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Job Role"))
+```
+
+![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+
+```r
+# Percent Attrition by Department
+depts %>% filter(Attrition == 1) %>% ggplot(aes(x = Department, y = Percents, fill=Department)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Department") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Department") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Department"))
+```
+
+![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+
+```r
+# Percent Attrition by Travel
+travel %>% filter(Attrition == 1) %>% ggplot(aes(x = BusinessTravel, y = Percents, fill=BusinessTravel)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Business Travel") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Business Travel") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Business Travel"))
+```
+
+![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-8-3.png)<!-- -->
+
+```r
+# Percent Attrition by Education Field
+educfield %>% filter(Attrition == 1) %>% ggplot(aes(x = EducationField, y = Percents, fill=EducationField)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Education Field") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Field of Education") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Education Field"))
+```
+
+![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-8-4.png)<!-- -->
+
+```r
+# Percent Attrition by Gender
+gender %>% filter(Attrition == 1) %>% ggplot(aes(x = Gender, y = Percents, fill=Gender)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Gender") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Gender") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Gender"))
+```
+
+![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-8-5.png)<!-- -->
+
+```r
+# Percent Attrition by Years of Education
+educyr %>% filter(Attrition == 1) %>% ggplot(aes(x = Education, y = Percents, fill=Education)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Years of Education") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Years of Education") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Years of Education"))
+```
+
+![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-8-6.png)<!-- -->
+
+```r
+# Percent Attrition by Marital Status
+marital_status %>% filter(Attrition == 1) %>% ggplot(aes(x = MaritalStatus, y = Percents, fill=MaritalStatus)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Marital Status") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Marital Status") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Marital Status"))
+```
+
+![](Richard_Corr_EDA_files/figure-html/unnamed-chunk-8-7.png)<!-- -->
