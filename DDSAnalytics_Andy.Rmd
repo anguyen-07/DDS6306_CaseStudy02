@@ -1,0 +1,353 @@
+---
+title: "DDSAnalytics"
+author: "Andy Nguyen"
+date: "3/28/2019"
+output: 
+  html_document:
+    keep_md: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(readxl)
+library(tidyquant)
+library(pastecs)
+library(ggplot2)
+```
+
+``` {r SessionInfo}
+sessionInfo()
+```
+
+### Clean Raw Data
+  * There are 1470 rows and 35 columns in the employee raw data frame.
+``` {r 2a}
+require(readxl)
+Employee_rawdata <- as.data.frame(read_excel("~/Documents/SMU/DS6306_DoingDataScience/CaseStudy_2/CaseStudy2-data.xlsx"))
+dim(Employee_rawdata)
+```
+
+``` {r 2b, include = FALSE echo = FALSE}
+for (i in 1:ncol(Employee_data)) {
+  if (nchar(colnames(Employee_rawdata)[i]) > 12) {
+    print(colnames(Employee_rawdata)[i])
+    print(i)
+  }
+}
+
+# BusinessTravel shortened to Travel
+colnames(Employee_rawdata)[3] <- "Travel"
+# DistanceFromHome shortened to DisFromHome
+colnames(Employee_rawdata)[6] <- "DisFromHome"
+# EducationField shortened to EduField
+colnames(Employee_rawdata)[8] <- "EduField"
+# EmployeeCount shortened to EmpCount
+colnames(Employee_rawdata)[9] <- "EmpCount"
+# EmployeeNumber shortened to EmployeeID
+colnames(Employee_rawdata)[10] <- "EmployeeID"
+# EnvironmentSatisfaction shortened to EnvSatis
+colnames(Employee_rawdata)[11] <- "EnvSatis"
+# JobInvolvement shortened to JobInvolve
+colnames(Employee_rawdata)[14] <- "JobInvolve"
+# JobSatisfaction shortened to JobSatis
+colnames(Employee_rawdata)[17] <- "JobSatis"
+# MaritalStatus shortened to MaritalStat
+colnames(Employee_rawdata)[18] <- "MaritalStat"
+# MonthlyIncome shortened to MonIncome
+colnames(Employee_rawdata)[19] <- "MonIncome"
+# NumCompaniesWorked shortened to NumCoWork
+colnames(Employee_rawdata)[21] <- "NumCoWork"
+# PercentSalaryHike shortened to SalaryIncr.
+colnames(Employee_rawdata)[24] <- "SalaryIncr"
+# PerfomanceRating shortened to PerformRate
+colnames(Employee_rawdata)[25] <- "PerformRate"
+# RelationshipSatisfaction shortened to RelateSatis
+colnames(Employee_rawdata)[26] <- "RelateSatis"
+# StandardHours shortened to StdHours
+colnames(Employee_rawdata)[27] <- "StdHours"
+# StockOptionLevel shortened to StockOption
+colnames(Employee_rawdata)[28] <- "StockOption"
+# TotalWorkingYears shortened to NumWorkYear
+colnames(Employee_rawdata)[29] <- "NumWorkYear"
+# TrainingTimesLastYear shortened to TrainTime
+colnames(Employee_rawdata)[30] <- "TrainTime"
+# WorkLifeBalance shortened to WorkLifeBal
+colnames(Employee_rawdata)[31] <- "WorkLifeBal"
+# YearsAtCompany shortened to YearsAtCo
+colnames(Employee_rawdata)[32] <- "YearsAtCo"
+# YearsInCurrentRole shortened to DuraCurRole
+colnames(Employee_rawdata)[33] <- "DuraCurRole"
+# YearsSinceLastPromotion shortned to LastPromote
+colnames(Employee_rawdata)[34] <- "LastPromote"
+# YearsWithCurrManager shortened to CurManage
+colnames(Employee_rawdata)[35] <- "CurManage"
+```
+
+
+``` {r 2d}
+str(Employee_rawdata)
+
+require(tidyquant)
+Employee_rawdata <- Employee_rawdata %>%       # %>% is pipe operator - the output of previous argument will be input for the succeeding argument
+    mutate_if(is.character, as.factor) %>%
+    select(Attrition, everything())
+```
+
+### Prelimary Analysis
+
+``` {r 3a}
+# All employees are older than 18
+Employee_data <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
+Employee_data$Over18 <- NULL
+
+# All employees had 80 standard work hours
+Employee_data$StandardHours <- NULL
+
+# All employee counts are 1
+Employee_data$EmployeeCount <- NULL
+```
+
+``` {r 3b}
+require(pastecs)
+
+# Consider Department, EducationBackground, JobRole, and Gender with Credentials
+Credentials <- Employee_data[,(names(Employee_data) %in%
+                                   c("Age","Education","JobLevel","PerformRate"))]
+                                 
+# Consider Marital Status with Satisfaction
+LifeSatisfaction <- Employee_data[,(names(Employee_data) %in%
+                                  c("DisFromHome","EnvSatis","JobInvolve","JobSatis","RelateSatis","WorkLifeBal"))]
+                              
+# Consider Overtime with Compensation                                  
+Compensation <- Employee_data[,(names(Employee_data) %in%
+                                  c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
+
+Loyalty <- Employee_data[,(names(Employee_data) %in%
+                             c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
+
+stat.desc(Credentials)
+stat.desc(Satisfaction)
+stat.desc(Compensation)
+stat.desc(Loyalty)
+
+require(ggplot2)
+ggplot(Employee_data, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins = 25) + 
+  labs(title = "Histogram of Monthly Income", x = "Monthly Income", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+ggplot(Employee_data, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=4) + 
+  labs(title = "Histogram of Percent Salary Hike", x = "Percent Salary Hike", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+``` {r 3c}
+Gender <- as.data.frame(table(Employee_data$Gender))
+colnames(Gender) <- c("Gender","Frequency")
+Gender
+
+Education <- as.data.frame(table(Employee_data$EducationBackground))
+colnames(Education) <- c("Education","Frequency")
+Education
+
+Occupation <- as.data.frame(table(Employee_data$JobRole))
+colnames(Occupation) <- c("Occupation","Frequency")
+Occupation
+```
+
+```{r 3d}
+Management <- Occupation[4:6,]
+colnames(Management) <- c("Position","Frequency")
+Management
+```
+
+``` {r 4b}
+
+for (i in 1:ncol(Employee_data)) {
+  ggplot(data = Employee_data, aes(x = Employee_data[,i])) +
+                   geom_bar(stat = "bin", width = 0.7) + 
+                   labs(title = "Median International Bitterness Units of Beers in Each State", x = "State", y = "Median International Bitterness Units (IBU)") +
+                   theme(plot.title = element_text(hjust = 0.5)) + coord_flip()
+}
+
+```
+
+``` {r 4c}
+ggplot(data=Employee_data,aes(x=Age,y=MonthlyIncome,color=Gender)) + 
+            geom_point() + 
+            geom_smooth(method = lm, se = FALSE, color = "black") +
+            #labs(title = "Correlation between Bitterness and Alcohol Content for Craft Beers in the United States", x = "International Bitterness Units (IBU)", y = "Alcohol by Volume (ABV)") +
+            theme(plot.title = element_text(hjust = 0.5))
+
+# lm() function fits the ABV and IBU variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+# summary() function produces the result summaries of the linear model fit
+# the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
+LinearCorrelation <- lm(MonthlyIncome ~ Age, data = Employee_data)
+summary(LinearCorrelation)
+R_squared <- 0.2479
+Correlation.Age_Income <- sqrt(R_squared)
+Correlation.Age_Income
+
+# unbalanced data - 1233 No vs 237 Yes
+Attrition <- as.data.frame(table(Employee_data$Attrition))
+colnames(Attrition) <- c("Attrition","Frequency")
+Attrition
+```
+
+
+``` {r 4d}
+```
+
+``` {r Decision Tree}
+library(caTools)
+set.seed(123) # set a pre-defined value for the random seed so that results are repeatable
+split = sample.split(Employee_data$Attrition, SplitRatio = 0.8)
+training_set = subset(Employee_data, split == TRUE)
+test_set = subset(Employee_data, split == FALSE)
+
+library(rpart)
+library(rpart.plot)
+# Decision tree model
+rpart_model <- rpart(Attrition ~.,
+                     data = Employee_data,
+                     method = 'class',
+                     parms = list(split='information'),
+                     control = rpart.control(usesurrogate = 0,
+                                             maxsurrogate = 0))
+
+y_pred = predict(classifier, newdata = test_set[-1], type = 'class')
+cm = table(test_set[, 1], y_pred)
+# Plot the decision tree
+rpart.plot(rpart_model, roundint = FALSE, type = 3)
+```
+
+``` {r Random Forest}
+
+# Balance the data
+require(ROSE)
+## Oversample
+Employee_data.oversample <- ovun.sample(Attrition ~ ., data = Employee_data, method = "over",N = 2466)$data
+table(Employee_data.oversample$Attrition)
+## Undersample
+Employee_data.undersample <- ovun.sample(Attrition ~ ., data = Employee_data, method = "under",N = 474,seed = 1)$data
+table(Employee_data.undersample$Attrition)
+## Balanced sample
+Employee_data.balancedsample <- ovun.sample(Attrition ~ ., data = Employee_data, method = "both", p=0.5, N=1470, seed = 1)$data
+table(Employee_data.balancedsample$Attrition)
+
+# Splitting the dataset into the Training set and Test set
+library(caTools)
+set.seed(777)
+split = sample.split(Employee_data$Attrition, SplitRatio = 0.8)
+training_set = subset(Employee_data, split == TRUE)
+test_set = subset(Employee_data, split == FALSE)
+  
+# Feature Scaling
+## Feature Scaling only works on numeric variables
+### Which rows are non-numeric?
+for (i in 1:ncol(Employee_data)) {
+  if (is.numeric(Employee_data[i]) == TRUE) {
+    training_set[i] = scale(training_set[i])
+    test_set[i] = scale(test_set)
+  }
+}
+
+# Fitting Random Forest Classification to the Training set
+# install.packages('randomForest')
+library(randomForest)
+set.seed(123)
+classifier <- randomForest(Attrition ~ .,
+                           data = training_set,
+                          ntree = 1000,
+                          keep.forest = TRUE,
+                          importance = TRUE)
+
+Variable_Importance <- importance(classifier, type = 1)
+varImpPlot(classifier, sort = TRUE, n.var = 33, type = 1,
+           main="Variable Importance (Accuracy)",
+           sub = "Random Forest Model")
+
+
+# Predicting the Test set results
+y_pred <- predict(classifier, newdata = test_set[-1])
+
+```
+
+
+
+
+``` {r Test Model Performance}
+
+performance_metrics <- function(hr.data){
+  
+# Splitting the dataset into the Training set and Test set
+library(caTools)
+set.seed(777)
+split = sample.split(hr.data$Attrition, SplitRatio = 0.8)
+training_set = subset(hr.data, split == TRUE)
+test_set = subset(hr.data, split == FALSE)
+  
+# Feature Scaling
+## Feature Scaling only works on numeric variables
+### Which rows are non-numeric?
+for (i in 1:ncol(hr.data)) {
+  if (is.numeric(hr.data[i]) == TRUE) {
+    training_set[i] = scale(training_set[i])
+    test_set[i] = scale(test_set)
+  }
+}
+
+# Fitting Random Forest Classification to the Training set
+# install.packages('randomForest')
+library(randomForest)
+set.seed(123)
+classifier <- randomForest(Attrition ~ .,
+                           data = training_set,
+                          ntree = 1000,
+                          keep.forest = TRUE,
+                          importance = TRUE)
+
+Variable_Importance <- importance(classifier, type = 1)
+varImpPlot(classifier, sort = TRUE, n.var = 33, type = 1,
+           main="Variable Importance (Accuracy)",
+           sub = "Random Forest Model")
+
+
+# Predicting the Test set results
+y_pred <- predict(classifier, newdata = test_set[-1])
+
+# Confusion table counts
+confusion_matrix <- table(test_set[, 3], y_pred)
+confusion_matrix
+
+# Performance analysis
+No_Attrition <- confusion_matrix[1]
+Attrition <- confusion_matrix[4]
+False_Positive <- confusion_matrix[3]
+False_Negative <- confusion_matrix[2]
+
+accuracy <- (Attrition + No_Attrition) / 
+            (No_Attrition + Attrition + False_Positive + False_Negative)
+misclassification_rate <- 1 - accuracy
+recall <- Attrition / 
+         (Attrition + False_Negative)
+precision <- Attrition / 
+            (Attrition + False_Positive)
+null_error_rate <- No_Attrition / 
+                  (No_Attrition + Attrition + False_Positive + False_Negative)
+
+tibble(
+    accuracy,
+    misclassification_rate,
+    recall,
+    precision,
+    null_error_rate
+) %>% 
+    transpose() 
+}
+
+performance_metrics(Employee_data)
+performance_metrics(Employee_data.oversample)
+performance_metrics(Employee_data.undersample)
+performance_metrics(Employee_data.balancedsample)
+```
+

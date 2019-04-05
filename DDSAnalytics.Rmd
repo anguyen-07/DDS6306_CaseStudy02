@@ -1,0 +1,274 @@
+---
+title: "DDSAnalytics"
+author: "Andy Nguyen"
+date: "3/28/2019"
+output: 
+  html_document:
+    keep_md: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyquant)
+library(ggplot2)
+library(pastecs)
+library(h2o)
+library(lime)
+Employee_rawdata <- as.data.frame(read_excel("~/Documents/SMU/DS6306_DoingDataScience/CaseStudy_2/CaseStudy2-data.xlsx"))
+```
+
+``` {r SessionInfo}
+sessionInfo()
+```
+
+### Clean Raw Data
+  * There are 1470 rows and 35 columns in the employee raw data frame.
+``` {r 2a}
+dim(Employee_rawdata)
+```
+
+``` {r 2d}
+str(Employee_rawdata)
+```
+
+### Prelimary Analysis
+
+``` {r 3a}
+# All employees are older than 18
+Employee_data <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
+Employee_data$Over18 <- NULL
+
+# All employees had 80 standard work hours
+Employee_data$StandardHours <- NULL
+
+# All employee counts are 1
+Employee_data$EmployeeCount <- NULL
+
+# h20 package used for model requires character data types to be factors
+Employee_data <- Employee_data %>%       # %>% is pipe operator - the output of previous argument will be input for the succeeding argument
+    mutate_if(is.character, as.factor) %>%
+    select(Attrition, everything())
+```
+
+``` {r 3b}
+require(pastecs)
+
+# Consider Department, EducationBackground, JobRole, and Gender with Credentials
+Credentials <- Employee_data[,(names(Employee_data) %in%
+                                   c("Age","EducationLevel","JobLevel","PerformanceRating"))]
+                                 
+# Consider Marital Status with Satisfaction
+Satisfaction <- Employee_data[,(names(Employee_data) %in%
+                                  c("DistanceFromHome","EnvironmentSatisfaction","JobInvolvement","JobSatisfaction","RelationshipSatisfaction","WorkLifeBalance"))]
+                              
+# Consider Overtime with Compensation                                  
+Compensation <- Employee_data[,(names(Employee_data) %in%
+                                  c("DailyRate","HourlyRate","MonthlyRate","MonthlyIncome","PercentSalaryHike","YearsSinceLastPromotion","StockOptionLevel"))]
+
+Loyalty <- Employee_data[,(names(Employee_data) %in%
+                             c("NumCompaniesWorked","TotalWorkingYears","YearsAtCompany","YearsInCurrentRole","YearsWithCurrManager"))]
+
+stat.desc(Credentials)
+stat.desc(Satisfaction)
+stat.desc(Compensation)
+stat.desc(Loyalty)
+
+ggplot(Employee_data, aes(x=MonthlyIncome)) + geom_histogram(color="black", fill="white",bins = 25)
+ggplot(Employee_data, aes(x=JobSatisfaction)) + geom_histogram(color="black", fill="white",bins=4)
+```
+
+``` {r 3c}
+Gender <- as.data.frame(table(Employee_data$Gender))
+colnames(Gender) <- c("Gender","Frequency")
+Gender
+
+Education <- as.data.frame(table(Employee_data$EducationBackground))
+colnames(Education) <- c("Education","Frequency")
+Education
+
+Occupation <- as.data.frame(table(Employee_data$JobRole))
+colnames(Occupation) <- c("Occupation","Frequency")
+Occupation
+```
+
+```{r 3d}
+Management <- Occupation[4:6,]
+colnames(Management) <- c("Position","Frequency")
+Management
+```
+
+``` {r 4c}
+ggplot(data=Employee_data,aes(x=Age,y=MonthlyIncome,color=Gender)) + 
+            geom_point() + 
+            geom_smooth(method = lm, se = FALSE, color = "black") +
+            #labs(title = "Correlation between Bitterness and Alcohol Content for Craft Beers in the United States", x = "International Bitterness Units (IBU)", y = "Alcohol by Volume (ABV)") +
+            theme(plot.title = element_text(hjust = 0.5))
+
+# lm() function fits the ABV and IBU variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+# summary() function produces the result summaries of the linear model fit
+# the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
+LinearCorrelation <- lm(MonthlyIncome ~ Age, data = Employee_data)
+summary(LinearCorrelation)
+R_squared <- 0.2479
+Correlation.Age_Income <- sqrt(R_squared)
+Correlation.Age_Income
+```
+
+
+``` {r Modeling Employee Attrition}
+Attrition <- as.data.frame(table(Employee_data$Attrition))
+colnames(Attrition) <- c("Attrition","Frequency")
+Attrition
+# unbalanced data - 1233 No vs 237 Yes
+
+# Balance the data
+require(ROSE)
+## Oversample
+Employee_data.oversample <- ovun.sample(Attrition ~ ., data = Employee_data, method = "over",N = 2466)$data
+table(Employee_data.oversample$Attrition)
+## Undersample
+Employee_data.undersample <- ovun.sample(Attrition ~ ., data = Employee_data, method = "under",N = 474,seed = 1)$data
+table(Employee_data.undersample$Attrition)
+## Balanced sample
+Employee_data.balancedsample <- ovun.sample(Attrition ~ ., data = Employee_data, method = "both", p=0.5, N=1470, seed = 1)$data
+table(Employee_data.balancedsample$Attrition)
+
+require(h2o)
+h2o.init()    #Initialize H20 JVM
+h2o.no_progress()   #Turn off output of progress bars
+
+# Performance_Metric function created to easily test models of different samples
+performance_metrics <- function(hr.data){
+  #Split data into Training/Validation/Test Sets
+Employee_data_h2o <- as.h2o(hr.data)
+split_h2o <- h2o.splitFrame(Employee_data_h2o, c(0.7, 0.15), seed = 1234 )
+
+train_h2o <- h2o.assign(split_h2o[[1]], "train" ) # 70%
+valid_h2o <- h2o.assign(split_h2o[[2]], "valid" ) # 15%
+test_h2o  <- h2o.assign(split_h2o[[3]], "test" )  # 15%
+
+# Set names for h2o
+y <- "Attrition"
+x <- setdiff(names(train_h2o), y)
+
+# Run the automated machine learning 
+automl_models_h2o <- h2o.automl(
+    x = x,                                        # Names of the Feature columns
+    y = y,                                        # Names of the Target columns
+    training_frame    = train_h2o,                # Training set consisting of 70% of data
+    leaderboard_frame = valid_h2o,                # Validation set consisting of 15% of data - used by h2o to ensure the model does not overfit data
+    max_runtime_secs  = 90                        # Parameter used to speed up model but at expense of accuracy
+    )
+
+# Extract leader model (most accurate model on validation set)
+automl_leader <- automl_models_h2o@leader
+
+# Predict on test_h2o (unseen data) to truly assess model performance
+pred_h2o <- h2o.predict(object = automl_leader, newdata = test_h2o)
+
+# Prep for performance assessment - Table with Actual and Predicted Attrition Columns Side-by-Side
+test_performance <- test_h2o %>%
+    tibble::as_tibble() %>%
+    select(Attrition) %>%
+    add_column(pred = as.vector(pred_h2o$predict)) %>%
+    mutate_if(is.character, as.factor)
+test_performance
+
+# Confusion table counts
+confusion_matrix <- test_performance %>% table() 
+confusion_matrix
+
+# Performance analysis
+No_Attrition <- confusion_matrix[1]
+Attrition <- confusion_matrix[4]
+False_Positive <- confusion_matrix[3]
+False_Negative <- confusion_matrix[2]
+
+accuracy <- (Attrition + No_Attrition) / 
+            (No_Attrition + Attrition + False_Positive + False_Negative)
+misclassification_rate <- 1 - accuracy
+recall <- Attrition / 
+         (Attrition + False_Negative)
+precision <- Attrition / 
+            (Attrition + False_Positive)
+null_error_rate <- No_Attrition / 
+                  (No_Attrition + Attrition + False_Positive + False_Negative)
+
+tibble(
+    accuracy,
+    misclassification_rate,
+    recall,
+    precision,
+    null_error_rate
+) %>% 
+    transpose() 
+}
+
+performance_metrics(Employee_data)
+performance_metrics(Employee_data.oversample)
+performance_metrics(Employee_data.undersample)
+performance_metrics(Employee_data.balancedsample)
+```
+
+``` {r Feature Trends in Employee Attrition}
+require(lime)
+
+# model_type function informs lime package of the type of model (i.e. classification, regression, survival, etc.)
+class(automl_leader)    # What is the class of our model?
+
+model_type.H2OBinomialModel <- function(x, ...) {
+    # Function tells lime() what model type we are dealing with (i.e. 'classification', 'regression', 'survival', 'clustering', 'multilabel', etc.)
+    # x is our h2o model
+    
+    return("classification")
+  # function will simply return "classification" to tell Lime that our model is classifying
+}
+
+# predict_model function allows lime package to perform predictions its algorithms can interpret
+predict_model.H2OBinomialModel <- function(x, newdata, type, ...) {
+    # Function performs prediction and returns dataframe with Response
+  
+    # x is h2o model
+    # newdata is data frame
+    # type is only setup for data frame - used to switch output type
+    
+    pred <- h2o.predict(x, as.h2o(newdata))
+    
+    # return probs - output must be in the format of probabilities by classification
+    return(as.data.frame(pred[,-1]))
+}
+
+# Test our predict_model() function
+predict_model(x = automl_leader, newdata = as.data.frame(test_h2o[,-1]), type = 'raw') %>% tibble::as_tibble()
+
+# Run lime() on training set
+explainer <- lime::lime(
+    as.data.frame(train_h2o[,-1]), 
+    model          = automl_leader, 
+    bin_continuous = FALSE)
+
+# Run explain() on explainer to return explanation
+explanation <- lime::explain(
+    as.data.frame(test_h2o[1:10,-1]), 
+    explainer    = explainer, 
+    n_labels     = 1,                # interested in explaining a single class
+    n_features   = 4,                # returns top 4 features critical to each case
+    kernel_width = 0.5)              # allows increase of "model_r2 by shrinking localized evaluation"
+
+# Focus on critical features of attrition
+attrition_critical_features <- Employee_data %>%
+    tibble::as_tibble() %>%
+    select(Attrition, TrainingTimesLastYear, JobRole, OverTime) %>%
+    rowid_to_column(var = "Case")
+attrition_critical_features
+
+plot_features(explanation) +
+    labs(title = "HR Predictive Analytics: LIME Feature Importance Visualization",
+         subtitle = "Hold Out (Test) Set, First 10 Cases Shown")
+
+# Visualization of Feature Trends
+## ggplot(Employee_data, aes(x = Attrition, y = TrainingTimesLastYear)) + geom_violin()
+## ggplot(Employee_data, aes(x = JobRole, y = Attrition)) + geom_bar()
+## ggplot(attrition_critical_features, aes(x = Attrition, y = OverTime)) + geom_jitter() + geom_violin(trim= FALSE)
+```

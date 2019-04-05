@@ -58,9 +58,8 @@ library(base)
 
 ```{r Q1, echo=TRUE}
 ## input attrition file
-setwd("~/Documents/SMU/Doing DS/Unit 14")
 
-emp <- read.xlsx("CaseStudy2-data.xlsx", sheet = 1, startRow = 1, colNames = TRUE)
+emp <- read.xlsx("~/Documents/SMU/DS6306_DoingDataScience/CaseStudy_2/CaseStudy2-data.xlsx", sheet = 1, startRow = 1, colNames = TRUE)
 #emp <- read.xlsx("CaseStudy2-data.xlsx", sheet = 1, startRow = 1, colNames = TRUE, rowNames = FALSE, detectDates = FALSE, skipEmptyRows = TRUE, skipEmptyCols = TRUE, rows = NULL, cols = NULL, check.names = FALSE, namedRegion = NULL, na.strings = "NA", fillMergedCells = FALSE)
 
 head(emp)
@@ -93,12 +92,12 @@ library(tidyr)  # data tidying (e.g., spread)
 
 # Partition the data into training and test sets
 term_vars <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","Attrition")
-emp_term_train <- subset(emp, Education < 4)
-emp_term_test <- subset(emp, Education >= 4)
+emp_term_train <- subset(emp, EducationLevel < 4)
+emp_term_test <- subset(emp, EducationLevel >= 4)
 set.seed(99)  # set a pre-defined value for the random seed so that results are repeatable
 # Decision tree model
 rpart_model <- rpart(Attrition ~.,
-                     data = emp_term_train[term_vars],
+                     data = emp_term_train[,(names(emp) %in% term_vars)],
                      method = 'class',
                      parms = list(split='information'),
                      control = rpart.control(usesurrogate = 0,
@@ -113,7 +112,6 @@ rpart.plot(rpart_model, roundint = FALSE, type = 3)
 
 
 ```
-## 
 
 
 ```{r Q2b, echo=TRUE}
@@ -125,7 +123,6 @@ summary(emp$resigned)
 featurePlot(x=emp$Age, y=emp$resigned, plot="density",
       auto.key = list(columns = 2), labels = c("Age (years)", ""))
 ```
-## 
 
 
 ```{r Q3a, echo=TRUE}
@@ -135,43 +132,48 @@ featurePlot(x=emp$Age, y=emp$resigned, plot="density",
 featurePlot(x=emp$MonthlyIncome, y=emp$resigned, plot="density",
       auto.key = list(columns = 2), labels = c("Monthly Income", ""))
 ```
-##
 
 
 ```{r Q4, echo=TRUE}
 
 featurePlot(x=emp$YearsAtCompany, y=emp$resigned, plot="density",
-      auto.key = list(columns = 2), labels = c("Monthly Income", ""))
+      auto.key = list(columns = 2), labels = c("Years at Company", ""))
 
 ```
-
-## 
-
-
-
 
 
 
 
 ## Summary statistics for the ABV variable.
 ```{r Q7, echo=TRUE}
-# Subset the data 
-emp_cat <- data.frame(emp$Age,emp$Education,emp$MonthlyIncome,emp$DistanceFromHome,emp$JobInvolvement,emp$JobLevel, emp$JobSatisfaction, emp$NumCompaniesWorked, emp$PercentSalaryHike,emp$PerformanceRating, emp$StockOptionLevel, emp$TotalWorkingYears,emp$TrainingTimesLastYear, emp$WorkLifeBalance,emp$RelationshipSatisfaction,emp$YearsAtCompany,emp$YearsInCurrentRole,emp$resigned,emp$EmployeeNumber)
-col_headings <- c("Age","Education","MonthlyIncome","DistanceFromHome","JobInvolvement","JobLevel", "JobSatisfaction", "NumCompaniesWorked", "PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole","resigned","EmployeeNumber")
-names(emp_cat) <- col_headings
+# Subset the data
+
+emp_cat <- data.frame(emp[,(names(Employee_data) %in%
+                c("Age","Education","MonthlyIncome","DistanceFromHome","JobInvolvement","JobLevel", "JobSatisfaction",
+                  "NumCompaniesWorked", "PercentSalaryHike","PerformanceRating", "StockOptionLevel",
+                  "TotalWorkingYears","TrainingTimesLastYear","WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany",
+                  "YearsInCurrentRole","Attrition","EmployeeNumber"))])
+# Balance the data
+require(ROSE)
+## Oversample
+emp_cat.oversample <- ovun.sample(Attrition ~ ., data = emp_cat, method = "over",N = 2466)$data
+table(emp_cat.oversample$Attrition)
+## Undersample
+emp_cat.undersample <- ovun.sample(Attrition ~ ., data = emp_cat, method = "under",N = 474,seed = 1)$data
+table(emp_cat.undersample$Attrition)
+## Balanced sample
+emp_cat.balancedsample <- ovun.sample(Attrition ~ ., data = emp_cat, method = "both", p=0.5, N=1470, seed = 1)$data
+table(emp_cat.balancedsample$Attrition)
+
+# Split data into training and test set
 emp_train <- subset(emp_cat, Education < 4)
 emp_test <- subset(emp_cat, Education >= 4)
 
-emp_train_rose <- ROSE(resigned ~ ., data = emp_train, seed=125)$data
-# Tables to show balanced dataset sample sizes
-table(emp_train_rose$resigned)
-
-
 # Select variables (res_vars) for the model to predict 'resigned'
-res_vars <- c("Age","Education","MonthlyIncome","DistanceFromHome","JobInvolvement","JobLevel", "JobSatisfaction", "NumCompaniesWorked", "PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole","resigned")
+res_vars <- c("Age","Education","MonthlyIncome","DistanceFromHome","JobInvolvement","JobLevel", "JobSatisfaction", "NumCompaniesWorked", "PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole","Attrition")
 set.seed(222)
-emp_res_rose_RF <- randomForest(resigned ~ .,
-                           data = emp_train_rose[res_vars],
+emp_res_rose_RF <- randomForest(Attrition ~ .,
+                           data = emp_cat.balancedsample[,names(emp_cat.balancedsample) %in% res_vars],
                            ntree=500, importance = TRUE,
                            na.action = na.omit)
 varImpPlot(emp_res_rose_RF,type=1,
