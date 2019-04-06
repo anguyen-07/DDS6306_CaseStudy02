@@ -54,9 +54,10 @@ library(MASS)
 library(randomForest)
 library(party)
 library(base)
+library(car)
 ```
 
-```{r Q1, echo=TRUE}
+```{r Q2, echo=TRUE}
 ## input attrition file
 setwd("~/Documents/SMU/Doing DS/Unit 14")
 
@@ -70,10 +71,145 @@ head(emp)
 dim(emp)
 
 #summary
-summary(emp)
+summary(emp$MonthlyIncome)
+summary(emp$Age)
+summary(as.numeric(emp$YearsAtCompany))
+summary(emp$NumCompaniesWorked)
+summary(emp$DistanceFromHome)
+summary(emp$YearsInCurrentRole)
+summary(emp$JobSatisfaction)
 ```
 
-``````{r Q2a, echo=TRUE}
+
+```{r Q3, echo=TRUE}
+hist(emp$MonthlyIncome)
+hist(emp$Age)
+hist(as.numeric(emp$YearsAtCompany))
+hist(emp$NumCompaniesWorked)
+hist(emp$DistanceFromHome)
+hist(emp$YearsInCurrentRole)
+freq(emp$Gender)
+freq(emp$Education)
+freq(emp$JobRole)
+
+
+```
+```{r Q4a, echo=TRUE}
+## input age file
+fit <- lm(Age ~ MonthlyIncome + NumCompaniesWorked + YearsAtCompany + OT_ind + BT1 + BT2 + Attr_Ind, data=emp)
+
+
+summary(fit)
+
+
+
+# Assessing Outliers
+#outlierTest(fit) # Bonferonni p-value for most extreme obs
+qqPlot(fit, main="QQ Plot")  #qq plot for studentized resid 
+leveragePlots(fit) # leverage plots
+
+# Normality of Residuals
+
+# distribution of studentized residuals
+library(MASS)
+sresid <- studres(fit) 
+hist(sresid, freq=FALSE, main="Distribution of Studentized Residuals")
+xfit<-seq(min(sresid),max(sresid),length=40) 
+yfit<-dnorm(xfit) 
+lines(xfit, yfit)
+
+# Evaluate homoscedasticity
+# non-constant error variance test
+ncvTest(fit)
+# plot studentized residuals vs. fitted values 
+spreadLevelPlot(fit)
+
+# Evaluate Collinearity
+vif(fit) # variance inflation factors 
+sqrt(vif(fit)) > 2 # problem?
+
+# Evaluate homoscedasticity
+# non-constant error variance test
+ncvTest(fit)
+# plot studentized residuals vs. fitted values 
+spreadLevelPlot(fit)
+
+# Evaluate Nonlinearity
+# component + residual plot 
+crPlots(fit)
+# Ceres plots 
+#ceresPlots(fit)
+
+# Test for Autocorrelated Errors
+durbinWatsonTest(fit)
+
+# Global test of model assumptions
+library(gvlma)
+gvmodel <- gvlma(fit) 
+summary(gvmodel)
+```
+
+
+
+
+```{r Q4b, echo=TRUE}
+## input Attrition 
+fitAttr <- lm( MonthlyIncome ~ Age  + NumCompaniesWorked + YearsAtCompany + OT_ind + BT1 + BT2 + Attr_Ind, data=emp)
+
+
+
+summary(fitAttr)
+
+
+# Assessing Outliers
+#outlierTest(fit) # Bonferonni p-value for most extreme obs
+
+qqPlot(fitAttr, main="QQ Plot")  #qq plot for studentized resid 
+leveragePlots(fitAttr) # leverage plots
+
+# Normality of Residuals
+
+# distribution of studentized residuals
+library(MASS)
+sresid <- studres(fitAttr) 
+hist(sresid, freq=FALSE, main="Distribution of Studentized Residuals")
+xfit<-seq(min(sresid),max(sresid),length=40) 
+yfit<-dnorm(xfit) 
+lines(xfit, yfit)
+
+# Evaluate homoscedasticity
+# non-constant error variance test
+ncvTest(fitAttr)
+# plot studentized residuals vs. fitted values 
+spreadLevelPlot(fitAttr)
+
+# Evaluate Collinearity
+vif(fitAttr) # variance inflation factors 
+sqrt(vif(fitAttr)) > 2 # problem?
+
+# Evaluate homoscedasticity
+# non-constant error variance test
+ncvTest(fitAttr)
+# plot studentized residuals vs. fitted values 
+spreadLevelPlot(fitAttr)
+
+# Evaluate Nonlinearity
+# component + residual plot 
+crPlots(fitAttr)
+# Ceres plots 
+#ceresPlots(fitAttr)
+
+# Test for Autocorrelated Errors
+durbinWatsonTest(fitAttr)
+
+# Global test of model assumptions
+library(gvlma)
+gvmodel <- gvlma(fitAttr) 
+summary(gvmodel)
+```
+
+
+```{r Q4c, echo=TRUE}
 
 library(tidyr)  # data tidying (e.g., spread)
 # explore status/terminations by Department
