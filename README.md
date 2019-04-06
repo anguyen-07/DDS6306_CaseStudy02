@@ -1,48 +1,38 @@
-# DDSAnalytics - Talent Management for a Changing World
-Git repository for DDSAnalytics employee turnover review. Members of this project include Amy, Andy, Richard, and Tom.
+---
+title: "Overview"
+author: "AMarkum"
+date: "4/5/2019"
+output: html_document
+---
 
-# Take a closer look at employee turnover 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-Why do employees leave? Generally speaking, there are several broad categories which employees of any company cite as primary reasons for leaving:
+```{r att.df}
+# Required packages
+library(ggplot2)
+library(tidyverse)
+library(psych)
+library(lattice)
+library(corrplot)
+library(vcd)
+att.df <- read.csv(paste("CaseStudy2-singlesheet.csv", sep = ""))
+attach(att.df)
+```
+# Talent Management: Predicting Employee Turnover
+### Amy, Andy, Richard & Tom
 
-  - Accepting a higher paying position
-  - Seeking better opportunities for professional and/or personal growth
-  - Negative work environment, to include poor leadership
-  - Excessive work demands (hours, safety, etc) at current organization
-  
-We take a look at industry employment numbers and compare how our organization measures up. We will also break our analysis into topics to allow for ease in understanding.
+## Introduction
 
-A) General Information
-  1) Summary of data used for modeling
+### All organizations experience attrtion through the normal course of business. Natural attrition occurs in many ways, such as retirement, resignation, and termination of individual employees, or through downsizing or restructuring of the company. However, organizations should keep an eye on attrition to ensure they retain experienced talent and don't waste resources replacing good employees. Additionally, attrition can act as a barometer for the organization's overall health and corporate culture.
 
-B) Analysis of Gender
-  1) Age Distribution
-  2) Distribution by Department
-  3) Monthly Income
-  4) Job Satisfaction
-  
-C) Analysis of Education levels and Age Groups
-  1) Generational Behavior
-  2) Impact of Age Group on Attrition rates
-  
-D) Analysis of Income
-  1) Income by Department
-  2) Job Satisfaction by Income
-  3) Impact of Income on Attrition rates
-  4) Analysis of Daily Rates by Department
-  5) Impact of Overtime on Attrition rates
-  
-E) Analysis of Work Environment
-  1) Employees by Job Role
-  2) Income by Job Role
-  3) Attrition by Job Role
-  4) Impact of Management on Attrition rates
-  5) Average Satisfaction with Work Environment
-  
-F) Analysis of Attrition
-  1) Deeper look at Attrition rates
-  2) Exploring factors which impact Attrition rates
+### So how does the organization know whether its turnover rate is "good" or "bad"? What should the organization's target attrition rate be? To answer that question, the organization needs know two things: 1) What is the organization's current turnover rate, and 2) What is the average turnover rate for the industry.
 
-G) Methodology and Analysis
-  1) Correlation Matrices
-  2) Data wrangling and analysis
+### According to the U.S. Bureau of Statistics (2017), the average turnover rate in the U.S. ranges from 12% - 15% percent. Looking deeper, according to a survey conducted by LinkedIn, turnover rates for the technology industry hovers around 13%, whith noticeably higher levels of attrition in the fields of Data analysis and software engineering, which is closer to 22%.
+
+```{r att.df, echo=FALSE}
+# First, determine what the organization's overall attrition rate is
+attrition_table<- table(att.df$Attrition)
+round(prop.table(attrition_table)*100)
+```
