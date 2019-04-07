@@ -21,3 +21,6 @@ jobcor <- jobsdf[-c(3,5,8:9,12,16,18,22,23,27)]
 # Build Correlation Plot
 JobsCorr <- cor(jobcor)
 corrplot(JobsCorr, method = 'number', number.cex = 0.65, type = 'lower')
+
+
+jobsdf <- jobsdf %>% mutate(BusinessTravel=ifelse(BusinessTravel=="Travel_Rarely", 2, ifelse(BusinessTravel=="Travel_Frequently", 3, 1)))
