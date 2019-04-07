@@ -197,3 +197,7 @@ marital_status %>% filter(Attrition == 1) %>% ggplot(aes(x = MaritalStatus, y = 
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Marital Status"))
 ```
+
+
+## Regression
+### Set Travel, 
