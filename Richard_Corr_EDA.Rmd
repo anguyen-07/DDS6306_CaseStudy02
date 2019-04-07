@@ -13,6 +13,7 @@ output:
 library(tidyverse)
 library(xlsx)
 library(corrplot)
+library(MASS)
 ```
 
 ## Read in and Setup Data
@@ -34,17 +35,6 @@ summary(jobsdf)
 ## Change Attrition to values from Yes/No to 1 and 0
 ```{r, echo=TRUE}
 jobsdf <- jobsdf %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
-```
-
-## Remove non-numberical columns for correlation.
-```{r, echo=TRUE}
-jobcor <- jobsdf[-c(3,5,8:9,12,16,18,22,23,27)]
-```
-
-## Build Correlation Plot
-```{r, echo=TRUE}
-JobsCorr <- cor(jobcor)
-corrplot(JobsCorr, method = 'number', number.cex = 0.65, type = 'lower')
 ```
 
 # Exploratory Data Analysis and Graphs
@@ -200,4 +190,66 @@ marital_status %>% filter(Attrition == 1) %>% ggplot(aes(x = MaritalStatus, y = 
 
 
 ## Regression
-### Set Travel, 
+### Set JObRole, Department, Marital Status, Gender, Business Travel, Education Field
+### Over18, and OverTime to indicator variables
+```{r, echo=TRUE}
+jobsdf <- jobsdf %>% mutate(BusinessTravel=ifelse(BusinessTravel=="Travel_Rarely", 2, 
+                                                  ifelse(BusinessTravel=="Travel_Frequently", 3, 1)))
+
+jobsdf <- jobsdf %>% mutate(Department=ifelse(Department=="Research & Development", 2, 
+                                              ifelse(Department=="Sales", 3, 1)))
+
+jobsdf <- jobsdf %>% mutate(EducationField=ifelse(EducationField=="Life Sciences", 2, 
+                                              ifelse(EducationField=="Marketing", 3, 
+                                                     ifelse(EducationField=="Medical", 4,
+                                                            ifelse(EducationField=="Other", 5,
+                                                                   ifelse(EducationField=="Technical Degree", 6, 1))))))
+
+jobsdf <- jobsdf %>% mutate(Gender=ifelse(Gender=="Male", 1, 0))
+
+jobsdf <- jobsdf %>% mutate(JobRole=ifelse(JobRole=="Healthcare Representative", 2,
+                                    ifelse(JobRole=="Laboratory Technician", 3,
+                                           ifelse(JobRole=="Manager", 4,
+                                                  ifelse(JobRole=="Manufacturing Director", 5,
+                                                         ifelse(JobRole=="Research Director", 6, 
+                                                                ifelse(JobRole=="Research Scientist", 7,
+                                                                       ifelse(JobRole=="Sales Executive", 8,
+                                                                              ifelse(JobRole=="Sales Representative", 9, 0)))))))))
+
+jobsdf <- jobsdf %>% mutate(MaritalStatus=ifelse(MaritalStatus=="Married", 2,
+                                                 ifelse(MaritalStatus=="Divorced", 3, 1)))
+
+
+jobsdf <- jobsdf %>% mutate(Over18=ifelse(Over18=="Y", 1, 0))
+
+jobsdf <- jobsdf %>% mutate(OverTime=ifelse(OverTime=="Yes", 1, 0))
+```
+
+### Remove EmployeeCount, Over18, StandardHour due to the standard deviation is zero
+```{r, echo=TRUE}
+jobsdf <- jobsdf[,-c(9,22,27)]
+```
+
+### Build Correlation Plot
+```{r, echo=TRUE, fig.width=100}
+JobsCorr <- cor(jobsdf)
+corrplot(JobsCorr, method = 'number', number.cex = 0.65, type = 'full')
+```
+
+### Basic Linear Regression
+```{r,echo=TRUE}
+attritlm <- lm(Attrition ~ ., data = jobsdf)
+summary(attritlm)
+```
+
+### Stepwise variable selction using AIC as the stop criteria
+```{r, echo=TRUE}
+fit1lm <- stepAIC(attritlm, direction = "both")
+summary(fit1lm)
+```
+
+### logistic regression
+```{r, echo=TRUE}
+glm_test <- glm(Attrition ~ ., data = jobsdf, family = binomial(link = "logit"))
+summary(glm_test)
+```
