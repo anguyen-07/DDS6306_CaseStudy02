@@ -21,7 +21,7 @@ library(MASS)
 
 ```r
 # Load the CaseStudy2 Data set as a dataframe
-jobsdf <- read.xlsx("CaseStudy2-data.xlsx", sheetIndex = 1, header = T)
+jobsdf <- read.xlsx("CaseStudy Info/CaseStudy2-data.xlsx", sheetIndex = 1, header = T)
 ```
 
 
