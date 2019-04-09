@@ -154,8 +154,7 @@ summary(gvmodel)
 
 ```{r Q4b, echo=TRUE}
 ## input Attrition 
-fitAttr <- lm( MonthlyIncome ~ Age  + NumCompaniesWorked + YearsAtCompany + OT_ind + BT1 + BT2 + Attr_Ind, data=emp)
-
+fitAttr <- lm( MonthlyIncome ~ Age  + StockOptionLevel + NumCompaniesWorked + YearsAtCompany + OT_ind + YearsInCurrentRole + YearsWithCurrManager + Attr_Ind, data=emp)
 
 
 summary(fitAttr)
@@ -228,7 +227,7 @@ library(tidyr)  # data tidying (e.g., spread)
 # "Age","BusinessTravel","Department","DistanceFromHome","Education","EducationField", "Gender", "JobInvolvement", "JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome", "NumCompaniesWorked",  "Overtime", "PercentSalaryHike","PerformanceRating", "RelationshipSatisfaction", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","YearsAtCompany","YearsInCurrentRole","YearsSinceLastPromotion","YearsWithCurrManager","Attrition"
 
 # Partition the data into training and test sets
-term_vars <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","Attrition")
+term_vars <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","Attrition")
 emp_term_train <- subset(emp, Education < 4)
 emp_term_test <- subset(emp, Education >= 4)
 set.seed(99)  # set a pre-defined value for the random seed so that results are repeatable
@@ -292,8 +291,10 @@ featurePlot(x=emp$YearsAtCompany, y=emp$resigned, plot="density",
 ## Summary statistics for the ABV variable.
 ```{r Q7, echo=TRUE}
 # Subset the data 
-emp_cat <- data.frame(emp$Age,emp$Education,emp$MonthlyIncome,emp$DistanceFromHome,emp$JobInvolvement,emp$JobLevel, emp$JobSatisfaction, emp$NumCompaniesWorked, emp$PercentSalaryHike,emp$PerformanceRating, emp$StockOptionLevel, emp$TotalWorkingYears,emp$TrainingTimesLastYear, emp$WorkLifeBalance,emp$RelationshipSatisfaction,emp$YearsAtCompany,emp$YearsInCurrentRole,emp$resigned,emp$EmployeeNumber)
-col_headings <- c("Age","Education","MonthlyIncome","DistanceFromHome","JobInvolvement","JobLevel", "JobSatisfaction", "NumCompaniesWorked", "PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole","resigned","EmployeeNumber")
+emp_cat <- data.frame(emp$Age,emp$Education,emp$MonthlyIncome,emp$BusinessTravel,emp$Department,emp$DistanceFromHome,emp$EducationField, emp$Gender,emp$JobInvolvement,emp$JobLevel, emp$JobRole, emp$JobSatisfaction, emp$MaritalStatus, emp$MonthlyIncome,emp$NumCompaniesWorked, emp$OverTime,emp$PercentSalaryHike,emp$PerformanceRating, emp$StockOptionLevel, emp$TotalWorkingYears,emp$TrainingTimesLastYear, emp$WorkLifeBalance,emp$RelationshipSatisfaction,emp$YearsAtCompany,emp$YearsInCurrentRole, emp$YearsSinceLastPromotion,emp$YearsWithCurrManager,emp$resigned,emp$EmployeeNumber)
+#emp_cat <- data.frame(emp$Age,emp$Education,emp$MonthlyIncome,emp$DistanceFromHome,emp$JobInvolvement,emp$JobLevel, emp$JobRole, emp$JobSatisfaction, emp$MaritalStatus, emp$NumCompaniesWorked, emp$PercentSalaryHike,emp$PerformanceRating, emp$StockOptionLevel, emp$TotalWorkingYears,emp$TrainingTimesLastYear, emp$WorkLifeBalance,emp$RelationshipSatisfaction,emp$YearsAtCompany,emp$YearsInCurrentRole,emp$resigned,emp$EmployeeNumber)
+
+col_headings <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","resigned","EmployeeNumber")
 names(emp_cat) <- col_headings
 emp_train <- subset(emp_cat, Education < 4)
 emp_test <- subset(emp_cat, Education >= 4)
@@ -304,7 +305,8 @@ table(emp_train_rose$resigned)
 
 
 # Select variables (res_vars) for the model to predict 'resigned'
-res_vars <- c("Age","Education","MonthlyIncome","DistanceFromHome","JobInvolvement","JobLevel", "JobSatisfaction", "NumCompaniesWorked", "PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole","resigned")
+#res_vars <- c("Age","Education","MonthlyIncome","DistanceFromHome","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "NumCompaniesWorked", "PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear",  "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole","resigned")
+res_vars <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","resigned")
 set.seed(222)
 emp_res_rose_RF <- randomForest(resigned ~ .,
                            data = emp_train_rose[res_vars],
@@ -312,7 +314,9 @@ emp_res_rose_RF <- randomForest(resigned ~ .,
                            na.action = na.omit)
 varImpPlot(emp_res_rose_RF,type=1,
            main="Variable Importance (Accuracy)",
-           sub = "Random Forest Model")
+           sub = "Random Forest Model", class = NULL, scale=TRUE)
+pairs(~Age+MonthlyIncome+YearsAtCompany+YearsInCurrentRole,data=emp, 
+   main="Simple Scatterplot Matrix")
 ```
 
 ```{r Q7b, echo=TRUE}
@@ -340,7 +344,8 @@ Employees_flight_risk <- as.data.frame(cbind(emp_test$EmployeeNumber,emp_res_ros
 col_headings <- c("EmployeeNumber","No","Yes")
 names(Employees_flight_risk) <- col_headings
 Employees_flight_risk <- arrange(Employees_flight_risk, desc(Yes))
-head(Employees_flight_risk)
+Employees_flight_risk[1:25, ]
+write.csv(Employees_flight_risk[1:25, ], file = "FlightRiskData.csv")
 tail(Employees_flight_risk)
 
 
