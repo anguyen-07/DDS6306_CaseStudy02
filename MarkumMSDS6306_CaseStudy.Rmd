@@ -1,0 +1,220 @@
+---
+title: "CaseStudy2_R_Code"
+author: "AMarkum"
+date: "4/8/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# This file contains base code for data exploration
+
+# Packages required for this project
+```{r packages, include=TRUE}
+library(ggplot2)
+library(psych)
+library(lattice)
+library(corrplot)
+library(vcd)
+```
+
+# load your raw data
+```{r loadData, include=TRUE}
+att.df <- read.csv(paste("CaseStudy2-singlesheet.csv", sep = ""))
+names(att.df)[1]<- "Age"
+attach(att.df)
+str(att.df)
+```
+
+# Split the data into a training and testing set. The training set is used to fit the model
+```{r train_test, include=TRUE}
+train <- att.df[1:799,]
+test<-att.df[800:1400,]
+model <- glm(Attrition ~ Age+BusinessTravel+Department+DistanceFromHome+
+               Education+EducationField+EnvironmentSatisfaction+Gender+JobInvolvement+
+               JobLevel+JobRole+JobSatisfaction+MaritalStatus+MonthlyIncome+NumCompaniesWorked+
+               OverTime+PercentSalaryHike+PerformanceRating+RelationshipSatisfaction+
+               TotalWorkingYears+TrainingTimesLastYear+WorkLifeBalance+ 
+               YearsAtCompany+YearsInCurrentRole+YearsSinceLastPromotion+
+               YearsWithCurrManager,family=binomial(link='logit'),data=train)
+summary(model)
+```
+
+# Next step is to run the anova
+```{r anova, include=TRUE}
+anova(model, test="Chisq")
+str(att.df)
+```
+
+# Exploratory Data Analysis
+```{r explore, include=TRUE}
+describe(att.df)
+
+table(Attrition)
+
+table(BusinessTravel)
+
+table(EducationField)
+
+table(Education)
+
+table(EnvironmentSatisfaction)
+
+table(Gender)
+
+table(JobInvolvement)
+
+table(JobRole)
+
+table(JobLevel)
+
+table(JobSatisfaction)
+
+table(MaritalStatus)
+
+table(OverTime)
+```
+
+# Let's do some comparisons
+```{r tables, include=TRUE}
+mytable_performance<- xtabs(~PerformanceRating+Attrition, data=att.df)
+round(prop.table(mytable_performance,1)*100,2)
+
+mytable_age<- xtabs(~Age+Attrition, data=att.df)
+round(prop.table(mytable_age,1)*100,2)
+
+mytable_overtime<- xtabs(~OverTime+Attrition, data=att.df)
+round(prop.table(mytable_overtime,1)*100,2)
+
+mytable_worklifebalance<- xtabs(~WorkLifeBalance+Attrition, data=att.df)
+round(prop.table(mytable_worklifebalance,1)*100,2)
+
+mytable_jobrole<- xtabs(~JobRole+Attrition, data=att.df)
+round(prop.table(mytable_jobrole,1)*100,2)
+
+mytable_numcompaniesworked<- xtabs(~NumCompaniesWorked+Attrition, data=att.df)
+round(prop.table(mytable_numcompaniesworked,1)*100,2)
+
+mytable_maritalstatus<- xtabs(~MaritalStatus+Attrition, data=att.df)
+round(prop.table(mytable_maritalstatus,1)*100,2)
+
+mytable_gender<- xtabs(~Gender+Attrition, data=att.df)
+round(prop.table(mytable_gender,1)*100,2)
+
+mytable_environmentsatisfaction<- xtabs(~EnvironmentSatisfaction+Attrition, data=att.df)
+round(prop.table(mytable_environmentsatisfaction,1)*100,2)
+
+mytable_businesstravel<- xtabs(~BusinessTravel+Attrition, data=att.df)
+round(prop.table(mytable_businesstravel,1)*100,2)
+
+mytable_educationfield<- xtabs(~EducationField+Attrition, data=att.df)
+round(prop.table(mytable_educationfield,1)*100,2)
+
+mytable_jobsatisfaction<- xtabs(~JobSatisfaction+Attrition, data=att.df)
+round(prop.table(mytable_jobsatisfaction,1)*100,2)
+
+mytable_education<- xtabs(~Education+Attrition, data=att.df)
+round(prop.table(mytable_education,1)*100,2)
+```
+
+# Visualize the data for ease in understanding
+```{r boxplots_histograms, include=TRUE}
+boxplot(Age~Attrition, main="Boxplot", xlab="Age", ylab="Attrition(Yes/No)",
+        horizontal=TRUE, col=c("pink", "lightblue"))
+
+boxplot(DistanceFromHome~Attrition, main="Boxplot", xlab="Distance from Home",
+        ylab="Attrition(Yes/No)", horizontal=TRUE, col=c("pink", "lightblue"))
+
+boxplot(MonthlyIncome~Attrition, main="Boxplot", xlab="MonthlyIncome",
+        ylab="Attrition(Yes/No)", horizontal=TRUE, col=c("pink", "lightblue"))
+
+boxplot(YearsWithCurrManager~Attrition, main="Boxplot", xlab="Years with Current Manager",
+        ylab="Attrition(Yes/No)", horizontal=TRUE, col=c("pink", "lightblue"))
+
+boxplot(MonthlyRate~Attrition, main="Boxplot", xlab="Monthly Rate",
+        ylab="Attrition(Yes/No)", horizontal=TRUE, col=c("pink", "lightblue"))
+
+boxplot(DailyRate~Attrition, main="Boxplot", xlab="Daily Rate",
+        ylab="Attrition(Yes/No)", horizontal=TRUE, col=c("pink", "lightblue"))
+
+boxplot(HourlyRate~Attrition, main="Boxplot", xlab="Hourly Rate",
+        ylab="Attrition(Yes/No)", horizontal=TRUE, col=c("pink", "lightblue"))
+
+hist(Age,xlab="Age", ylab="count", breaks=20, main="Organization's Age Variability",
+     col="lightblue", freq=FALSE)
+
+hist(MonthlyIncome,xlab="Monthly Income", ylab="count", breaks=20, main="Income Distribution",
+     col="lightblue", freq=FALSE)
+
+hist(YearsAtCompany,xlab="Years with the Company", ylab="count", breaks=20, main="Employee Longevity",
+     col="lightblue", freq=FALSE)
+
+hist(YearsWithCurrManager,xlab="Years with Curent Manager", ylab="count", breaks=20,
+     main="Length of Employee/Manager Relationship", col="lightblue", freq=FALSE)
+
+hist(PercentSalaryHike,xlab="Salary Hike %", ylab="count", breaks=20,
+     main="Employee Pay Increases", col="lightblue", freq=FALSE)
+```
+
+# A different view of things...
+```{r histograms, include=TRUE}
+histogram(~Attrition | JobRole)
+
+histogram(~Attrition | Department, layout=c(4,1), col=c("lightblue", "pink"))
+
+histogram(~PercentSalaryHike | Attrition)
+
+histogram(~Education | Attrition)
+```
+
+# Find our correlations and create a visualization
+```{r correlations, include=TRUE}
+round (cor(att.df[, c(1,4,6,7,11,13,14,15,17,19,20,21,24,25,26,29:35)]),2)
+
+corrplot(corr=cor(att.df[,c(1,4,6,7,11,13,14,15,17,19,20,21,24,25,26,29:35)],
+                  use="complete.obs"),method="ellipse")
+```
+
+#Check the hypothesis test regarding whether there is a significant difference
+#in the average monthly income of Employees who leave vs. those who stay
+```{r transformIncome, include=TRUE}
+log.trans.Income = log(MonthlyIncome)
+t.test(log.trans.Income~Attrition, var.equal=TRUE)
+```
+
+#Check the hypothesis test regarding whether there is a significant difference
+#in the average monthy rate between Employees who leave vs. those who stay
+```{r transformRate, include=TRUE}
+log.trans.Rate = log(MonthlyRate)
+t.test(log.trans.Rate~Attrition,var.equal=TRUE)
+```
+
+#Check the hypothesis test regarding whether there is a significant difference
+#in the average daily rate between Employees who leave vs. those who stay
+```{r transformDailyRate, include=TRUE}
+log.trans.DailyRate = log(DailyRate)
+t.test(log.trans.DailyRate~Attrition,var.equal=TRUE)
+```
+
+#Conduct a Chi-square test of the impact of Business Travel on Attrition
+```{r ChiSQTravel, include=TRUE}
+ChiSq_table_businesstravel <- xtabs(~BusinessTravel+Attrition, data=att.df)
+round(prop.table(ChiSq_table_businesstravel,1)*100,2)
+chisq.test(ChiSq_table_businesstravel)
+```
+
+#Conducting a Chi-square test of the impact of Job Satisfaction on Attrition
+```{r ChiSQJobSatisfaction, include=TRUE}
+ChiSq_table_jobsatisfaction <- xtabs(~JobSatisfaction+Attrition, data=att.df)
+round(prop.table(ChiSq_table_jobsatisfaction,1)*100,2)
+chisq.test(ChiSq_table_jobsatisfaction)
+```
+
+#Alternately, you can conduct a Fisher's Exact Test for Count Data instead of
+#the Chi-square test
+```{r FisherTest, include=TRUE}
+fisher.test(mytable_jobsatisfaction)
+assocstats(mytable_jobsatisfaction)
+```
