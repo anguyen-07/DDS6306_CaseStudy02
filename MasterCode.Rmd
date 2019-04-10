@@ -1,0 +1,206 @@
+---
+author: "Andy Nguyen, Amy Markum, Richard Hart, Tom Gianelle"
+date: "3/28/2019"
+output: 
+  html_document:
+    keep_md: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(readxl)
+library(tidyquant)
+library(pastecs)
+library(ggplot2)
+```
+
+``` {r SessionInfo}
+sessionInfo()
+```
+
+### Clean Raw Data
+  * There are 1470 rows and 35 columns in the employee raw data frame.
+``` {r 2a}
+require(readxl)
+Employee_rawdata <- as.data.frame(read_excel("~/Documents/SMU/DS6306_DoingDataScience/CaseStudy_2/CaseStudy2-data.xlsx"))
+dim(Employee_rawdata)
+```
+
+``` {r 2b, include = FALSE echo = FALSE}
+for (i in 1:ncol(Employee_data)) {
+  if (nchar(colnames(Employee_rawdata)[i]) > 12) {
+    print(colnames(Employee_rawdata)[i])
+    print(i)
+  }
+}
+
+# BusinessTravel shortened to Travel
+colnames(Employee_rawdata)[3] <- "Travel"
+# DistanceFromHome shortened to DisFromHome
+colnames(Employee_rawdata)[6] <- "DisFromHome"
+# EducationField shortened to EduField
+colnames(Employee_rawdata)[8] <- "EduField"
+# EmployeeCount shortened to EmpCount
+colnames(Employee_rawdata)[9] <- "EmpCount"
+# EmployeeNumber shortened to EmployeeID
+colnames(Employee_rawdata)[10] <- "EmployeeID"
+# EnvironmentSatisfaction shortened to EnvSatis
+colnames(Employee_rawdata)[11] <- "EnvSatis"
+# JobInvolvement shortened to JobInvolve
+colnames(Employee_rawdata)[14] <- "JobInvolve"
+# JobSatisfaction shortened to JobSatis
+colnames(Employee_rawdata)[17] <- "JobSatis"
+# MaritalStatus shortened to MaritalStat
+colnames(Employee_rawdata)[18] <- "MaritalStat"
+# MonthlyIncome shortened to MonIncome
+colnames(Employee_rawdata)[19] <- "MonIncome"
+# NumCompaniesWorked shortened to NumCoWork
+colnames(Employee_rawdata)[21] <- "NumCoWork"
+# PercentSalaryHike shortened to SalaryIncr.
+colnames(Employee_rawdata)[24] <- "SalaryIncr"
+# PerfomanceRating shortened to PerformRate
+colnames(Employee_rawdata)[25] <- "PerformRate"
+# RelationshipSatisfaction shortened to RelateSatis
+colnames(Employee_rawdata)[26] <- "RelateSatis"
+# StandardHours shortened to StdHours
+colnames(Employee_rawdata)[27] <- "StdHours"
+# StockOptionLevel shortened to StockOption
+colnames(Employee_rawdata)[28] <- "StockOption"
+# TotalWorkingYears shortened to NumWorkYear
+colnames(Employee_rawdata)[29] <- "NumWorkYear"
+# TrainingTimesLastYear shortened to TrainTime
+colnames(Employee_rawdata)[30] <- "TrainTime"
+# WorkLifeBalance shortened to WorkLifeBal
+colnames(Employee_rawdata)[31] <- "WorkLifeBal"
+# YearsAtCompany shortened to YearsAtCo
+colnames(Employee_rawdata)[32] <- "YearsAtCo"
+# YearsInCurrentRole shortened to DuraCurRole
+colnames(Employee_rawdata)[33] <- "DuraCurRole"
+# YearsSinceLastPromotion shortned to LastPromote
+colnames(Employee_rawdata)[34] <- "LastPromote"
+# YearsWithCurrManager shortened to CurManage
+colnames(Employee_rawdata)[35] <- "CurManage"
+
+str(Employee_rawdata)
+```
+
+### Prelimary Analysis
+
+``` {r 3a}
+# All employees are older than 18
+hr <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
+hr$Over18 <- NULL
+
+# All employees had 80 standard work hours
+hr$StandardHours <- NULL
+
+# All employee counts are 1
+hr$EmployeeCount <- NULL
+
+# Transform Categorical Variables to Indicator Variables
+hr <- hr %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
+hr <- hr %>% mutate(Travel=ifelse(Travel=="Travel_Rarely", 2, 
+                                                  ifelse(Travel=="Travel_Frequently", 3, 1)))
+hr <- hr %>% mutate(Department=ifelse(Department=="Research & Development", 2, 
+                                              ifelse(Department=="Sales", 3, 1)))
+hr <- hr %>% mutate(EduField=ifelse(EduField=="Life Sciences", 2, 
+                                                  ifelse(EduField=="Marketing", 3, 
+                                                         ifelse(EduField=="Medical", 4,
+                                                                ifelse(EduField=="Other", 5,
+                                                                       ifelse(EduField=="Technical Degree", 6, 1))))))
+hr <- hr %>% mutate(Gender=ifelse(Gender=="Male", 1, 0))
+hr <- hr %>% mutate(JobRole=ifelse(JobRole=="Healthcare Representative", 2,
+                                           ifelse(JobRole=="Laboratory Technician", 3,
+                                                  ifelse(JobRole=="Manager", 4,
+                                                         ifelse(JobRole=="Manufacturing Director", 5,
+                                                                ifelse(JobRole=="Research Director", 6, 
+                                                                       ifelse(JobRole=="Research Scientist", 7,
+                                                                              ifelse(JobRole=="Sales Executive", 8,
+                                                                                     ifelse(JobRole=="Sales Representative", 9, 0)))))))))
+hr <- hr %>% mutate(MaritalStat=ifelse(MaritalStat=="Married", 2,
+                                                 ifelse(MaritalStat=="Divorced", 3, 1)))
+hr <- hr %>% mutate(OverTime=ifelse(OverTime=="Yes", 1, 0))
+```
+
+``` {r 3b}
+require(pastecs)
+
+# Consider Department, EducationBackground, JobRole, and Gender with Credentials
+Credentials <- hr[,(names(hr) %in%
+                                   c("Age","Education","JobLevel","PerformRate"))]
+                                 
+# Consider Marital Status with Satisfaction
+LifeSatisfaction <- hr[,(names(hr) %in%
+                                  c("DisFromHome","EnvSatis","JobInvolve","JobSatis","RelateSatis","WorkLifeBal"))]
+                              
+# Consider Overtime with Compensation                                  
+Compensation <- hr[,(names(hr) %in%
+                                  c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
+
+Loyalty <- hr[,(names(hr) %in%
+                             c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
+
+stat.desc(Credentials)
+stat.desc(Satisfaction)
+stat.desc(Compensation)
+stat.desc(Loyalty)
+
+require(ggplot2)
+ggplot(hr, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins = 25) + 
+  labs(title = "Histogram of Monthly Income", x = "Monthly Income", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=4) + 
+  labs(title = "Histogram of Percent Salary Hike", x = "Percent Salary Hike", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+``` {r 3c}
+Gender <- as.data.frame(table(Employee_rawdata$Gender))
+colnames(Gender) <- c("Gender","Frequency")
+Gender
+
+Education <- as.data.frame(table(Employee_rawdata$EduField))
+colnames(Education) <- c("Education","Frequency")
+Education
+
+Occupation <- as.data.frame(table(Employee_rawdata$JobRole))
+colnames(Occupation) <- c("Occupation","Frequency")
+Occupation
+```
+
+```{r 3d}
+Management <- Occupation[c(4:6),]
+colnames(Management) <- c("Position","Frequency")
+Management
+```
+
+``` {r 4b}
+
+```
+
+``` {r 4c}
+ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) + 
+            geom_point() + 
+            geom_smooth(method = lm, se = FALSE, color = "black") +
+            labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
+            theme(plot.title = element_text(hjust = 0.5))
+
+# lm() function fits the Monthly Income and Age variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+# summary() function produces the result summaries of the linear model fit
+# the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
+LinearCorrelation <- lm(MonIncome ~ Age, data = hr)
+summary(LinearCorrelation)
+R_squared <- 0.2479
+Correlation.Age_Income <- sqrt(R_squared)
+Correlation.Age_Income
+
+# unbalanced data - 1233 No vs 237 Yes
+Attrition <- as.data.frame(table(hr$Attrition))
+colnames(Attrition) <- c("Attrition","Frequency")
+Attrition
+```
+
+``` {r 4d}
+
+```

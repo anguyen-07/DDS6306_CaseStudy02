@@ -12,6 +12,6 @@
 
 ### According to the U.S. Bureau of Statistics (2017), the average turnover rate in the U.S. ranges from 12% - 15% percent. Looking deeper, according to a survey conducted by LinkedIn, turnover rates for the technology industry hovers around 13%, whith noticeably higher levels of attrition in the fields of Data analysis and software engineering, which is closer to 22%.
 
-### DDSAnalytics has an average turnover rate of 14%, which is slightly higher than the industry standard. So who is leaving? Sales Representatives, Laboratory Technicians, and Human Resources accounted for the highest PERCENT of turnover, while Laboratory Tchnicians, Sales Executives, and Research Scientists accounted for the highest NUMBER of people leaving.
+### DDSAnalytics has an average turnover rate of 15%, which is slightly higher than the industry standard. So who is leaving? Sales Representatives, Laboratory Technicians, and Human Resources accounted for the highest PERCENT of turnover, while Laboratory Tchnicians, Sales Executives, and Research Scientists accounted for the highest NUMBER of people leaving.
 
 ### These high-turnover fields show that people in these Job Roles tend to leave after 1-2 years in the company, with the majority leaving before or on the 1-yr mark. Intervening early in their career will go furthest in reducing overall attrition rates.
