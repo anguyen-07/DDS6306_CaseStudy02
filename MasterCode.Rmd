@@ -260,7 +260,7 @@ Correlation.Age_Income
 
 # unbalanced data - 1233 No vs 237 Yes
 Attrition <- as.data.frame(table(hr$Attrition))
-colnames(Attrition) <- c("Attrition","Frequency")
+colnames(Attrition) <- c("Attrition", "Frequency")
 Attrition
 ```
 
