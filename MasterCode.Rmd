@@ -85,6 +85,69 @@ colnames(Employee_rawdata)[35] <- "CurManage"
 str(Employee_rawdata)
 ```
 
+### General Information
+``` {r tables}
+mytable_performance<- xtabs(~PerformRate+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_performance,1)*100,2)
+
+mytable_age<- xtabs(~Age+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_age,1)*100,2)
+
+mytable_overtime<- xtabs(~OverTime+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_overtime,1)*100,2)
+
+mytable_worklifebalance<- xtabs(~WorkLifeBal+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_worklifebalance,1)*100,2)
+
+mytable_jobrole<- xtabs(~JobRole+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_jobrole,1)*100,2)
+
+mytable_numcompaniesworked<- xtabs(~NumCoWork+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_numcompaniesworked,1)*100,2)
+
+mytable_maritalstatus<- xtabs(~MaritalStat+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_maritalstatus,1)*100,2)
+
+mytable_gender<- xtabs(~Gender+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_gender,1)*100,2)
+
+mytable_environmentsatisfaction<- xtabs(~EnvSatis+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_environmentsatisfaction,1)*100,2)
+
+mytable_businesstravel<- xtabs(~Travel+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_businesstravel,1)*100,2)
+
+mytable_educationfield<- xtabs(~EduField+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_educationfield,1)*100,2)
+
+mytable_jobsatisfaction<- xtabs(~JobSatis+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_jobsatisfaction,1)*100,2)
+
+mytable_education<- xtabs(~Education+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_education,1)*100,2)
+
+mytable_jobinvolvement<- xtabs(~JobInvolve+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_jobinvolvement,1)*100,2)
+
+mytable_salaryincrease<- xtabs(~SalaryIncr+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_salaryincrease,1)*100,2)
+
+mytable_trainingtime<- xtabs(~TrainTime+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_trainingtime,1)*100,2)
+
+mytable_yearsatcompany<- xtabs(~YearsAtCo+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_yearsatcompany,1)*100,2)
+
+mytable_yearsincurrentrole<- xtabs(~DuraCurRole+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_yearsincurrentrole,1)*100,2)
+
+mytable_lastpromotion<- xtabs(~LastPromote+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_lastpromotion,1)*100,2)
+
+mytable_yearswithmanager<- xtabs(~CurManage+Attrition, data=Employee_rawdata)
+round(prop.table(mytable_yearswithmanager,1)*100,2)
+```
+
 ### Prelimary Analysis
 
 ``` {r 3a}
