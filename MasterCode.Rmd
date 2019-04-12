@@ -1,0 +1,346 @@
+---
+author: "Andy Nguyen, Amy Markum, Richard Hart, Tom Gianelle"
+date: "3/28/2019"
+output: 
+  html_document:
+    keep_md: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(readxl)
+library(tidyquant)
+library(pastecs)
+library(ggplot2)
+```
+
+```{r SessionInfo}
+sessionInfo()
+```
+
+### Clean Raw Data
+  * There are 1470 rows and 35 columns in the employee raw data frame.
+```{r 2a}
+require(readxl)
+Employee_rawdata <- as.data.frame(read_excel("CaseStudy Info/CaseStudy2-data.xlsx"))
+dim(Employee_rawdata)
+```
+
+```{r 2b, include = FALSE, echo = FALSE}
+for (i in 1:ncol(Employee_rawdata)) {
+  if (nchar(colnames(Employee_rawdata)[i]) > 12) {
+    print(colnames(Employee_rawdata)[i])
+    print(i)
+  }
+}
+
+# BusinessTravel shortened to Travel
+colnames(Employee_rawdata)[3] <- "Travel"
+# DistanceFromHome shortened to DisFromHome
+colnames(Employee_rawdata)[6] <- "DisFromHome"
+# EducationField shortened to EduField
+colnames(Employee_rawdata)[8] <- "EduField"
+# EmployeeCount shortened to EmpCount
+colnames(Employee_rawdata)[9] <- "EmpCount"
+# EmployeeNumber shortened to EmployeeID
+colnames(Employee_rawdata)[10] <- "EmployeeID"
+# EnvironmentSatisfaction shortened to EnvSatis
+colnames(Employee_rawdata)[11] <- "EnvSatis"
+# JobInvolvement shortened to JobInvolve
+colnames(Employee_rawdata)[14] <- "JobInvolve"
+# JobSatisfaction shortened to JobSatis
+colnames(Employee_rawdata)[17] <- "JobSatis"
+# MaritalStatus shortened to MaritalStat
+colnames(Employee_rawdata)[18] <- "MaritalStat"
+# MonthlyIncome shortened to MonIncome
+colnames(Employee_rawdata)[19] <- "MonIncome"
+# NumCompaniesWorked shortened to NumCoWork
+colnames(Employee_rawdata)[21] <- "NumCoWork"
+# PercentSalaryHike shortened to SalaryIncr.
+colnames(Employee_rawdata)[24] <- "SalaryIncr"
+# PerfomanceRating shortened to PerformRate
+colnames(Employee_rawdata)[25] <- "PerformRate"
+# RelationshipSatisfaction shortened to RelateSatis
+colnames(Employee_rawdata)[26] <- "RelateSatis"
+# StandardHours shortened to StdHours
+colnames(Employee_rawdata)[27] <- "StdHours"
+# StockOptionLevel shortened to StockOption
+colnames(Employee_rawdata)[28] <- "StockOption"
+# TotalWorkingYears shortened to NumWorkYear
+colnames(Employee_rawdata)[29] <- "NumWorkYear"
+# TrainingTimesLastYear shortened to TrainTime
+colnames(Employee_rawdata)[30] <- "TrainTime"
+# WorkLifeBalance shortened to WorkLifeBal
+colnames(Employee_rawdata)[31] <- "WorkLifeBal"
+# YearsAtCompany shortened to YearsAtCo
+colnames(Employee_rawdata)[32] <- "YearsAtCo"
+# YearsInCurrentRole shortened to DuraCurRole
+colnames(Employee_rawdata)[33] <- "DuraCurRole"
+# YearsSinceLastPromotion shortned to LastPromote
+colnames(Employee_rawdata)[34] <- "LastPromote"
+# YearsWithCurrManager shortened to CurManage
+colnames(Employee_rawdata)[35] <- "CurManage"
+
+str(Employee_rawdata)
+```
+
+### Prelimary Analysis
+
+```{r 3a}
+# All employees are older than 18
+hr <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
+hr$Over18 <- NULL
+
+# All employees had 80 standard work hours
+hr$StandardHours <- NULL
+
+# All employee counts are 1
+hr$EmployeeCount <- NULL
+
+# Transform Categorical Variables to Indicator Variables
+hr <- hr %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
+hr <- hr %>% mutate(Travel=ifelse(Travel=="Travel_Rarely", 2, 
+                                                  ifelse(Travel=="Travel_Frequently", 3, 1)))
+hr <- hr %>% mutate(Department=ifelse(Department=="Research & Development", 2, 
+                                              ifelse(Department=="Sales", 3, 1)))
+hr <- hr %>% mutate(EduField=ifelse(EduField=="Life Sciences", 2, 
+                                                  ifelse(EduField=="Marketing", 3, 
+                                                         ifelse(EduField=="Medical", 4,
+                                                                ifelse(EduField=="Other", 5,
+                                                                       ifelse(EduField=="Technical Degree", 6, 1))))))
+hr <- hr %>% mutate(Gender=ifelse(Gender=="Male", 1, 0))
+hr <- hr %>% mutate(JobRole=ifelse(JobRole=="Healthcare Representative", 2,
+                                           ifelse(JobRole=="Laboratory Technician", 3,
+                                                  ifelse(JobRole=="Manager", 4,
+                                                         ifelse(JobRole=="Manufacturing Director", 5,
+                                                                ifelse(JobRole=="Research Director", 6, 
+                                                                       ifelse(JobRole=="Research Scientist", 7,
+                                                                              ifelse(JobRole=="Sales Executive", 8,
+                                                                                     ifelse(JobRole=="Sales Representative", 9, 0)))))))))
+hr <- hr %>% mutate(MaritalStat=ifelse(MaritalStat=="Married", 2,
+                                                 ifelse(MaritalStat=="Divorced", 3, 1)))
+hr <- hr %>% mutate(OverTime=ifelse(OverTime=="Yes", 1, 0))
+```
+
+#### Preliminary Analysis continued
+#### Percent Attriton for JobRole, Department, Business Travel, 
+#### Education Field, Years of Education and Marital Status
+```{r, echo=T}
+# Percent Attrition by Job Role
+roles <- Employee_rawdata %>% group_by(JobRole, Attrition) %>% summarise(n = n())
+roles[,c("Totals", "Percents")] <- NA
+for (x in roles$JobRole)
+{
+  roles$Totals[roles$JobRole == x] <- sum(Employee_rawdata$JobRole == x)
+  roles$Percents[roles$JobRole == x] <- roles$n[roles$JobRole == x] / roles$Totals[roles$JobRole == x] * 100
+}
+roles <- as.data.frame(roles)
+
+# Percent Attrition by Department
+depts <- Employee_rawdata %>% group_by(Department, Attrition) %>% summarise(n = n())
+depts[,c("Totals", "Percents")] <- NA
+for (x in depts$Department)
+{
+  depts$Totals[depts$Department == x] <- sum(Employee_rawdata$Department == x)
+  depts$Percents[depts$Department == x] <- depts$n[depts$Department == x] / depts$Totals[depts$Department == x] * 100
+}
+depts <- as.data.frame(depts)
+
+# Percent Attrition by Travel
+travel <- Employee_rawdata %>% group_by(Travel, Attrition) %>% summarise(n = n())
+travel[,c("Totals", "Percents")] <- NA
+for (x in travel$Travel)
+{
+  travel$Totals[travel$Travel == x] <- sum(Employee_rawdata$Travel == x )
+  travel$Percents[travel$Travel == x] <- travel$n[travel$Travel == x] / travel$Totals[travel$Travel == x] * 100
+}
+travel <- as.data.frame(travel)
+
+# Percent Attrition by Education Field
+educfield <- Employee_rawdata %>% group_by(EduField, Attrition) %>% summarise(n = n())
+educfield[,c("Totals", "Percents")] <- NA
+for (x in educfield$EduField)
+{
+  educfield$Totals[educfield$EduField == x] <- sum(Employee_rawdata$EduField == x)
+  educfield$Percents[educfield$EduField == x] <- educfield$n[educfield$EduField == x] / educfield$Totals[educfield$EduField == x] * 100
+}
+educfield <- as.data.frame(educfield)
+
+# Percent Attrition by Gender
+gender <- Employee_rawdata %>% group_by(Gender, Attrition) %>% summarise(n = n())
+gender[,c("Totals", "Percents")] <- NA
+for (x in gender$Gender)
+{
+  gender$Totals[gender$Gender == x] <- sum(Employee_rawdata$Gender == x)
+  gender$Percents[gender$Gender == x] <- gender$n[gender$Gender == x] / gender$Totals[gender$Gender == x] * 100
+}
+gender <- as.data.frame(gender)
+
+# Percent Attrition by Years of Education
+educyr <- Employee_rawdata %>% group_by(Education, Attrition) %>% summarise(n = n())
+educyr[,c("Totals", "Percents")] <- NA
+for (x in educyr$Education)
+{
+  educyr$Totals[educyr$Education == x] <- sum(Employee_rawdata$Education == x)
+  educyr$Percents[educyr$Education == x] <- educyr$n[educyr$Education == x] / educyr$Totals[educyr$Education == x] * 100
+}
+educyr <- as.data.frame(educyr)
+
+# Percent Attrition by Marital Status
+marital_status <- Employee_rawdata %>% group_by(MaritalStat, Attrition) %>% summarise(n = n())
+marital_status[,c("Totals", "Percents")] <- NA
+for (x in marital_status$MaritalStat)
+{
+  marital_status$Totals[marital_status$MaritalStat == x] <- sum(Employee_rawdata$MaritalStat == x)
+  marital_status$Percents[marital_status$MaritalStat == x] <- marital_status$n[marital_status$MaritalStat == x] / marital_status$Totals[marital_status$MaritalStat == x] * 100
+}
+marital_status <- as.data.frame(marital_status)
+
+# Percent Attrition by JobRole
+roles %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(JobRole, -Percents), y = Percents, fill=JobRole)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  xlab("Job Role") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Job Role") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Job Role"))
+
+# Percent Attrition by Department
+depts %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Department, -Percents), y = Percents, fill=Department)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Department") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Department") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Department"))
+
+# Percent Attrition by Travel
+travel %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Travel, -Percents), y = Percents, fill=Travel)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Business Travel") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Business Travel") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Business Travel"))
+
+# Percent Attrition by Education Field
+educfield %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(EduField, -Percents), y = Percents, fill=EduField)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Education Field") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Field of Education") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Education Field"))
+
+# Percent Attrition by Gender
+gender %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Gender, -Percents), y = Percents, fill=Gender)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Gender") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Gender") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Gender"))
+
+# Percent Attrition by Years of Education
+educyr %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Education, -Percents), y = Percents, fill=Education)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Years of Education") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Years of Education") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Years of Education"))
+
+# Percent Attrition by Marital Status
+marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(MaritalStat, -Percents), y = Percents, fill=MaritalStat)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Marital Status") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Marital Status") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Marital Status"))
+```
+
+```{r 3b}
+require(pastecs)
+
+# Consider Department, EducationBackground, JobRole, and Gender with Credentials
+Credentials <- hr[,(names(hr) %in%
+                                   c("Age","Education","JobLevel","PerformRate"))]
+                                 
+# Consider Marital Status with Satisfaction
+LifeSatisfaction <- hr[,(names(hr) %in%
+                                  c("DisFromHome","EnvSatis","JobInvolve","JobSatis","RelateSatis","WorkLifeBal"))]
+                              
+# Consider Overtime with Compensation                                  
+Compensation <- hr[,(names(hr) %in%
+                                  c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
+
+Loyalty <- hr[,(names(hr) %in%
+                             c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
+
+stat.desc(Credentials)
+stat.desc(LifeSatisfaction)
+stat.desc(Compensation)
+stat.desc(Loyalty)
+
+require(ggplot2)
+ggplot(hr, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins = 25) + 
+  labs(title = "Histogram of Monthly Income", x = "Monthly Income", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=4) + 
+  labs(title = "Histogram of Percent Salary Hike", x = "Percent Salary Hike", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r 3c}
+Gender <- as.data.frame(table(Employee_rawdata$Gender))
+colnames(Gender) <- c("Gender","Frequency")
+Gender
+
+Education <- as.data.frame(table(Employee_rawdata$EduField))
+colnames(Education) <- c("Education","Frequency")
+Education
+
+Occupation <- as.data.frame(table(Employee_rawdata$JobRole))
+colnames(Occupation) <- c("Occupation","Frequency")
+Occupation
+```
+
+```{r 3d}
+Management <- Occupation[c(4:6),]
+colnames(Management) <- c("Position","Frequency")
+Management
+```
+
+``` {r 4b}
+
+```
+
+```{r 4c}
+ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) + 
+            geom_point() + 
+            geom_smooth(method = lm, se = FALSE, color = "black") +
+            labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
+            theme(plot.title = element_text(hjust = 0.5))
+
+# lm() function fits the Monthly Income and Age variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+# summary() function produces the result summaries of the linear model fit
+# the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
+LinearCorrelation <- lm(MonIncome ~ Age, data = hr)
+summary(LinearCorrelation)
+R_squared <- 0.2479
+Correlation.Age_Income <- sqrt(R_squared)
+Correlation.Age_Income
+
+# unbalanced data - 1233 No vs 237 Yes
+Attrition <- as.data.frame(table(hr$Attrition))
+colnames(Attrition) <- c("Attrition","Frequency")
+Attrition
+```
+
+```{r 4d}
+
+```
+
