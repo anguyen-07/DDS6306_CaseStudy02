@@ -13,6 +13,8 @@ library(readxl)
 library(tidyquant)
 library(pastecs)
 library(ggplot2)
+library(corrplot)
+library(MASS)
 ```
 
 ```{r SessionInfo}
@@ -93,10 +95,10 @@ hr <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
 hr$Over18 <- NULL
 
 # All employees had 80 standard work hours
-hr$StandardHours <- NULL
+hr$StdHours <- NULL
 
 # All employee counts are 1
-hr$EmployeeCount <- NULL
+hr$EmpCount <- NULL
 
 # Transform Categorical Variables to Indicator Variables
 hr <- hr %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
@@ -123,7 +125,7 @@ hr <- hr %>% mutate(MaritalStat=ifelse(MaritalStat=="Married", 2,
 hr <- hr %>% mutate(OverTime=ifelse(OverTime=="Yes", 1, 0))
 ```
 
-#### Preliminary Analysis continued
+### Preliminary Analysis Continued
 #### Percent Attriton for JobRole, Department, Business Travel, 
 #### Education Field, Years of Education and Marital Status
 ```{r, echo=T}
@@ -262,6 +264,15 @@ marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Marital
   guides(fill=guide_legend(title="Marital Status"))
 ```
 
+#### Correlation Plot of all variables
+```{r, echo=TRUE, fig.height=8, fig.width=8}
+# Build Correlation Plot
+hrCorr <- cor(hr)
+colnames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
+rownames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
+corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'full', title = "Correlation Plot of all Variables", mar=c(0,0,2,0), diag=FALSE)
+```
+
 ```{r 3b}
 require(pastecs)
 
@@ -325,13 +336,13 @@ ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) +
             labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
             theme(plot.title = element_text(hjust = 0.5))
 
-# lm() function fits the Monthly Income and Age variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+# lm() function fits the Monthly Income and Age variables of the Employee dataset with a linear model using Monthly Income as the response variable and Age as the explanatory variable
 # summary() function produces the result summaries of the linear model fit
 # the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
 LinearCorrelation <- lm(MonIncome ~ Age, data = hr)
 summary(LinearCorrelation)
-R_squared <- 0.2479
-Correlation.Age_Income <- sqrt(R_squared)
+# R_squared <- 0.2479
+Correlation.Age_Income <- sqrt(summary(LinearCorrelation)$r.squared)
 Correlation.Age_Income
 
 # unbalanced data - 1233 No vs 237 Yes
@@ -344,3 +355,23 @@ Attrition
 
 ```
 
+### Basic Linear Regression
+```{r,echo=TRUE}
+attritlm <- lm(Attrition ~ ., data = hr)
+summary(attritlm)
+```
+
+### Stepwise variable selction using AIC as the stop criteria
+```{r, include=FALSE}
+fit1lm <- stepAIC(attritlm, direction = "both")
+```
+
+```{r, echo=TRUE}
+summary(fit1lm)
+```
+
+### logistic regression
+```{r, echo=TRUE}
+glm_test <- glm(Attrition ~ ., data = hr, family = binomial(link = "logit"))
+summary(glm_test)
+```

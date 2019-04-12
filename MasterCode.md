@@ -31,15 +31,16 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] pastecs_1.3.21             tidyquant_0.5.5           
-##  [3] forcats_0.3.0              stringr_1.4.0             
-##  [5] dplyr_0.7.8                purrr_0.2.5               
-##  [7] readr_1.3.1                tidyr_0.8.2               
-##  [9] tibble_1.4.2               ggplot2_3.1.0             
-## [11] tidyverse_1.2.1            quantmod_0.4-14           
-## [13] TTR_0.23-4                 PerformanceAnalytics_1.5.2
-## [15] xts_0.11-2                 zoo_1.8-4                 
-## [17] lubridate_1.7.4            readxl_1.2.0              
+##  [1] MASS_7.3-51.1              corrplot_0.84             
+##  [3] pastecs_1.3.21             tidyquant_0.5.5           
+##  [5] forcats_0.3.0              stringr_1.4.0             
+##  [7] dplyr_0.7.8                purrr_0.2.5               
+##  [9] readr_1.3.1                tidyr_0.8.2               
+## [11] tibble_1.4.2               ggplot2_3.1.0             
+## [13] tidyverse_1.2.1            quantmod_0.4-14           
+## [15] TTR_0.23-4                 PerformanceAnalytics_1.5.2
+## [17] xts_0.11-2                 zoo_1.8-4                 
+## [19] lubridate_1.7.4            readxl_1.2.0              
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] tidyselect_0.2.5 xfun_0.4         haven_2.0.0      lattice_0.20-38 
@@ -91,10 +92,10 @@ hr <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
 hr$Over18 <- NULL
 
 # All employees had 80 standard work hours
-hr$StandardHours <- NULL
+hr$StdHours <- NULL
 
 # All employee counts are 1
-hr$EmployeeCount <- NULL
+hr$EmpCount <- NULL
 
 # Transform Categorical Variables to Indicator Variables
 hr <- hr %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
@@ -121,7 +122,7 @@ hr <- hr %>% mutate(MaritalStat=ifelse(MaritalStat=="Married", 2,
 hr <- hr %>% mutate(OverTime=ifelse(OverTime=="Yes", 1, 0))
 ```
 
-#### Preliminary Analysis continued
+### Preliminary Analysis Continued
 #### Percent Attriton for JobRole, Department, Business Travel, 
 #### Education Field, Years of Education and Marital Status
 
@@ -286,6 +287,18 @@ marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Marital
 ```
 
 ![](MasterCode_files/figure-html/unnamed-chunk-1-7.png)<!-- -->
+
+#### Correlation Plot of all variables
+
+```r
+# Build Correlation Plot
+hrCorr <- cor(hr)
+colnames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
+rownames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
+corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'full', title = "Correlation Plot of all Variables", mar=c(0,0,2,0), diag=FALSE)
+```
+
+![](MasterCode_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 
 ```r
@@ -516,7 +529,7 @@ ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) +
 ![](MasterCode_files/figure-html/4c-1.png)<!-- -->
 
 ```r
-# lm() function fits the Monthly Income and Age variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+# lm() function fits the Monthly Income and Age variables of the Employee dataset with a linear model using Monthly Income as the response variable and Age as the explanatory variable
 # summary() function produces the result summaries of the linear model fit
 # the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
 LinearCorrelation <- lm(MonIncome ~ Age, data = hr)
@@ -545,13 +558,13 @@ summary(LinearCorrelation)
 ```
 
 ```r
-R_squared <- 0.2479
-Correlation.Age_Income <- sqrt(R_squared)
+# R_squared <- 0.2479
+Correlation.Age_Income <- sqrt(summary(LinearCorrelation)$r.squared)
 Correlation.Age_Income
 ```
 
 ```
-## [1] 0.4978956
+## [1] 0.4978546
 ```
 
 ```r
@@ -569,3 +582,177 @@ Attrition
 
 
 
+### Basic Linear Regression
+
+```r
+attritlm <- lm(Attrition ~ ., data = hr)
+summary(attritlm)
+```
+
+```
+## 
+## Call:
+## lm(formula = Attrition ~ ., data = hr)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.59553 -0.21218 -0.08490  0.07369  1.13985 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  6.469e-01  1.367e-01   4.732 2.44e-06 ***
+## Age         -3.796e-03  1.336e-03  -2.842 0.004550 ** 
+## Travel       8.238e-02  1.610e-02   5.118 3.51e-07 ***
+## DailyRate   -3.170e-05  2.137e-05  -1.483 0.138242    
+## Department   7.432e-02  2.410e-02   3.084 0.002080 ** 
+## DisFromHome  3.544e-03  1.059e-03   3.346 0.000841 ***
+## Education    4.802e-04  8.580e-03   0.056 0.955375    
+## EduField     6.668e-03  6.449e-03   1.034 0.301333    
+## EmployeeID  -8.218e-06  1.430e-05  -0.575 0.565631    
+## EnvSatis    -4.030e-02  7.858e-03  -5.129 3.31e-07 ***
+## Gender       3.909e-02  1.755e-02   2.227 0.026111 *  
+## HourlyRate  -2.468e-04  4.231e-04  -0.583 0.559769    
+## JobInvolve  -6.139e-02  1.209e-02  -5.079 4.30e-07 ***
+## JobLevel    -3.584e-02  2.639e-02  -1.358 0.174654    
+## JobRole     -8.061e-03  5.135e-03  -1.570 0.116661    
+## JobSatis    -3.877e-02  7.804e-03  -4.968 7.57e-07 ***
+## MaritalStat -5.388e-02  1.583e-02  -3.403 0.000685 ***
+## MonIncome    1.288e-06  6.002e-06   0.215 0.830133    
+## MonthlyRate  5.262e-07  1.205e-06   0.437 0.662502    
+## NumCoWork    1.691e-02  3.831e-03   4.414 1.09e-05 ***
+## OverTime     2.074e-01  1.918e-02  10.814  < 2e-16 ***
+## SalaryIncr  -3.415e-03  3.697e-03  -0.924 0.355700    
+## PerformRate  2.263e-02  3.748e-02   0.604 0.546003    
+## RelateSatis -2.230e-02  7.968e-03  -2.799 0.005197 ** 
+## StockOption -2.321e-02  1.351e-02  -1.717 0.086129 .  
+## NumWorkYear -3.452e-03  2.404e-03  -1.436 0.151123    
+## TrainTime   -1.258e-02  6.682e-03  -1.882 0.059986 .  
+## WorkLifeBal -2.778e-02  1.216e-02  -2.285 0.022439 *  
+## YearsAtCo    5.970e-03  2.981e-03   2.003 0.045404 *  
+## DuraCurRole -1.026e-02  3.881e-03  -2.644 0.008278 ** 
+## LastPromote  1.110e-02  3.421e-03   3.245 0.001202 ** 
+## CurManage   -1.045e-02  3.979e-03  -2.627 0.008700 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3263 on 1438 degrees of freedom
+## Multiple R-squared:  0.2299,	Adjusted R-squared:  0.2133 
+## F-statistic: 13.85 on 31 and 1438 DF,  p-value: < 2.2e-16
+```
+
+### Stepwise variable selction using AIC as the stop criteria
+
+
+
+```r
+summary(fit1lm)
+```
+
+```
+## 
+## Call:
+## lm(formula = Attrition ~ Age + Travel + DailyRate + Department + 
+##     DisFromHome + EnvSatis + Gender + JobInvolve + JobLevel + 
+##     JobRole + JobSatis + MaritalStat + NumCoWork + OverTime + 
+##     RelateSatis + StockOption + TrainTime + WorkLifeBal + YearsAtCo + 
+##     DuraCurRole + LastPromote + CurManage, data = hr)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.56937 -0.21102 -0.08677  0.06624  1.13606 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  6.897e-01  9.332e-02   7.390 2.46e-13 ***
+## Age         -4.818e-03  1.141e-03  -4.223 2.56e-05 ***
+## Travel       8.170e-02  1.604e-02   5.094 3.96e-07 ***
+## DailyRate   -3.259e-05  2.125e-05  -1.534 0.125267    
+## Department   7.635e-02  2.376e-02   3.214 0.001339 ** 
+## DisFromHome  3.466e-03  1.053e-03   3.293 0.001016 ** 
+## EnvSatis    -3.939e-02  7.811e-03  -5.043 5.16e-07 ***
+## Gender       3.853e-02  1.750e-02   2.201 0.027864 *  
+## JobInvolve  -6.144e-02  1.204e-02  -5.102 3.81e-07 ***
+## JobLevel    -4.119e-02  1.033e-02  -3.989 6.98e-05 ***
+## JobRole     -7.912e-03  5.106e-03  -1.550 0.121469    
+## JobSatis    -3.845e-02  7.754e-03  -4.958 7.95e-07 ***
+## MaritalStat -5.275e-02  1.577e-02  -3.344 0.000847 ***
+## NumCoWork    1.579e-02  3.724e-03   4.240 2.38e-05 ***
+## OverTime     2.076e-01  1.914e-02  10.847  < 2e-16 ***
+## RelateSatis -2.143e-02  7.924e-03  -2.704 0.006929 ** 
+## StockOption -2.433e-02  1.342e-02  -1.813 0.069978 .  
+## TrainTime   -1.209e-02  6.658e-03  -1.816 0.069580 .  
+## WorkLifeBal -2.697e-02  1.212e-02  -2.224 0.026299 *  
+## YearsAtCo    4.707e-03  2.834e-03   1.661 0.096899 .  
+## DuraCurRole -1.027e-02  3.870e-03  -2.654 0.008035 ** 
+## LastPromote  1.138e-02  3.410e-03   3.337 0.000869 ***
+## CurManage   -1.063e-02  3.956e-03  -2.686 0.007320 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3258 on 1447 degrees of freedom
+## Multiple R-squared:  0.2274,	Adjusted R-squared:  0.2156 
+## F-statistic: 19.36 on 22 and 1447 DF,  p-value: < 2.2e-16
+```
+
+### logistic regression
+
+```r
+glm_test <- glm(Attrition ~ ., data = hr, family = binomial(link = "logit"))
+summary(glm_test)
+```
+
+```
+## 
+## Call:
+## glm(formula = Attrition ~ ., family = binomial(link = "logit"), 
+##     data = hr)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1088  -0.5191  -0.2658  -0.1021   3.3955  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  2.083e+00  1.365e+00   1.527 0.126872    
+## Age         -2.996e-02  1.318e-02  -2.273 0.023035 *  
+## Travel       9.287e-01  1.676e-01   5.542 3.00e-08 ***
+## DailyRate   -3.106e-04  2.132e-04  -1.456 0.145270    
+## Department   1.102e+00  2.786e-01   3.955 7.66e-05 ***
+## DisFromHome  4.274e-02  1.042e-02   4.103 4.07e-05 ***
+## Education    1.153e-02  8.488e-02   0.136 0.891973    
+## EduField     7.520e-02  6.583e-02   1.142 0.253346    
+## EmployeeID  -1.388e-04  1.457e-04  -0.952 0.340913    
+## EnvSatis    -4.148e-01  7.983e-02  -5.197 2.03e-07 ***
+## Gender       4.043e-01  1.790e-01   2.259 0.023884 *  
+## HourlyRate  -2.449e-04  4.255e-03  -0.058 0.954091    
+## JobInvolve  -5.353e-01  1.196e-01  -4.475 7.63e-06 ***
+## JobLevel    -3.817e-01  2.823e-01  -1.352 0.176312    
+## JobRole     -1.433e-01  5.462e-02  -2.624 0.008688 ** 
+## JobSatis    -4.190e-01  7.926e-02  -5.286 1.25e-07 ***
+## MaritalStat -5.445e-01  1.671e-01  -3.259 0.001119 ** 
+## MonIncome   -4.089e-05  6.679e-05  -0.612 0.540386    
+## MonthlyRate  2.615e-06  1.215e-05   0.215 0.829552    
+## NumCoWork    1.871e-01  3.698e-02   5.059 4.22e-07 ***
+## OverTime     1.866e+00  1.854e-01  10.067  < 2e-16 ***
+## SalaryIncr  -3.226e-02  3.801e-02  -0.849 0.395994    
+## PerformRate  1.827e-01  3.853e-01   0.474 0.635379    
+## RelateSatis -2.459e-01  8.025e-02  -3.064 0.002187 ** 
+## StockOption -2.563e-01  1.467e-01  -1.747 0.080626 .  
+## NumWorkYear -6.038e-02  2.821e-02  -2.140 0.032359 *  
+## TrainTime   -1.868e-01  7.080e-02  -2.638 0.008337 ** 
+## WorkLifeBal -3.027e-01  1.184e-01  -2.556 0.010590 *  
+## YearsAtCo    1.033e-01  3.751e-02   2.754 0.005888 ** 
+## DuraCurRole -1.493e-01  4.359e-02  -3.426 0.000613 ***
+## LastPromote  1.633e-01  4.069e-02   4.013 5.99e-05 ***
+## CurManage   -1.411e-01  4.505e-02  -3.132 0.001737 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1298.58  on 1469  degrees of freedom
+## Residual deviance:  899.18  on 1438  degrees of freedom
+## AIC: 963.18
+## 
+## Number of Fisher Scoring iterations: 6
+```
