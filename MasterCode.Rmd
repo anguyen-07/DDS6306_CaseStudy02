@@ -261,7 +261,145 @@ for (x in marital_status$MaritalStat)
   marital_status$Percents[marital_status$MaritalStat == x] <- marital_status$n[marital_status$MaritalStat == x] / marital_status$Totals[marital_status$MaritalStat == x] * 100
 }
 marital_status <- as.data.frame(marital_status)
+```
 
+#### Correlation Plot of all variables
+```{r, echo=TRUE, fig.height=8, fig.width=8}
+# Build Correlation Plot
+hrCorr <- cor(hr)
+colnames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
+rownames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
+corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'full', title = "Correlation Plot of all Variables", mar=c(0,0,2,0), diag=FALSE)
+```
+
+``` {r 3b}
+require(pastecs)
+
+# Consider Department, EducationBackground, JobRole, and Gender with Credentials
+Credentials <- hr[,(names(hr) %in%
+                                   c("Age","Education","JobLevel","PerformRate"))]
+                                 
+# Consider Marital Status with Satisfaction
+LifeSatisfaction <- hr[,(names(hr) %in%
+                                  c("DisFromHome","EnvSatis","JobInvolve","JobSatis","RelateSatis","WorkLifeBal"))]
+                              
+# Consider Overtime with Compensation                                  
+Compensation <- hr[,(names(hr) %in%
+                                  c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
+
+Loyalty <- hr[,(names(hr) %in%
+                             c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
+
+stat.desc(Credentials)
+stat.desc(LifeSatisfaction)
+stat.desc(Compensation)
+stat.desc(Loyalty)
+
+require(ggplot2)
+# Histogram of Employee Monthly Incomes
+ggplot(hr, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins = 25) + 
+  labs(title = "Histogram of Monthly Income", x = "Monthly Income", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+# Histogram of Percent Salary Hikes
+ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=4) + 
+  labs(title = "Histogram of Percent Salary Hike", x = "Percent Salary Hike", y = "Frequency") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+``` {r 3c}
+# Frequency Table for Employee Gender
+Gender <- as.data.frame(table(Employee_rawdata$Gender))
+colnames(Gender) <- c("Gender","Frequency")
+Gender
+
+# Frequency Table for Employee Education
+Education <- as.data.frame(table(Employee_rawdata$EduField))
+colnames(Education) <- c("Education","Frequency")
+Education
+
+# Frequency Table for Employee Occupation
+Occupation <- as.data.frame(table(Employee_rawdata$JobRole))
+colnames(Occupation) <- c("Occupation","Frequency")
+Occupation
+```
+
+```{r 3d}
+# Frequency table of Management Positions
+Management <- Occupation[c(4:6),]
+colnames(Management) <- c("Position","Frequency")
+Management
+```
+
+``` {r EDA}
+
+# Labeling Income Level by Annual Salary
+for (i in 1:nrow(hr)) {
+  if (hr$MonIncome[i] < 2500){ # <30k annually
+    hr$IncomeLvl[i] <- "Entry"
+  } else if ((hr$MonIncome[i] >= 2500) & (hr$MonIncome[i] < 4167)){ # 30k - 50k annually
+    hr$IncomeLvl[i] <- "Middle"
+  } else if ((hr$MonIncome[i] >= 4167) & (hr$MonIncome[i] < 6250)){ # 50k - 75k annually
+    hr$IncomeLvl[i] <- "Mid-High"
+  } else if ((hr$MonIncome[i] >= 4167) & (hr$MonIncome[i] < 8333)){ # 75k - 100k annually
+    hr$IncomeLvl[i] <- "High"
+  } else if (hr$MonIncome[i] >= 8333){ # >100k annually
+      hr$IncomeLvl[i] <- "Executive"
+  }
+}
+
+# Table for Attrition by Income Level
+xtabs(~IncomeLvl+Attrition, data = hr)
+
+# Approximating Turnover Cost based on CAP Averages
+# 20.4% of annual salary used for mid-high and high positions for a conservative estimate
+# 125% of annual salary used for executive positions for a conservative estimate
+aprxTOcost <- 0
+for (i in 1:nrow(hr)) {
+  if (hr$IncomeLvl[i] == "Entry"){
+    TOcost <- hr$MonIncome[i]*12*0.161
+  } else if (hr$IncomeLvl[i] == "Middle"){
+    TOcost <- hr$MonIncome[i]*12*0.197
+  } else if (hr$IncomeLvl[i] == "Mid-High"){
+    TOcost <- hr$MonIncome[i]*12*0.204
+  } else if (hr$IncomeLvl[i] == "High"){
+    TOcost <- hr$MonIncome[i]*12*0.204
+  } else if (hr$IncomeLvl[i] == "Executive"){
+    TOcost <- hr$MonIncome[i]*12*1.25
+  }
+aprxTOcost <- aprxTOcost + TOcost
+}
+aprxTOcost
+
+# Percent Attrition by Years with Current Manager
+mytable_curmanage <- xtabs(~CurManage+Attrition, data=Employee_rawdata) 
+round(prop.table(mytable_curmanage,1)*100,2) 
+
+# Percent Attrition by Years with Current Manager and Years at Company
+mytable_curmanage.yearsatco <- xtabs(~CurManage+YearsAtCo+Attrition, data=Employee_rawdata) 
+round(prop.table(mytable_curmanage.yearsatco,1)*100,2) 
+
+# Percet Employy by Number Training Sessions and Job Role
+mytable_manager.traintime<- xtabs(~JobRole+TrainTime, data=Employee_rawdata)
+round(prop.table(mytable_manager.traintime,1)*100,2)
+
+# Table for Stock Option Income Level
+table(hr$IncomeLvl,hr$StockOption)
+
+# Table for Income Level by Job Role
+table(Employee_rawdata$JobRole,hr$IncomeLvl)
+
+# Table for Last Promotion by Job Role
+table(Employee_rawdata$JobRole,hr$LastPromote)
+
+# Table for Performance Rating by Job Role
+table(Employee_rawdata$JobRole,hr$PerformRate)
+
+# Table for Employee Job Satisfaction
+table(hr$JobSatis)
+
+```
+
+``` {r 4b}
 # Percent Attrition by JobRole
 roles %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(JobRole, -Percents), y = Percents, fill=JobRole)) + 
   geom_bar(stat = "identity") + 
@@ -325,71 +463,6 @@ marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Marital
   theme_classic() +
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Marital Status"))
-```
-
-#### Correlation Plot of all variables
-```{r, echo=TRUE, fig.height=8, fig.width=8}
-# Build Correlation Plot
-hrCorr <- cor(hr)
-colnames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
-rownames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Department", "Distance From Home", "Education", "Education Field", "Employee Number", "Environment Satisfaction", "Gender", "Hourly Rate", "Job Involvement", "Job Level", "Job Role", "Job Satisfaction", "Marital Status", "Monthly Income", "Monthly Rate", "Number of Companies Worked", "OverTime", "Percent Salary Hike", "Performance Rating", "Relationship Satisfaction", "Stock Option Level", "Total Working Years", "Training Times Last Year", "Work Life Balance", "Years At Company", "Years In Current Role", "Years Since Last Promotion", "Years With Current Manager")
-corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'full', title = "Correlation Plot of all Variables", mar=c(0,0,2,0), diag=FALSE)
-```
-
-``` {r 3b}
-require(pastecs)
-
-# Consider Department, EducationBackground, JobRole, and Gender with Credentials
-Credentials <- hr[,(names(hr) %in%
-                                   c("Age","Education","JobLevel","PerformRate"))]
-                                 
-# Consider Marital Status with Satisfaction
-LifeSatisfaction <- hr[,(names(hr) %in%
-                                  c("DisFromHome","EnvSatis","JobInvolve","JobSatis","RelateSatis","WorkLifeBal"))]
-                              
-# Consider Overtime with Compensation                                  
-Compensation <- hr[,(names(hr) %in%
-                                  c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
-
-Loyalty <- hr[,(names(hr) %in%
-                             c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
-
-stat.desc(Credentials)
-stat.desc(LifeSatisfaction)
-stat.desc(Compensation)
-stat.desc(Loyalty)
-
-require(ggplot2)
-ggplot(hr, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins = 25) + 
-  labs(title = "Histogram of Monthly Income", x = "Monthly Income", y = "Frequency") + 
-  theme(plot.title = element_text(hjust = 0.5))
-ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=4) + 
-  labs(title = "Histogram of Percent Salary Hike", x = "Percent Salary Hike", y = "Frequency") + 
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-``` {r 3c}
-Gender <- as.data.frame(table(Employee_rawdata$Gender))
-colnames(Gender) <- c("Gender","Frequency")
-Gender
-
-Education <- as.data.frame(table(Employee_rawdata$EduField))
-colnames(Education) <- c("Education","Frequency")
-Education
-
-Occupation <- as.data.frame(table(Employee_rawdata$JobRole))
-colnames(Occupation) <- c("Occupation","Frequency")
-Occupation
-```
-
-```{r 3d}
-Management <- Occupation[c(4:6),]
-colnames(Management) <- c("Position","Frequency")
-Management
-```
-
-``` {r 4b}
-
 ```
 
 ``` {r 4c}
