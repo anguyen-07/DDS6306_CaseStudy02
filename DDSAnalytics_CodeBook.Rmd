@@ -1,0 +1,1420 @@
+---
+dataMaid: yes
+title: DDS Analytics Codebook 
+date: 2019-04-13
+output: 
+  html_document:
+    keep_md: TRUE
+  
+---
+```{r , echo=FALSE, include=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+library("ggplot2")
+library("pander")
+```
+```{r 'visualFunctions', echo=FALSE, include=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+ggAggHist <- getFromNamespace("ggAggHist", "dataMaid")
+ggAggBarplot <- getFromNamespace("ggAggBarplot", "dataMaid")
+```
+# Data report overview
+The dataset examined has the following dimensions:
+
+
+---------------------------------
+Feature                    Result
+------------------------ --------
+Number of observations       1470
+
+Number of variables            35
+---------------------------------
+
+
+
+
+# Codebook summary table
+
+--------------------------------------------------------------------
+  Variable            Class         # unique  Missing  Description  
+                                      values                        
+--------------------- ----------- ---------- --------- -------------
+  **[Age]**           numeric             43  0.00 %   Employee Age            
+  
+  **[Attrition]**     numeric              2  0.00 %   Attrition              
+  
+  **[Travel]**        numeric              3  0.00 %   Business Travel              
+  
+  **[DailyRate]**     numeric            886  0.00 %   Daily Rate             
+  
+  **[Department]**    numeric              3  0.00 %   Department             
+  
+  **[DisFromHome]**   numeric             29  0.00 %   Distance From Home             
+  
+  **[Education]**     numeric              5  0.00 %   Education Level              
+  
+  **[EduField]**      numeric              6  0.00 %   Field of Education             
+  
+  **[EmpCount]**      numeric              1  0.00 %   Employee Count              
+  
+  **[EmployeeID]**    numeric           1470  0.00 %   Employee ID             
+  
+  **[EnvSatis]**      numeric              4  0.00 %   Environmental Satisfaction             
+  
+  **[Gender]**        numeric              2  0.00 %   Gender             
+  
+  **[HourlyRate]**    numeric             71  0.00 %   Hourly Rate             
+  
+  **[JobInvolve]**    numeric              4  0.00 %   Job Involvement             
+  
+  **[JobLevel]**      numeric              5  0.00 %   Job Level              
+  
+  **[JobRole]**       numeric              9  0.00 %   Job Role              
+  
+  **[JobSatis]**      numeric              4  0.00 %   Job Satisfaction             
+  
+  **[MaritalStat]**   numeric              3  0.00 %   Marital Status             
+  
+  **[MonIncome]**     numeric           1349  0.00 %   Monthly Income             
+  
+  **[MonthlyRate]**   numeric           1427  0.00 %   Monthly Rate             
+  
+  **[NumCoWork]**     numeric             10  0.00 %   Number of Companies Worked             
+  
+  **[Over18]**        character            1  0.00 %   Over Age 18              
+  
+  **[OverTime]**      numeric              2  0.00 %   OverTime             
+  
+  **[SalaryIncr]**    numeric             15  0.00 %   Percent Salary Hike             
+  
+  **[PerformRate]**   numeric              2  0.00 %   Performance Rate             
+  
+  **[RelateSatis]**   numeric              4  0.00 %   Relationship Satisfaction             
+  
+  **[StdHours]**      numeric              1  0.00 %   Standard Hours             
+  
+  **[StockOption]**   numeric              4  0.00 %   Stock Option Level             
+  
+  **[NumWorkYear]**   numeric             40  0.00 %   Total Working Years              
+  
+  **[TrainTime]**     numeric              7  0.00 %   Training Times Last Year             
+  
+  **[WorkLifeBal]**   numeric              4  0.00 %   Work/Life Balance              
+  
+  **[YearsAtCo]**     numeric             37  0.00 %   Years at Company             
+  
+  **[DuraCurRole]**   numeric             19  0.00 %   Years in Current Role              
+  
+  **[LastPromote]**   numeric             16  0.00 %   Years since Last Promotion             
+  
+  **[CurManage]**     numeric             18  0.00 %   Years with Current Manager             
+--------------------------------------------------------------------
+
+
+
+
+# Variable list
+## Age
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          43
+
+Median                           36
+
+1st and 3rd quartiles        30; 43
+
+Min. and max.                18; 60
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-1-Age', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(15L, 20L, 25L, 30L, 
+35L, 40L, 45L, 50L, 55L), xmax = c(20L, 25L, 30L, 35L, 40L, 45L, 
+50L, 55L, 60L), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(28L, 
+95L, 263L, 343L, 276L, 192L, 130L, 96L, 47L)), class = "data.frame", row.names = c(NA, 
+-9L)), vnam = "Age")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## Attrition
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           2
+
+Median                            0
+
+1st and 3rd quartiles          0; 0
+
+Min. and max.                  0; 1
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-2-Attrition', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 0.1, 0.2, 0.3, 0.4, 
+0.5, 0.6, 0.7, 0.8, 0.9), xmax = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 
+0.7, 0.8, 0.9, 1), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(1233L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 237L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "Attrition")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## Travel
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           3
+
+Median                            2
+
+1st and 3rd quartiles          2; 2
+
+Min. and max.                  1; 3
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-3-Travel', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8), xmax = c(1.2, 1.4, 1.6, 1.8, 2, 2.2, 
+2.4, 2.6, 2.8, 3), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(150L, 
+0L, 0L, 0L, 1043L, 0L, 0L, 0L, 0L, 277L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "Travel")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## DailyRate
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-------------------------------------
+Feature                        Result
+------------------------- -----------
+Variable type                 numeric
+
+Number of missing obs.        0 (0 %)
+
+Number of unique values           886
+
+Median                            802
+
+1st and 3rd quartiles       465; 1157
+
+Min. and max.               102; 1499
+-------------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-4-DailyRate', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(100L, 200L, 300L, 400L, 
+500L, 600L, 700L, 800L, 900L, 1000L, 1100L, 1200L, 1300L, 1400L
+), xmax = c(200L, 300L, 400L, 500L, 600L, 700L, 800L, 900L, 1000L, 
+1100L, 1200L, 1300L, 1400L, 1500L), ymin = c(0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0), ymax = c(106L, 91L, 103L, 105L, 123L, 
+119L, 86L, 107L, 107L, 90L, 111L, 105L, 123L, 94L)), class = "data.frame", row.names = c(NA, 
+-14L)), vnam = "DailyRate")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## Department
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           3
+
+Median                            2
+
+1st and 3rd quartiles          2; 3
+
+Min. and max.                  1; 3
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-5-Department', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8), xmax = c(1.2, 1.4, 1.6, 1.8, 2, 2.2, 
+2.4, 2.6, 2.8, 3), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(63L, 
+0L, 0L, 0L, 961L, 0L, 0L, 0L, 0L, 446L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "Department")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## DisFromHome
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          29
+
+Median                            7
+
+1st and 3rd quartiles         2; 14
+
+Min. and max.                 1; 29
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-6-DisFromHome', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 2, 4, 6, 8, 10, 12, 
+14, 16, 18, 20, 22, 24, 26, 28), xmax = c(2, 4, 6, 8, 10, 12, 
+14, 16, 18, 20, 22, 24, 26, 28, 30), ymin = c(0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(419L, 148L, 124L, 164L, 
+171L, 49L, 40L, 58L, 46L, 47L, 37L, 55L, 50L, 35L, 27L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "DisFromHome")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## Education
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           5
+
+Median                            3
+
+1st and 3rd quartiles          2; 4
+
+Min. and max.                  1; 5
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-7-Education', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.5, 2, 2.5, 3, 3.5, 
+4, 4.5), xmax = c(1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5), ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0), ymax = c(170L, 282L, 0L, 572L, 0L, 398L, 
+0L, 48L)), class = "data.frame", row.names = c(NA, -8L)), vnam = "Education")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## EduField
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           6
+
+Median                            3
+
+1st and 3rd quartiles          2; 4
+
+Min. and max.                  1; 6
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-8-EduField', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.5, 2, 2.5, 3, 3.5, 
+4, 4.5, 5, 5.5), xmax = c(1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 
+6), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(27L, 606L, 
+0L, 159L, 0L, 464L, 0L, 82L, 0L, 132L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "EduField")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## EmpCount
+
+* The variable only takes one (non-missing) value: \"1\". The variable contains 0 \% missing observations.
+
+
+
+---
+
+## EmployeeID
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-------------------------------------------
+Feature                              Result
+------------------------- -----------------
+Variable type                       numeric
+
+Number of missing obs.              0 (0 %)
+
+Number of unique values                1470
+
+Median                               1020.5
+
+1st and 3rd quartiles       491.25; 1555.75
+
+Min. and max.                       1; 2068
+-------------------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-10-EmployeeID', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 200, 400, 600, 800, 
+1000, 1200, 1400, 1600, 1800, 2000), xmax = c(200, 400, 600, 
+800, 1000, 1200, 1400, 1600, 1800, 2000, 2200), ymin = c(0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(149L, 144L, 155L, 129L, 
+140L, 141L, 136L, 140L, 151L, 137L, 48L)), class = "data.frame", row.names = c(NA, 
+-11L)), vnam = "EmployeeID")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## EnvSatis
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           4
+
+Median                            3
+
+1st and 3rd quartiles          2; 4
+
+Min. and max.                  1; 4
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-11-EnvSatis', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8), xmax = c(1.2, 
+1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 
+4), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(284L, 
+0L, 0L, 0L, 287L, 0L, 0L, 0L, 0L, 453L, 0L, 0L, 0L, 0L, 446L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "EnvSatis")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## Gender
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           2
+
+Median                            1
+
+1st and 3rd quartiles          0; 1
+
+Min. and max.                  0; 1
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-12-Gender', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 0.1, 0.2, 0.3, 0.4, 
+0.5, 0.6, 0.7, 0.8, 0.9), xmax = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 
+0.7, 0.8, 0.9, 1), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(588L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 882L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "Gender")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## HourlyRate
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-------------------------------------
+Feature                        Result
+------------------------- -----------
+Variable type                 numeric
+
+Number of missing obs.        0 (0 %)
+
+Number of unique values            71
+
+Median                             66
+
+1st and 3rd quartiles       48; 83.75
+
+Min. and max.                 30; 100
+-------------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-13-HourlyRate', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(30L, 35L, 40L, 45L, 
+50L, 55L, 60L, 65L, 70L, 75L, 80L, 85L, 90L, 95L), xmax = c(35L, 
+40L, 45L, 50L, 55L, 60L, 65L, 70L, 75L, 80L, 85L, 90L, 95L, 100L
+), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(107L, 
+84L, 115L, 103L, 104L, 114L, 97L, 93L, 107L, 111L, 113L, 103L, 
+104L, 115L)), class = "data.frame", row.names = c(NA, -14L)), 
+    vnam = "HourlyRate")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## JobInvolve
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           4
+
+Median                            3
+
+1st and 3rd quartiles          2; 3
+
+Min. and max.                  1; 4
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-14-JobInvolve', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8), xmax = c(1.2, 
+1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 
+4), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(83L, 
+0L, 0L, 0L, 375L, 0L, 0L, 0L, 0L, 868L, 0L, 0L, 0L, 0L, 144L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "JobInvolve")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## JobLevel
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           5
+
+Median                            2
+
+1st and 3rd quartiles          1; 3
+
+Min. and max.                  1; 5
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-15-JobLevel', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.5, 2, 2.5, 3, 3.5, 
+4, 4.5), xmax = c(1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5), ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0), ymax = c(543L, 534L, 0L, 218L, 0L, 106L, 
+0L, 69L)), class = "data.frame", row.names = c(NA, -8L)), vnam = "JobLevel")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## JobRole
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           9
+
+Median                            6
+
+1st and 3rd quartiles          3; 8
+
+Min. and max.                  0; 9
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-16-JobRole', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 1, 2, 3, 4, 5, 6, 
+7, 8), xmax = c(1, 2, 3, 4, 5, 6, 7, 8, 9), ymin = c(0, 0, 0, 
+0, 0, 0, 0, 0, 0), ymax = c(52L, 131L, 259L, 102L, 145L, 80L, 
+292L, 326L, 83L)), class = "data.frame", row.names = c(NA, -9L
+)), vnam = "JobRole")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## JobSatis
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           4
+
+Median                            3
+
+1st and 3rd quartiles          2; 4
+
+Min. and max.                  1; 4
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-17-JobSatis', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8), xmax = c(1.2, 
+1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 
+4), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(289L, 
+0L, 0L, 0L, 280L, 0L, 0L, 0L, 0L, 442L, 0L, 0L, 0L, 0L, 459L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "JobSatis")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## MaritalStat
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           3
+
+Median                            2
+
+1st and 3rd quartiles          1; 2
+
+Min. and max.                  1; 3
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-18-MaritalStat', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8), xmax = c(1.2, 1.4, 1.6, 1.8, 2, 2.2, 
+2.4, 2.6, 2.8, 3), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(470L, 
+0L, 0L, 0L, 673L, 0L, 0L, 0L, 0L, 327L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "MaritalStat")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## MonIncome
+
+<div class = "row">
+<div class = "col-lg-8">
+
+---------------------------------------
+Feature                          Result
+------------------------- -------------
+Variable type                   numeric
+
+Number of missing obs.          0 (0 %)
+
+Number of unique values            1349
+
+Median                             4919
+
+1st and 3rd quartiles        2911; 8379
+
+Min. and max.               1009; 19999
+---------------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-19-MonIncome', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 2000, 4000, 6000, 
+8000, 10000, 12000, 14000, 16000, 18000), xmax = c(2000, 4000, 
+6000, 8000, 10000, 12000, 14000, 16000, 18000, 20000), ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(33L, 510L, 371L, 175L, 100L, 
+86L, 53L, 16L, 57L, 69L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "MonIncome")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## MonthlyRate
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------------
+Feature                            Result
+------------------------- ---------------
+Variable type                     numeric
+
+Number of missing obs.            0 (0 %)
+
+Number of unique values              1427
+
+Median                            14235.5
+
+1st and 3rd quartiles       8047; 20461.5
+
+Min. and max.                 2094; 26999
+-----------------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-20-MonthlyRate', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(2000L, 4000L, 6000L, 
+8000L, 10000L, 12000L, 14000L, 16000L, 18000L, 20000L, 22000L, 
+24000L, 26000L), xmax = c(4000L, 6000L, 8000L, 10000L, 12000L, 
+14000L, 16000L, 18000L, 20000L, 22000L, 24000L, 26000L, 28000L
+), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(110L, 
+130L, 123L, 124L, 118L, 116L, 114L, 120L, 117L, 119L, 131L, 99L, 
+49L)), class = "data.frame", row.names = c(NA, -13L)), vnam = "MonthlyRate")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## NumCoWork
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          10
+
+Median                            2
+
+1st and 3rd quartiles          1; 4
+
+Min. and max.                  0; 9
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-21-NumCoWork', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 1, 2, 3, 4, 5, 6, 
+7, 8), xmax = c(1, 2, 3, 4, 5, 6, 7, 8, 9), ymin = c(0, 0, 0, 
+0, 0, 0, 0, 0, 0), ymax = c(718L, 146L, 159L, 139L, 63L, 70L, 
+74L, 49L, 52L)), class = "data.frame", row.names = c(NA, -9L)), 
+    vnam = "NumCoWork")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## Over18
+
+* The variable only takes one (non-missing) value: \"Y\". The variable contains 0 \% missing observations.
+
+
+
+---
+
+## OverTime
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           2
+
+Median                            0
+
+1st and 3rd quartiles          0; 1
+
+Min. and max.                  0; 1
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-23-OverTime', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 0.1, 0.2, 0.3, 0.4, 
+0.5, 0.6, 0.7, 0.8, 0.9), xmax = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 
+0.7, 0.8, 0.9, 1), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(1054L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 416L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "OverTime")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## SalaryIncr
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          15
+
+Median                           14
+
+1st and 3rd quartiles        12; 18
+
+Min. and max.                11; 25
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-24-SalaryIncr', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = 11:24, xmax = 12:25, ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(408L, 209L, 
+201L, 101L, 78L, 82L, 89L, 76L, 55L, 48L, 56L, 28L, 21L, 18L)), class = "data.frame", row.names = c(NA, 
+-14L)), vnam = "SalaryIncr")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## PerformRate
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           2
+
+Median                            3
+
+1st and 3rd quartiles          3; 3
+
+Min. and max.                  3; 4
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-25-PerformRate', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(3, 3.1, 3.2, 3.3, 3.4, 
+3.5, 3.6, 3.7, 3.8, 3.9), xmax = c(3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 
+3.7, 3.8, 3.9, 4), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(1244L, 
+0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 226L)), class = "data.frame", row.names = c(NA, 
+-10L)), vnam = "PerformRate")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## RelateSatis
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           4
+
+Median                            3
+
+1st and 3rd quartiles          2; 4
+
+Min. and max.                  1; 4
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-26-RelateSatis', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8), xmax = c(1.2, 
+1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 
+4), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(276L, 
+0L, 0L, 0L, 303L, 0L, 0L, 0L, 0L, 459L, 0L, 0L, 0L, 0L, 432L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "RelateSatis")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## StdHours
+
+* The variable only takes one (non-missing) value: \"80\". The variable contains 0 \% missing observations.
+
+
+
+---
+
+## StockOption
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           4
+
+Median                            1
+
+1st and 3rd quartiles          0; 1
+
+Min. and max.                  0; 3
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-28-StockOption', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 0.2, 0.4, 0.6, 0.8, 
+1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8), xmax = c(0.2, 
+0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 
+3), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(631L, 
+0L, 0L, 0L, 596L, 0L, 0L, 0L, 0L, 158L, 0L, 0L, 0L, 0L, 85L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "StockOption")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## NumWorkYear
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          40
+
+Median                           10
+
+1st and 3rd quartiles         6; 15
+
+Min. and max.                 0; 40
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-29-NumWorkYear', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 5, 10, 15, 20, 25, 
+30, 35), xmax = c(5, 10, 15, 20, 25, 30, 35, 40), ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0), ymax = c(316L, 607L, 191L, 149L, 109L, 
+52L, 33L, 13L)), class = "data.frame", row.names = c(NA, -8L)), 
+    vnam = "NumWorkYear")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## TrainTime
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           7
+
+Median                            3
+
+1st and 3rd quartiles          2; 3
+
+Min. and max.                  0; 6
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-30-TrainTime', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 0.5, 1, 1.5, 2, 2.5, 
+3, 3.5, 4, 4.5, 5, 5.5), xmax = c(0.5, 1, 1.5, 2, 2.5, 3, 3.5, 
+4, 4.5, 5, 5.5, 6), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0), ymax = c(54L, 71L, 0L, 547L, 0L, 491L, 0L, 123L, 0L, 119L, 
+0L, 65L)), class = "data.frame", row.names = c(NA, -12L)), vnam = "TrainTime")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## WorkLifeBal
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values           4
+
+Median                            3
+
+1st and 3rd quartiles          2; 3
+
+Min. and max.                  1; 4
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-31-WorkLifeBal', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(1, 1.2, 1.4, 1.6, 1.8, 
+2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8), xmax = c(1.2, 
+1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 
+4), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), ymax = c(80L, 
+0L, 0L, 0L, 344L, 0L, 0L, 0L, 0L, 893L, 0L, 0L, 0L, 0L, 153L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "WorkLifeBal")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## YearsAtCo
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          37
+
+Median                            5
+
+1st and 3rd quartiles          3; 9
+
+Min. and max.                 0; 40
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-32-YearsAtCo', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 5, 10, 15, 20, 25, 
+30, 35), xmax = c(5, 10, 15, 20, 25, 30, 35, 40), ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0), ymax = c(776L, 448L, 108L, 72L, 41L, 9L, 
+12L, 4L)), class = "data.frame", row.names = c(NA, -8L)), vnam = "YearsAtCo")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## DuraCurRole
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          19
+
+Median                            3
+
+1st and 3rd quartiles          2; 7
+
+Min. and max.                 0; 18
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-33-DuraCurRole', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 2, 4, 6, 8, 10, 12, 
+14, 16), xmax = c(2, 4, 6, 8, 10, 12, 14, 16, 18), ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0, 0), ymax = c(673L, 239L, 73L, 311L, 96L, 
+32L, 25L, 15L, 6L)), class = "data.frame", row.names = c(NA, 
+-9L)), vnam = "DuraCurRole")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## LastPromote
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          16
+
+Median                            1
+
+1st and 3rd quartiles          0; 3
+
+Min. and max.                 0; 15
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-34-LastPromote', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 1, 2, 3, 4, 5, 6, 
+7, 8, 9, 10, 11, 12, 13, 14), xmax = c(1, 2, 3, 4, 5, 6, 7, 8, 
+9, 10, 11, 12, 13, 14, 15), ymin = c(0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0), ymax = c(938L, 159L, 52L, 61L, 45L, 32L, 
+76L, 18L, 17L, 6L, 24L, 10L, 10L, 9L, 13L)), class = "data.frame", row.names = c(NA, 
+-15L)), vnam = "LastPromote")
+```
+</div>
+</div>
+
+
+
+
+---
+
+## CurManage
+
+<div class = "row">
+<div class = "col-lg-8">
+
+-----------------------------------
+Feature                      Result
+------------------------- ---------
+Variable type               numeric
+
+Number of missing obs.      0 (0 %)
+
+Number of unique values          18
+
+Median                            3
+
+1st and 3rd quartiles          2; 7
+
+Min. and max.                 0; 17
+-----------------------------------
+
+
+</div>
+<div class = "col-lg-4">
+```{r 'Var-35-CurManage', echo=FALSE, fig.width=4, fig.height=3, message=FALSE, warning=FALSE}
+ggAggHist(data = structure(list(xmin = c(0, 2, 4, 6, 8, 10, 12, 
+14, 16), xmax = c(2, 4, 6, 8, 10, 12, 14, 16, 18), ymin = c(0, 
+0, 0, 0, 0, 0, 0, 0, 0), ymax = c(683L, 240L, 60L, 323L, 91L, 
+40L, 19L, 7L, 7L)), class = "data.frame", row.names = c(NA, -9L
+)), vnam = "CurManage")
+```
+</div>
+</div>
+
+
+
+
+---
+
+
+
+Report generation information:
+
+ *  Created by Richard Hart (username: `Richard`).
+
+ *  Report creation time: Sat Apr 13 2019 15:55:26
+
+ *  Report was run from directory: `D:/Dropbox/Git_Projects/DDS6306_CaseStudy02`
+
+ *  dataMaid v1.2.0 [Pkg: 2018-10-03 from CRAN (R 3.5.3)]
+
+ *  R version 3.5.2 (2018-12-20).
+
+ *  Platform: x86_64-w64-mingw32/x64 (64-bit)(Windows >= 8 x64 (build 9200)).
+
+ *  Function call: `makeDataReport(data = hr, mode = c("summarize", "visualize", 
+"check"), smartNum = FALSE, file = "codebook_hr.Rmd", checks = list(
+    character = "showAllFactorLevels", factor = "showAllFactorLevels", 
+    labelled = "showAllFactorLevels", haven_labelled = "showAllFactorLevels", 
+    numeric = NULL, integer = NULL, logical = NULL, Date = NULL), 
+    listChecks = FALSE, maxProbVals = Inf, codebook = TRUE, reportTitle = "Codebook for hr")`
+

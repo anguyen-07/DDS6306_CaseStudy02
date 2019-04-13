@@ -31,14 +31,17 @@ sessionInfo()
 All organizations experience attrtion through the normal course of business. Natural attrition occurs in many ways, such as retirement, resignation, and termination of individual employees, or through downsizing or restructuring of the company. However, organizations should keep an eye on attrition to ensure they retain experienced talent and don't waste resources replacing good employees. Additionally, attrition can act as a barometer for the organization's overall health and corporate culture.
 So how does the organization know whether its turnover rate is "good" or "bad"? What should the organization's target attrition rate be? To answer that question, the organization needs know two things: 1) What is the organization's current turnover rate, and 2) What is the average turnover rate for the industry.
 
-### Clean Raw Data
-  * There are 1470 rows and 35 columns in the employee raw data frame.
+### 2A. Clean Raw Data
+
 ``` {r 2a}
 require(readxl)
 Employee_rawdata <- as.data.frame(read_excel("Data/CaseStudy2-data.xlsx"))
 dim(Employee_rawdata)
 emp <- Employee_rawdata
 ```
+  * There are 1470 rows and 35 columns in the employee raw data frame.
+
+### 2B
 
 ``` {r 2b, include = FALSE, echo = FALSE}
 for (i in 1:ncol(Employee_rawdata)) {
@@ -140,7 +143,7 @@ mytable_yearswithmanager<- xtabs(~CurManage+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearswithmanager,1)*100,2)
 ```
 
-### Prelimary Analysis
+### 3A. Prelimary Analysis
 
 ``` {r 3a}
 # All employees are older than 18
@@ -253,6 +256,8 @@ rownames(hrCorr) <- c("Age", "Attrition", "Business Travel", "Daily Rate", "Depa
 corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'full', title = "Correlation Plot of all Variables", mar=c(0,0,2,0), diag=FALSE)
 ```
 
+### 3B
+
 ``` {r 3b}
 require(pastecs)
 # Consider Department, EducationBackground, JobRole, and Gender with Credentials
@@ -286,6 +291,8 @@ ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=
 * The histogram for Employee Monthly Income has a distribution skewed to the right with a long-tail. This makes sense because a few executive position salaries will skew the distribution heavily to the right because they demand salaries greater than the company average.
 * The histogram for Percent Salary Hike in Employee salaries has a nearly normal distribution, but exhibits a slight right-skew.
 
+### 3C
+
 ``` {r 3c}
 # Frequency Table for Employee Gender
 Gender <- as.data.frame(table(Employee_rawdata$Gender))
@@ -300,6 +307,8 @@ Occupation <- as.data.frame(table(Employee_rawdata$JobRole))
 colnames(Occupation) <- c("Occupation","Frequency")
 Occupation
 ```
+
+### 3D
 
 ```{r 3d}
 # Frequency table of Management Positions
@@ -366,6 +375,8 @@ table(Employee_rawdata$JobRole,hr$PerformRate)
 table(hr$JobSatis)
 ```
 
+### 4B
+
 ``` {r 4b}
 # Percent Attrition by JobRole
 roles %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(JobRole, -Percents), y = Percents, fill=JobRole)) + 
@@ -426,6 +437,8 @@ marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Marital
   guides(fill=guide_legend(title="Marital Status"))
 ```
 
+### 4C
+
 ``` {r 4c}
 ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) + 
             geom_point() + 
@@ -447,24 +460,16 @@ Attrition
 ```
 * There is an apparent relationship between Age and Income. The correlation coefficient of 0.4979 indicates a moderate positive linear correlation between Age and Income.
 
-``` {r 4d}
+### 4D
+
+```{r 4d}
+fit <- lm(Employee_rawdata$Age ~ Employee_rawdata$JobSatis + Employee_rawdata$RelateSatis + Employee_rawdata$WorkLifeBal )
+summary(fit)
+pairs(~Employee_rawdata$Age + Employee_rawdata$JobSatis + Employee_rawdata$RelateSatis + Employee_rawdata$WorkLifeBal)
 ```
 
-
-### Basic Linear Regression
-```{r,echo=TRUE}
-attritlm <- lm(Attrition ~ ., data = hr)
-summary(attritlm)
-```
-
-### Stepwise variable selction using AIC as the stop criteria
-```{r, include=FALSE}
-fit1lm <- stepAIC(attritlm, direction = "both")
-```
-
-```{r, echo=TRUE}
-summary(fit1lm)
-```
+* Life Satisfaction -  Summing the Satisfaction variables (Job, Relationship) and Work Life Balance variable to create a Life Satisfaction score.  Comparing separately to Current and Former Employees.   
+* Findings -  No correlation of between Age and Life Satisfaction variable were identified.
 
 ### Basic Linear Regression
 ```{r train_test, include=TRUE}
@@ -577,4 +582,5 @@ kable(df, caption="Attrition Prediction Table") %>%
 Data analysis indicates that DDSAnalytics has higher attrition rates among younger people, which according to SHRM (the Society of Human Resource Management) is more common among that demographic in part due to the low unemployment rate in the current economy which makes it a job seeker's market. Another reason younger people may leave jobs is simply because as a demographic, younger people tend to continuously seek better employment opportunities.
 Data analysis indicates that DDSAnalytics also has somewhat high attrition rates among employees with fewer years at the company. This is in line with the industry, and an effective way to curb this is to tweak the company's recruitment process and improve onboarding procedures. Ensuring potential hires have realistic expectations of the company and a good understanding of DDSAnalytics' corporate culture, and helping them develop loyalty to the company through an immersive onboarding process are two ways to reduce attrition for employees with less than two years of service with the company.
 Finally, data analysis indicates that overall employee satisfaction with their job and the work environment, feeling involved in their job role, and a good work/life balance all have a significant impact on overall attrition. DDSAnalytics can reduce attrition rates resulting from these factors by introducing a flexible work schedule, involving employees in relevant decisionmaking processes, and reconfiguring the amount of overtime and/or business travel required.
+
 

@@ -15,15 +15,17 @@ sessionInfo()
 
 ```
 ## R version 3.5.2 (2018-12-20)
-## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS High Sierra 10.13.6
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 17763)
 ## 
 ## Matrix products: default
-## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
-## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -34,25 +36,25 @@ sessionInfo()
 ##  [5] rpart.plot_3.0.6           rpart_4.1-13              
 ##  [7] MASS_7.3-51.1              corrplot_0.84             
 ##  [9] pastecs_1.3.21             tidyquant_0.5.5           
-## [11] forcats_0.4.0              stringr_1.3.1             
+## [11] forcats_0.3.0              stringr_1.4.0             
 ## [13] dplyr_0.7.8                purrr_0.2.5               
 ## [15] readr_1.3.1                tidyr_0.8.2               
-## [17] tibble_2.0.0               ggplot2_3.1.0             
+## [17] tibble_1.4.2               ggplot2_3.1.0             
 ## [19] tidyverse_1.2.1            quantmod_0.4-14           
 ## [21] TTR_0.23-4                 PerformanceAnalytics_1.5.2
 ## [23] xts_0.11-2                 zoo_1.8-4                 
-## [25] lubridate_1.7.4            readxl_1.3.1              
+## [25] lubridate_1.7.4            readxl_1.2.0              
 ## [27] kableExtra_1.1.0           knitr_1.21                
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] nlme_3.1-137       webshot_0.5.1      httr_1.4.0        
 ##  [4] tools_3.5.2        backports_1.1.3    R6_2.3.0          
 ##  [7] lazyeval_0.2.1     colorspace_1.3-2   nnet_7.3-12       
-## [10] withr_2.1.2        tidyselect_0.2.5   curl_3.3          
+## [10] withr_2.1.2        tidyselect_0.2.5   curl_3.2          
 ## [13] compiler_3.5.2     cli_1.0.1          rvest_0.3.2       
 ## [16] xml2_1.2.0         scales_1.0.0       quadprog_1.5-5    
 ## [19] digest_0.6.18      rmarkdown_1.11     pkgconfig_2.0.2   
-## [22] htmltools_0.3.6    rlang_0.3.1        rstudioapi_0.9.0  
+## [22] htmltools_0.3.6    rlang_0.3.0.1      rstudioapi_0.8    
 ## [25] bindr_0.1.1        generics_0.0.2     jsonlite_1.6      
 ## [28] ModelMetrics_1.2.2 magrittr_1.5       Matrix_1.2-15     
 ## [31] Rcpp_1.0.0         Quandl_2.9.1       munsell_0.5.0     
@@ -61,21 +63,35 @@ sessionInfo()
 ## [40] haven_2.0.0        splines_3.5.2      hms_0.4.2         
 ## [43] pillar_1.3.1       boot_1.3-20        stats4_3.5.2      
 ## [46] reshape2_1.4.3     codetools_0.2-15   glue_1.3.0        
-## [49] evaluate_0.12      data.table_1.12.0  modelr_0.1.4      
+## [49] evaluate_0.13      data.table_1.12.0  modelr_0.1.4      
 ## [52] foreach_1.4.4      cellranger_1.1.0   gtable_0.2.0      
-## [55] assertthat_0.2.0   xfun_0.4           gower_0.2.0       
+## [55] assertthat_0.2.0   xfun_0.4           gower_0.1.2       
 ## [58] prodlim_2018.04.18 broom_0.5.1        class_7.3-14      
 ## [61] survival_2.43-3    viridisLite_0.3.0  timeDate_3043.102 
-## [64] iterators_1.0.10   lava_1.6.5         bindrcpp_0.2.2    
+## [64] iterators_1.0.10   lava_1.6.4         bindrcpp_0.2.2    
 ## [67] ipred_0.9-8
 ```
 
-### Clean Raw Data
-  * There are 1470 rows and 35 columns in the employee raw data frame.
+# Introduction
+All organizations experience attrtion through the normal course of business. Natural attrition occurs in many ways, such as retirement, resignation, and termination of individual employees, or through downsizing or restructuring of the company. However, organizations should keep an eye on attrition to ensure they retain experienced talent and don't waste resources replacing good employees. Additionally, attrition can act as a barometer for the organization's overall health and corporate culture.
+So how does the organization know whether its turnover rate is "good" or "bad"? What should the organization's target attrition rate be? To answer that question, the organization needs know two things: 1) What is the organization's current turnover rate, and 2) What is the average turnover rate for the industry.
+
+### 2A. Clean Raw Data
+
 
 ```r
 require(readxl)
-Employee_rawdata <- as.data.frame(read_excel("CaseStudy2-data.xlsx"))
+Employee_rawdata <- as.data.frame(read_excel("Data/CaseStudy2-data.xlsx"))
+```
+
+```
+## readxl works best with a newer version of the tibble package.
+## You currently have tibble v1.4.2.
+## Falling back to column name repair from tibble <= v1.4.2.
+## Message displays once per session.
+```
+
+```r
 dim(Employee_rawdata)
 ```
 
@@ -86,6 +102,9 @@ dim(Employee_rawdata)
 ```r
 emp <- Employee_rawdata
 ```
+  * There are 1470 rows and 35 columns in the employee raw data frame.
+
+### 2B
 
 
 
@@ -504,7 +523,7 @@ round(prop.table(mytable_yearswithmanager,1)*100,2)
 ##        17 100.00   0.00
 ```
 
-### Prelimary Analysis
+### 3A. Prelimary Analysis
 
 
 ```r
@@ -621,6 +640,8 @@ corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'ful
 ```
 
 ![](MasterCode_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
+### 3B
 
 
 ```r
@@ -774,6 +795,11 @@ ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=
 
 ![](MasterCode_files/figure-html/3b-2.png)<!-- -->
 
+* The histogram for Employee Monthly Income has a distribution skewed to the right with a long-tail. This makes sense because a few executive position salaries will skew the distribution heavily to the right because they demand salaries greater than the company average.
+* The histogram for Percent Salary Hike in Employee salaries has a nearly normal distribution, but exhibits a slight right-skew.
+
+### 3C
+
 
 ```r
 # Frequency Table for Employee Gender
@@ -825,6 +851,8 @@ Occupation
 ## 9      Sales Representative        83
 ```
 
+### 3D
+
 
 ```r
 # Frequency table of Management Positions
@@ -871,29 +899,30 @@ xtabs(~IncomeLvl+Attrition, data = hr)
 ```
 
 ```r
+hr_TOcost <- hr[which(hr$Attrition == 1),]
 # Approximating Turnover Cost based on CAP Averages
 # 20.4% of annual salary used for mid-high and high positions for a conservative estimate
 # 125% of annual salary used for executive positions for a conservative estimate
 aprxTOcost <- 0
-for (i in 1:nrow(hr)) {
-  if (hr$IncomeLvl[i] == "Entry"){
-    TOcost <- hr$MonIncome[i]*12*0.161
-  } else if (hr$IncomeLvl[i] == "Middle"){
-    TOcost <- hr$MonIncome[i]*12*0.197
-  } else if (hr$IncomeLvl[i] == "Mid-High"){
-    TOcost <- hr$MonIncome[i]*12*0.204
-  } else if (hr$IncomeLvl[i] == "High"){
-    TOcost <- hr$MonIncome[i]*12*0.204
-  } else if (hr$IncomeLvl[i] == "Executive"){
-    TOcost <- hr$MonIncome[i]*12*1.25
+for (i in 1:nrow(hr_TOcost)) {
+  if (hr_TOcost$IncomeLvl[i] == "Entry"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.161
+  } else if (hr_TOcost$IncomeLvl[i] == "Middle"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.197
+  } else if (hr_TOcost$IncomeLvl[i] == "Mid-High"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.204
+  } else if (hr_TOcost$IncomeLvl[i] == "High"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.204
+  } else if (hr_TOcost$IncomeLvl[i] == "Executive"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*1.25
   }
-aprxTOcost <- aprxTOcost + TOcost
+  aprxTOcost <- aprxTOcost + TOcost
 }
 aprxTOcost
 ```
 
 ```
-## [1] 85667750
+## [1] 8261704
 ```
 
 ```r
@@ -1213,6 +1242,8 @@ table(hr$JobSatis)
 ## 289 280 442 459
 ```
 
+### 4B
+
 
 ```r
 # Percent Attrition by JobRole
@@ -1306,6 +1337,8 @@ marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Marital
 
 ![](MasterCode_files/figure-html/4b-7.png)<!-- -->
 
+### 4C
+
 
 ```r
 ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) + 
@@ -1368,193 +1401,112 @@ Attrition
 ## 1         0      1233
 ## 2         1       237
 ```
+* There is an apparent relationship between Age and Income. The correlation coefficient of 0.4979 indicates a moderate positive linear correlation between Age and Income.
+
+### 4D
 
 
+```r
+fit <- lm(Employee_rawdata$Age ~ Employee_rawdata$JobSatis + Employee_rawdata$RelateSatis + Employee_rawdata$WorkLifeBal )
+summary(fit)
+```
 
+```
+## 
+## Call:
+## lm(formula = Employee_rawdata$Age ~ Employee_rawdata$JobSatis + 
+##     Employee_rawdata$RelateSatis + Employee_rawdata$WorkLifeBal)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -19.560  -6.750  -1.226   5.982  23.520 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                  36.60178    1.27935  28.610   <2e-16 ***
+## Employee_rawdata$JobSatis    -0.03861    0.21603  -0.179   0.8582    
+## Employee_rawdata$RelateSatis  0.45559    0.22036   2.067   0.0389 *  
+## Employee_rawdata$WorkLifeBal -0.29273    0.33728  -0.868   0.3856    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.129 on 1466 degrees of freedom
+## Multiple R-squared:  0.003396,	Adjusted R-squared:  0.001356 
+## F-statistic: 1.665 on 3 and 1466 DF,  p-value: 0.1726
+```
+
+```r
+pairs(~Employee_rawdata$Age + Employee_rawdata$JobSatis + Employee_rawdata$RelateSatis + Employee_rawdata$WorkLifeBal)
+```
+
+![](MasterCode_files/figure-html/4d-1.png)<!-- -->
+
+* Life Satisfaction -  Summing the Satisfaction variables (Job, Relationship) and Work Life Balance variable to create a Life Satisfaction score.  Comparing separately to Current and Former Employees.   
+* Findings -  No correlation of between Age and Life Satisfaction variable were identified.
 
 ### Basic Linear Regression
 
 ```r
-attritlm <- lm(Attrition ~ ., data = hr)
-summary(attritlm)
+model <- glm(Attrition ~ Age+Travel+Department+DisFromHome+
+               Education+EduField+EnvSatis+Gender+JobInvolve+
+               JobLevel+JobRole+JobSatis+MaritalStat+MonIncome+NumCoWork+
+               OverTime+SalaryIncr+PerformRate+RelateSatis+NumWorkYear+
+               TrainTime+WorkLifeBal+YearsAtCo+DuraCurRole+LastPromote+
+               CurManage,family=binomial(link='logit'),data=hr)
+summary(model)
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = Attrition ~ ., data = hr)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.58756 -0.20758 -0.08011  0.08084  1.15040 
-## 
-## Coefficients:
-##                      Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)         6.818e-01  1.371e-01   4.974 7.34e-07 ***
-## Age                -3.439e-03  1.318e-03  -2.609 0.009169 ** 
-## Travel              8.289e-02  1.589e-02   5.216 2.10e-07 ***
-## DailyRate          -3.014e-05  2.108e-05  -1.430 0.152908    
-## Department          9.995e-02  2.449e-02   4.081 4.73e-05 ***
-## DisFromHome         3.690e-03  1.048e-03   3.522 0.000442 ***
-## Education           4.027e-03  8.513e-03   0.473 0.636275    
-## EduField            6.296e-03  6.358e-03   0.990 0.322233    
-## EmployeeID         -6.228e-06  1.410e-05  -0.442 0.658758    
-## EnvSatis           -4.261e-02  7.756e-03  -5.494 4.64e-08 ***
-## Gender              3.552e-02  1.731e-02   2.052 0.040369 *  
-## HourlyRate         -2.758e-04  4.175e-04  -0.661 0.508908    
-## JobInvolve         -6.041e-02  1.196e-02  -5.052 4.94e-07 ***
-## JobLevel           -5.962e-03  2.786e-02  -0.214 0.830581    
-## JobRole            -1.062e-02  5.111e-03  -2.078 0.037854 *  
-## JobSatis           -3.714e-02  7.704e-03  -4.821 1.58e-06 ***
-## MaritalStat        -5.265e-02  1.562e-02  -3.371 0.000770 ***
-## MonIncome          -1.958e-06  7.354e-06  -0.266 0.790033    
-## MonthlyRate         7.614e-07  1.191e-06   0.640 0.522551    
-## NumCoWork           1.849e-02  3.788e-03   4.882 1.17e-06 ***
-## OverTime            2.068e-01  1.892e-02  10.930  < 2e-16 ***
-## SalaryIncr         -3.553e-03  3.647e-03  -0.974 0.330143    
-## PerformRate         1.801e-02  3.696e-02   0.487 0.626106    
-## RelateSatis        -2.459e-02  7.871e-03  -3.124 0.001820 ** 
-## StockOption        -2.313e-02  1.332e-02  -1.736 0.082770 .  
-## NumWorkYear        -4.236e-03  2.381e-03  -1.779 0.075409 .  
-## TrainTime          -1.425e-02  6.591e-03  -2.163 0.030743 *  
-## WorkLifeBal        -2.620e-02  1.200e-02  -2.183 0.029162 *  
-## YearsAtCo           4.633e-03  2.959e-03   1.566 0.117614    
-## DuraCurRole        -7.021e-03  3.878e-03  -1.810 0.070430 .  
-## LastPromote         9.686e-03  3.387e-03   2.860 0.004297 ** 
-## CurManage          -7.846e-03  3.944e-03  -1.989 0.046884 *  
-## IncomeLvlExecutive -1.370e-01  5.803e-02  -2.361 0.018355 *  
-## IncomeLvlHigh      -1.846e-01  4.218e-02  -4.377 1.29e-05 ***
-## IncomeLvlMid-High  -1.976e-01  3.249e-02  -6.082 1.52e-09 ***
-## IncomeLvlMiddle    -1.273e-01  2.846e-02  -4.474 8.27e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.3216 on 1434 degrees of freedom
-## Multiple R-squared:  0.254,	Adjusted R-squared:  0.2358 
-## F-statistic: 13.95 on 35 and 1434 DF,  p-value: < 2.2e-16
-```
-
-### Stepwise variable selction using AIC as the stop criteria
-
-
-
-```r
-summary(fit1lm)
-```
-
-```
-## 
-## Call:
-## lm(formula = Attrition ~ Age + Travel + DailyRate + Department + 
-##     DisFromHome + EnvSatis + Gender + JobInvolve + JobRole + 
-##     JobSatis + MaritalStat + NumCoWork + OverTime + RelateSatis + 
-##     StockOption + NumWorkYear + TrainTime + WorkLifeBal + YearsAtCo + 
-##     DuraCurRole + LastPromote + CurManage + IncomeLvl, data = hr)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.57724 -0.20849 -0.08236  0.07666  1.18585 
-## 
-## Coefficients:
-##                      Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)         6.879e-01  9.488e-02   7.250 6.77e-13 ***
-## Age                -3.436e-03  1.301e-03  -2.641 0.008362 ** 
-## Travel              8.356e-02  1.582e-02   5.281 1.48e-07 ***
-## DailyRate          -3.022e-05  2.096e-05  -1.442 0.149612    
-## Department          9.993e-02  2.417e-02   4.134 3.77e-05 ***
-## DisFromHome         3.689e-03  1.039e-03   3.551 0.000396 ***
-## EnvSatis           -4.190e-02  7.706e-03  -5.437 6.34e-08 ***
-## Gender              3.467e-02  1.725e-02   2.009 0.044701 *  
-## JobInvolve         -6.086e-02  1.190e-02  -5.115 3.57e-07 ***
-## JobRole            -1.043e-02  5.075e-03  -2.056 0.040003 *  
-## JobSatis           -3.720e-02  7.651e-03  -4.863 1.29e-06 ***
-## MaritalStat        -5.197e-02  1.556e-02  -3.341 0.000857 ***
-## NumCoWork           1.872e-02  3.767e-03   4.969 7.52e-07 ***
-## OverTime            2.073e-01  1.887e-02  10.987  < 2e-16 ***
-## RelateSatis        -2.413e-02  7.830e-03  -3.081 0.002100 ** 
-## StockOption        -2.456e-02  1.323e-02  -1.856 0.063633 .  
-## NumWorkYear        -4.745e-03  2.175e-03  -2.182 0.029285 *  
-## TrainTime          -1.403e-02  6.567e-03  -2.137 0.032770 *  
-## WorkLifeBal        -2.586e-02  1.196e-02  -2.161 0.030833 *  
-## YearsAtCo           4.388e-03  2.930e-03   1.498 0.134421    
-## DuraCurRole        -6.824e-03  3.849e-03  -1.773 0.076434 .  
-## LastPromote         9.927e-03  3.377e-03   2.939 0.003342 ** 
-## CurManage          -7.674e-03  3.922e-03  -1.957 0.050572 .  
-## IncomeLvlExecutive -1.654e-01  3.601e-02  -4.592 4.77e-06 ***
-## IncomeLvlHigh      -1.979e-01  3.615e-02  -5.473 5.20e-08 ***
-## IncomeLvlMid-High  -2.045e-01  2.950e-02  -6.931 6.29e-12 ***
-## IncomeLvlMiddle    -1.289e-01  2.782e-02  -4.634 3.90e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.321 on 1443 degrees of freedom
-## Multiple R-squared:  0.252,	Adjusted R-squared:  0.2385 
-## F-statistic:  18.7 on 26 and 1443 DF,  p-value: < 2.2e-16
-```
-
-### logistic regression
-
-```r
-glm_test <- glm(Attrition ~ ., data = hr, family = binomial(link = "logit"))
-summary(glm_test)
-```
-
-```
-## 
-## Call:
-## glm(formula = Attrition ~ ., family = binomial(link = "logit"), 
-##     data = hr)
+## glm(formula = Attrition ~ Age + Travel + Department + DisFromHome + 
+##     Education + EduField + EnvSatis + Gender + JobInvolve + JobLevel + 
+##     JobRole + JobSatis + MaritalStat + MonIncome + NumCoWork + 
+##     OverTime + SalaryIncr + PerformRate + RelateSatis + NumWorkYear + 
+##     TrainTime + WorkLifeBal + YearsAtCo + DuraCurRole + LastPromote + 
+##     CurManage, family = binomial(link = "logit"), data = hr)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -1.8764  -0.4987  -0.2572  -0.0950   3.2745  
+## -2.0355  -0.5169  -0.2709  -0.1062   3.3789  
 ## 
 ## Coefficients:
-##                      Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)         2.290e+00  1.425e+00   1.606 0.108172    
-## Age                -2.708e-02  1.336e-02  -2.027 0.042624 *  
-## Travel              9.393e-01  1.707e-01   5.504 3.72e-08 ***
-## DailyRate          -3.754e-04  2.189e-04  -1.715 0.086313 .  
-## Department          1.355e+00  2.921e-01   4.638 3.51e-06 ***
-## DisFromHome         4.465e-02  1.070e-02   4.172 3.02e-05 ***
-## Education           4.507e-02  8.796e-02   0.512 0.608367    
-## EduField            8.816e-02  6.713e-02   1.313 0.189096    
-## EmployeeID         -1.418e-04  1.494e-04  -0.949 0.342621    
-## EnvSatis           -4.728e-01  8.281e-02  -5.709 1.13e-08 ***
-## Gender              3.864e-01  1.824e-01   2.119 0.034131 *  
-## HourlyRate          5.876e-04  4.393e-03   0.134 0.893590    
-## JobInvolve         -5.594e-01  1.236e-01  -4.527 5.97e-06 ***
-## JobLevel           -7.936e-02  3.159e-01  -0.251 0.801635    
-## JobRole            -1.712e-01  5.631e-02  -3.040 0.002365 ** 
-## JobSatis           -3.980e-01  8.104e-02  -4.911 9.07e-07 ***
-## MaritalStat        -5.744e-01  1.713e-01  -3.354 0.000798 ***
-## MonIncome          -1.674e-04  9.274e-05  -1.805 0.071014 .  
-## MonthlyRate         3.471e-06  1.244e-05   0.279 0.780234    
-## NumCoWork           2.110e-01  3.812e-02   5.534 3.13e-08 ***
-## OverTime            1.957e+00  1.933e-01  10.126  < 2e-16 ***
-## SalaryIncr         -3.716e-02  3.888e-02  -0.956 0.339147    
-## PerformRate         1.700e-01  3.941e-01   0.431 0.666150    
-## RelateSatis        -2.776e-01  8.230e-02  -3.373 0.000745 ***
-## StockOption        -2.537e-01  1.503e-01  -1.688 0.091473 .  
-## NumWorkYear        -6.613e-02  2.822e-02  -2.343 0.019124 *  
-## TrainTime          -2.019e-01  7.235e-02  -2.791 0.005259 ** 
-## WorkLifeBal        -2.825e-01  1.216e-01  -2.323 0.020199 *  
-## YearsAtCo           9.551e-02  3.847e-02   2.483 0.013044 *  
-## DuraCurRole        -1.219e-01  4.526e-02  -2.694 0.007069 ** 
-## LastPromote         1.478e-01  4.087e-02   3.616 0.000299 ***
-## CurManage          -1.278e-01  4.563e-02  -2.800 0.005104 ** 
-## IncomeLvlExecutive  2.879e-01  7.074e-01   0.407 0.683999    
-## IncomeLvlHigh      -7.781e-01  5.007e-01  -1.554 0.120166    
-## IncomeLvlMid-High  -1.239e+00  3.535e-01  -3.504 0.000459 ***
-## IncomeLvlMiddle    -6.587e-01  2.612e-01  -2.522 0.011668 *  
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  2.010e+00  1.280e+00   1.570 0.116364    
+## Age         -3.073e-02  1.312e-02  -2.342 0.019187 *  
+## Travel       9.276e-01  1.663e-01   5.578 2.43e-08 ***
+## Department   1.056e+00  2.769e-01   3.813 0.000137 ***
+## DisFromHome  4.144e-02  1.025e-02   4.044 5.26e-05 ***
+## Education   -9.880e-04  8.404e-02  -0.012 0.990620    
+## EduField     7.198e-02  6.547e-02   1.100 0.271539    
+## EnvSatis    -4.138e-01  7.928e-02  -5.220 1.79e-07 ***
+## Gender       3.744e-01  1.773e-01   2.112 0.034720 *  
+## JobInvolve  -5.436e-01  1.183e-01  -4.595 4.34e-06 ***
+## JobLevel    -3.824e-01  2.805e-01  -1.363 0.172876    
+## JobRole     -1.368e-01  5.428e-02  -2.521 0.011700 *  
+## JobSatis    -4.249e-01  7.852e-02  -5.412 6.25e-08 ***
+## MaritalStat -7.548e-01  1.255e-01  -6.012 1.83e-09 ***
+## MonIncome   -3.827e-05  6.676e-05  -0.573 0.566525    
+## NumCoWork    1.831e-01  3.672e-02   4.986 6.18e-07 ***
+## OverTime     1.845e+00  1.838e-01  10.039  < 2e-16 ***
+## SalaryIncr  -3.421e-02  3.763e-02  -0.909 0.363403    
+## PerformRate  2.194e-01  3.819e-01   0.575 0.565559    
+## RelateSatis -2.279e-01  7.931e-02  -2.874 0.004054 ** 
+## NumWorkYear -5.869e-02  2.810e-02  -2.088 0.036785 *  
+## TrainTime   -1.909e-01  7.061e-02  -2.704 0.006859 ** 
+## WorkLifeBal -3.060e-01  1.178e-01  -2.597 0.009408 ** 
+## YearsAtCo    1.024e-01  3.743e-02   2.737 0.006204 ** 
+## DuraCurRole -1.502e-01  4.318e-02  -3.479 0.000503 ***
+## LastPromote  1.685e-01  4.020e-02   4.191 2.78e-05 ***
+## CurManage   -1.423e-01  4.511e-02  -3.154 0.001612 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
 ##     Null deviance: 1298.58  on 1469  degrees of freedom
-## Residual deviance:  867.43  on 1434  degrees of freedom
-## AIC: 939.43
+## Residual deviance:  905.65  on 1443  degrees of freedom
+## AIC: 959.65
 ## 
 ## Number of Fisher Scoring iterations: 6
 ```
@@ -1577,7 +1529,7 @@ rpart_model <- rpart(Attrition ~.,
 rpart.plot(rpart_model, roundint = FALSE, type = 3)
 ```
 
-![](MasterCode_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](MasterCode_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 ### Random Forest Analysis
 
@@ -1605,7 +1557,7 @@ emp_res_rose_RF <- randomForest(resigned ~ .,
 imp <- varImpPlot(emp_res_rose_RF, type=1, n.var = min(20), main="Attrition Variable Importance (Accuracy)", sub = "Random Forest Model", class = NULL, scale=TRUE)
 ```
 
-![](MasterCode_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](MasterCode_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 ```r
 imp <- as.data.frame(imp[1:20,])
@@ -1627,7 +1579,7 @@ ggplot(imp, aes(x=reorder(varnames, Importance), y=Importance, color=as.factor(v
   coord_flip()
 ```
 
-![](MasterCode_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+![](MasterCode_files/figure-html/unnamed-chunk-4-2.png)<!-- -->
 
 ### Attrition Prediction using Random Forest
 
@@ -1803,4 +1755,11 @@ kable(df, caption="Attrition Prediction Table") %>%
   </tr>
 </tbody>
 </table>
+
+# Conclusion
+
+Data analysis indicates that DDSAnalytics has higher attrition rates among younger people, which according to SHRM (the Society of Human Resource Management) is more common among that demographic in part due to the low unemployment rate in the current economy which makes it a job seeker's market. Another reason younger people may leave jobs is simply because as a demographic, younger people tend to continuously seek better employment opportunities.
+Data analysis indicates that DDSAnalytics also has somewhat high attrition rates among employees with fewer years at the company. This is in line with the industry, and an effective way to curb this is to tweak the company's recruitment process and improve onboarding procedures. Ensuring potential hires have realistic expectations of the company and a good understanding of DDSAnalytics' corporate culture, and helping them develop loyalty to the company through an immersive onboarding process are two ways to reduce attrition for employees with less than two years of service with the company.
+Finally, data analysis indicates that overall employee satisfaction with their job and the work environment, feeling involved in their job role, and a good work/life balance all have a significant impact on overall attrition. DDSAnalytics can reduce attrition rates resulting from these factors by introducing a flexible work schedule, involving employees in relevant decisionmaking processes, and reconfiguring the amount of overtime and/or business travel required.
+
 
