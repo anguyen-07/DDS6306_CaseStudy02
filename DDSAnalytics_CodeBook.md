@@ -12,111 +12,66 @@ output:
 # Data report overview
 The dataset examined has the following dimensions:
 
----------------------------------
-Feature                    Result
------------------------- --------
-Number of observations       1470
-
-Number of variables            35
----------------------------------
+|Feature                 |   Result|
+|:------------------------:|:--------:|
+|Number of observations  |     1470|
+|Number of variables     |       35|
 
 
 # Codebook summary table
 
---------------------------------------------------------------------
-  Variable            Class         # unique  Missing  Description  
-                                      values                        
---------------------- ----------- ---------- --------- -------------
-  **[Age]**           numeric             43  0.00 %   Employee Age            
-  
-  **[Attrition]**     numeric              2  0.00 %   Attrition              
-  
-  **[Travel]**        numeric              3  0.00 %   Business Travel              
-  
-  **[DailyRate]**     numeric            886  0.00 %   Daily Rate             
-  
-  **[Department]**    numeric              3  0.00 %   Department             
-  
-  **[DisFromHome]**   numeric             29  0.00 %   Distance From Home             
-  
-  **[Education]**     numeric              5  0.00 %   Education Level              
-  
-  **[EduField]**      numeric              6  0.00 %   Field of Education             
-  
-  **[EmpCount]**      numeric              1  0.00 %   Employee Count              
-  
-  **[EmployeeID]**    numeric           1470  0.00 %   Employee ID             
-  
-  **[EnvSatis]**      numeric              4  0.00 %   Environmental Satisfaction             
-  
-  **[Gender]**        numeric              2  0.00 %   Gender             
-  
-  **[HourlyRate]**    numeric             71  0.00 %   Hourly Rate             
-  
-  **[JobInvolve]**    numeric              4  0.00 %   Job Involvement             
-  
-  **[JobLevel]**      numeric              5  0.00 %   Job Level              
-  
-  **[JobRole]**       numeric              9  0.00 %   Job Role              
-  
-  **[JobSatis]**      numeric              4  0.00 %   Job Satisfaction             
-  
-  **[MaritalStat]**   numeric              3  0.00 %   Marital Status             
-  
-  **[MonIncome]**     numeric           1349  0.00 %   Monthly Income             
-  
-  **[MonthlyRate]**   numeric           1427  0.00 %   Monthly Rate             
-  
-  **[NumCoWork]**     numeric             10  0.00 %   Number of Companies Worked             
-  
-  **[Over18]**        character            1  0.00 %   Over Age 18              
-  
-  **[OverTime]**      numeric              2  0.00 %   OverTime             
-  
-  **[SalaryIncr]**    numeric             15  0.00 %   Percent Salary Hike             
-  
-  **[PerformRate]**   numeric              2  0.00 %   Performance Rate             
-  
-  **[RelateSatis]**   numeric              4  0.00 %   Relationship Satisfaction             
-  
-  **[StdHours]**      numeric              1  0.00 %   Standard Hours             
-  
-  **[StockOption]**   numeric              4  0.00 %   Stock Option Level             
-  
-  **[NumWorkYear]**   numeric             40  0.00 %   Total Working Years              
-  
-  **[TrainTime]**     numeric              7  0.00 %   Training Times Last Year             
-  
-  **[WorkLifeBal]**   numeric              4  0.00 %   Work/Life Balance              
-  
-  **[YearsAtCo]**     numeric             37  0.00 %   Years at Company             
-  
-  **[DuraCurRole]**   numeric             19  0.00 %   Years in Current Role              
-  
-  **[LastPromote]**   numeric             16  0.00 %   Years since Last Promotion             
-  
-  **[CurManage]**     numeric             18  0.00 %   Years with Current Manager             
---------------------------------------------------------------------
+|  Variable           | Class      |   # unique|  Missing | Description|
+|                     |            |     values|          |              
+|:---------------------:|:-----------:|:----------:|:---------:|:-------------:|
+|  Age          | numeric    |         43|  0.00 %  | Employee Age|
+|  Attrition    | numeric    |          2|  0.00 %  | Attrition|
+|  Travel       | numeric    |          3|  0.00 %  | Business Travel|
+|  DailyRate    | numeric    |        886|  0.00 %  | Daily Rate|
+|  Department   | numeric    |          3|  0.00 %  | Department|
+|  DisFromHome  | numeric    |         29|  0.00 %  | Distance From Home|
+|  Education    | numeric    |          5|  0.00 %  | Education Level|
+|  EduField     | numeric    |          6|  0.00 %  | Field of Education|
+|  EmpCount     | numeric    |          1|  0.00 %  | Employee Count|
+|  EmployeeID   | numeric    |       1470|  0.00 %  | Employee ID|
+|  EnvSatis     | numeric    |          4|  0.00 %  | Environmental Satisfaction|
+|  Gender       | numeric    |          2|  0.00 %  | Gender|
+|  HourlyRate   | numeric    |         71|  0.00 %  | Hourly Rate|
+|  JobInvolve   | numeric    |          4|  0.00 %  | Job Involvement|
+|  JobLevel     | numeric    |          5|  0.00 %  | Job Level|
+|  JobRole      | numeric    |          9|  0.00 %  | Job Role|
+|  JobSatis     | numeric    |          4|  0.00 %  | Job Satisfaction|
+|  MaritalStat  | numeric    |          3|  0.00 %  | Marital Status|
+|  MonIncome    | numeric    |       1349|  0.00 %  | Monthly Income|
+|  MonthlyRate  | numeric    |       1427|  0.00 %  | Monthly Rate|
+|  NumCoWork    | numeric    |         10|  0.00 %  | Number of Companies Worked|
+|  Over18       | character  |          1|  0.00 %  | Over Age 18|
+|  OverTime     | numeric    |          2|  0.00 %  | OverTime|
+|  SalaryIncr   | numeric    |         15|  0.00 %  | Percent Salary Hike|
+|  PerformRate  | numeric    |          2|  0.00 %  | Performance Rate|
+|  RelateSatis  | numeric    |          4|  0.00 %  | Relationship Satisfaction|
+|  StdHours     | numeric    |          1|  0.00 %  | Standard Hours|
+|  StockOption  | numeric    |          4|  0.00 %  | Stock Option Level|
+|  NumWorkYear  | numeric    |         40|  0.00 %  | Total Working Years|
+|  TrainTime    | numeric    |          7|  0.00 %  | Training Times Last Year|
+|  WorkLifeBal  | numeric    |          4|  0.00 %  | Work/Life Balance|
+|  YearsAtCo    | numeric    |         37|  0.00 %  | Years at Company|
+|  DuraCurRole  | numeric    |         19|  0.00 %  | Years in Current Role|
+|  LastPromote  | numeric    |         16|  0.00 %  | Years since Last Promotion|
+|  CurManage    | numeric    |         18|  0.00 %  | Years with Current Manager|
+
 
 
 # Variable list
 ## Age
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values          43
-
-Median                           36
-
-1st and 3rd quartiles        30; 43
-
-Min. and max.                18; 60
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |        43|
+|Median                   |        36|
+|1st and 3rd quartiles    |    30; 43|
+|Min. and max.            |    18; 60|
 
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-1-Age-1.png)<!-- -->
@@ -127,21 +82,15 @@ Min. and max.                18; 60
 ## Attrition
 
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         2|
+|Median                   |         0|
+|1st and 3rd quartiles    |      0; 0|
+|Min. and max.            |      0; 1|
 
-Number of missing obs.      0 (0 %)
-
-Number of unique values           2
-
-Median                            0
-
-1st and 3rd quartiles          0; 0
-
-Min. and max.                  0; 1
------------------------------------
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-2-Attrition-1.png)<!-- -->
 
@@ -150,24 +99,14 @@ Min. and max.                  0; 1
 
 ## Travel
 
-<div class = "row">
-<div class = "col-lg-8">
-
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           3
-
-Median                            2
-
-1st and 3rd quartiles          2; 2
-
-Min. and max.                  1; 3
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         3|
+|Median                   |         2|
+|1st and 3rd quartiles    |      2; 2|
+|Min. and max.            |      1; 3|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-3-Travel-1.png)<!-- -->
 
@@ -176,21 +115,14 @@ Min. and max.                  1; 3
 
 ## DailyRate
 
--------------------------------------
-Feature                        Result
-------------------------- -----------
-Variable type                 numeric
-
-Number of missing obs.        0 (0 %)
-
-Number of unique values           886
-
-Median                            802
-
-1st and 3rd quartiles       465; 1157
-
-Min. and max.               102; 1499
--------------------------------------
+|Feature                  |      Result|
+|:-------------------------:|:-----------:|
+|Variable type            |     numeric|
+|Number of missing obs.   |     0 (0 %)|
+|Number of unique values  |         886|
+|Median                   |         802|
+|1st and 3rd quartiles    |   465; 1157|
+|Min. and max.            |   102; 1499|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-4-DailyRate-1.png)<!-- -->
 
@@ -199,21 +131,14 @@ Min. and max.               102; 1499
 
 ## Department
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           3
-
-Median                            2
-
-1st and 3rd quartiles          2; 3
-
-Min. and max.                  1; 3
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         3|
+|Median                   |         2|
+|1st and 3rd quartiles    |      2; 3|
+|Min. and max.            |      1; 3|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-5-Department-1.png)<!-- -->
 
@@ -222,21 +147,14 @@ Min. and max.                  1; 3
 
 ## DisFromHome
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values          29
-
-Median                            7
-
-1st and 3rd quartiles         2; 14
-
-Min. and max.                 1; 29
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |        29|
+|Median                   |         7|
+|1st and 3rd quartiles    |     2; 14|
+|Min. and max.            |     1; 29|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-6-DisFromHome-1.png)<!-- -->
 
@@ -245,21 +163,15 @@ Min. and max.                 1; 29
 
 ## Education
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         5|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 4|
+|Min. and max.            |      1; 5|
 
-Number of missing obs.      0 (0 %)
-
-Number of unique values           5
-
-Median                            3
-
-1st and 3rd quartiles          2; 4
-
-Min. and max.                  1; 5
------------------------------------
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-7-Education-1.png)<!-- -->
 
@@ -268,21 +180,14 @@ Min. and max.                  1; 5
 
 ## EduField
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           6
-
-Median                            3
-
-1st and 3rd quartiles          2; 4
-
-Min. and max.                  1; 6
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         6|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 4|
+|Min. and max.            |      1; 6|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-8-EduField-1.png)<!-- -->
 
@@ -297,21 +202,15 @@ Min. and max.                  1; 6
 
 ## EmployeeID
 
--------------------------------------------
-Feature                              Result
-------------------------- -----------------
-Variable type                       numeric
+|Feature                  |            Result|
+|:-------------------------:|:-----------------:|
+|Variable type            |           numeric|
+|Number of missing obs.   |           0 (0 %)|
+|Number of unique values  |              1470|
+|Median                   |            1020.5|
+|1st and 3rd quartiles    |   491.25; 1555.75|
+|Min. and max.            |           1; 2068|
 
-Number of missing obs.              0 (0 %)
-
-Number of unique values                1470
-
-Median                               1020.5
-
-1st and 3rd quartiles       491.25; 1555.75
-
-Min. and max.                       1; 2068
--------------------------------------------
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-10-EmployeeID-1.png)<!-- -->
 
@@ -320,21 +219,14 @@ Min. and max.                       1; 2068
 
 ## EnvSatis
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           4
-
-Median                            3
-
-1st and 3rd quartiles          2; 4
-
-Min. and max.                  1; 4
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         4|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 4|
+|Min. and max.            |      1; 4|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-11-EnvSatis-1.png)<!-- -->
 
@@ -343,21 +235,14 @@ Min. and max.                  1; 4
 
 ## Gender
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           2
-
-Median                            1
-
-1st and 3rd quartiles          0; 1
-
-Min. and max.                  0; 1
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         2|
+|Median                   |         1|
+|1st and 3rd quartiles    |      0; 1|
+|Min. and max.            |      0; 1|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-12-Gender-1.png)<!-- -->
 
@@ -366,21 +251,14 @@ Min. and max.                  0; 1
 
 ## HourlyRate
 
--------------------------------------
-Feature                        Result
-------------------------- -----------
-Variable type                 numeric
-
-Number of missing obs.        0 (0 %)
-
-Number of unique values            71
-
-Median                             66
-
-1st and 3rd quartiles       48; 83.75
-
-Min. and max.                 30; 100
--------------------------------------
+|Feature                  |      Result|
+|:-------------------------:|:-----------:|
+|Variable type            |     numeric|
+|Number of missing obs.   |     0 (0 %)|
+|Number of unique values  |          71|
+|Median                   |          66|
+|1st and 3rd quartiles    |   48; 83.75|
+|Min. and max.            |     30; 100|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-13-HourlyRate-1.png)<!-- -->
 
@@ -389,24 +267,14 @@ Min. and max.                 30; 100
 
 ## JobInvolve
 
-<div class = "row">
-<div class = "col-lg-8">
-
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           4
-
-Median                            3
-
-1st and 3rd quartiles          2; 3
-
-Min. and max.                  1; 4
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         4|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 3|
+|Min. and max.            |      1; 4|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-14-JobInvolve-1.png)<!-- -->
 
@@ -415,21 +283,14 @@ Min. and max.                  1; 4
 
 ## JobLevel
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           5
-
-Median                            2
-
-1st and 3rd quartiles          1; 3
-
-Min. and max.                  1; 5
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         5|
+|Median                   |         2|
+|1st and 3rd quartiles    |      1; 3|
+|Min. and max.            |      1; 5|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-15-JobLevel-1.png)<!-- -->
 
@@ -438,21 +299,14 @@ Min. and max.                  1; 5
 
 ## JobRole
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           9
-
-Median                            6
-
-1st and 3rd quartiles          3; 8
-
-Min. and max.                  0; 9
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         9|
+|Median                   |         6|
+|1st and 3rd quartiles    |      3; 8|
+|Min. and max.            |      0; 9|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-16-JobRole-1.png)<!-- -->
 
@@ -461,21 +315,14 @@ Min. and max.                  0; 9
 
 ## JobSatis
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           4
-
-Median                            3
-
-1st and 3rd quartiles          2; 4
-
-Min. and max.                  1; 4
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         4|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 4|
+|Min. and max.            |      1; 4|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-17-JobSatis-1.png)<!-- -->
 
@@ -484,21 +331,14 @@ Min. and max.                  1; 4
 
 ## MaritalStat
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           3
-
-Median                            2
-
-1st and 3rd quartiles          1; 2
-
-Min. and max.                  1; 3
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         3|
+|Median                   |         2|
+|1st and 3rd quartiles    |      1; 2|
+|Min. and max.            |      1; 3|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-18-MaritalStat-1.png)<!-- -->
 
