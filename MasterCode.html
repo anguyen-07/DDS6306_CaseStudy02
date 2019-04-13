@@ -11,6 +11,7 @@
 
 <meta name="author" content="Andy Nguyen, Amy Markum, Richard Hart, Tom Gianelle" />
 
+<meta name="date" content="2019-03-28" />
 
 <title></title>
 
@@ -1473,7 +1474,7 @@ col_headings &lt;- c(&quot;Employee Num&quot;,&quot;No&quot;,&quot;Yes&quot;)
 names(Employees_flight_risk) &lt;- col_headings
 Employees_flight_risk &lt;- arrange(Employees_flight_risk, desc(Yes))
 Employees_flight_risk[1:25, 1 ] &lt;- &quot;####&quot;
-write.csv(Employees_flight_risk[1:25, ], file = &quot;FlightRiskData.csv&quot;)
+write.csv(Employees_flight_risk[1:25, ], file = &quot;Data/FlightRiskData.csv&quot;)
 Employees_flight_risk[1:25, 3]  &lt;- paste(round((Employees_flight_risk[1:25, 3])*100,digits=0),&quot;%&quot;,sep=&quot;&quot;)
 Employees_flight_risk[, 2]  &lt;- NULL
 c1 &lt;- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)

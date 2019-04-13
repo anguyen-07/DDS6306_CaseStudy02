@@ -1,6 +1,6 @@
 ---
 author: "Andy Nguyen, Amy Markum, Richard Hart, Tom Gianelle"
-date: "3/28/2019"
+date: "March 28, 2019"
 output: 
   html_document:
     keep_md: TRUE
@@ -1632,7 +1632,7 @@ col_headings <- c("Employee Num","No","Yes")
 names(Employees_flight_risk) <- col_headings
 Employees_flight_risk <- arrange(Employees_flight_risk, desc(Yes))
 Employees_flight_risk[1:25, 1 ] <- "####"
-write.csv(Employees_flight_risk[1:25, ], file = "FlightRiskData.csv")
+write.csv(Employees_flight_risk[1:25, ], file = "Data/FlightRiskData.csv")
 Employees_flight_risk[1:25, 3]  <- paste(round((Employees_flight_risk[1:25, 3])*100,digits=0),"%",sep="")
 Employees_flight_risk[, 2]  <- NULL
 c1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
