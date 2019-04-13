@@ -466,10 +466,15 @@ fit1lm <- stepAIC(attritlm, direction = "both")
 summary(fit1lm)
 ```
 
-### logistic regression
-```{r, echo=TRUE}
-glm_test <- glm(Attrition ~ ., data = hr, family = binomial(link = "logit"))
-summary(glm_test)
+### Basic Linear Regression
+```{r train_test, include=TRUE}
+model <- glm(Attrition ~ Age+Travel+Department+DisFromHome+
+               Education+EduField+EnvSatis+Gender+JobInvolve+
+               JobLevel+JobRole+JobSatis+MaritalStat+MonIncome+NumCoWork+
+               OverTime+SalaryIncr+PerformRate+RelateSatis+NumWorkYear+
+               TrainTime+WorkLifeBal+YearsAtCo+DuraCurRole+LastPromote+
+               CurManage,family=binomial(link='logit'),data=hr)
+summary(model)
 ```
 
 ### Decision Tree
