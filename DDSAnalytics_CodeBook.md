@@ -846,15 +846,10 @@ Min. and max.                 0; 15
 |Feature                   |   Result|
 |:-------------------------:|:---------:|
 |Variable type             |  numeric|
-|                          |         |
 |Number of missing obs.    |  0 (0 %)|
-|                          |         |
 |Number of unique values   |       18|
-|                          |         |
 |Median                    |        3|
-|                          |         |
 |1st and 3rd quartiles     |     2; 7|
-|                          |         |
 |Min. and max.             |    0; 17|
 
 
