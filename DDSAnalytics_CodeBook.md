@@ -507,21 +507,14 @@ Min. and max.                  1; 3
 
 ## MonIncome
 
----------------------------------------
-Feature                          Result
-------------------------- -------------
-Variable type                   numeric
-
-Number of missing obs.          0 (0 %)
-
-Number of unique values            1349
-
-Median                             4919
-
-1st and 3rd quartiles        2911; 8379
-
-Min. and max.               1009; 19999
----------------------------------------
+|Feature                  |        Result|
+|:-------------------------:|:-------------:|
+|Variable type            |       numeric|
+|Number of missing obs.   |       0 (0 %)|
+|Number of unique values  |          1349|
+|Median                   |          4919|
+|1st and 3rd quartiles    |    2911; 8379|
+|Min. and max.            |   1009; 19999|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-19-MonIncome-1.png)<!-- -->
 
@@ -530,21 +523,14 @@ Min. and max.               1009; 19999
 
 ## MonthlyRate
 
------------------------------------------
-Feature                            Result
-------------------------- ---------------
-Variable type                     numeric
-
-Number of missing obs.            0 (0 %)
-
-Number of unique values              1427
-
-Median                            14235.5
-
-1st and 3rd quartiles       8047; 20461.5
-
-Min. and max.                 2094; 26999
------------------------------------------
+|Feature                  |          Result|
+|:-------------------------:|:---------------:|
+|Variable type            |         numeric|
+|Number of missing obs.   |         0 (0 %)|
+|Number of unique values  |            1427|
+|Median                   |         14235.5|
+|1st and 3rd quartiles    |   8047; 20461.5|
+|Min. and max.            |     2094; 26999|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-20-MonthlyRate-1.png)<!-- -->
 
@@ -553,21 +539,14 @@ Min. and max.                 2094; 26999
 
 ## NumCoWork
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values          10
-
-Median                            2
-
-1st and 3rd quartiles          1; 4
-
-Min. and max.                  0; 9
------------------------------------
+|Feature                   |   Result|
+|:-------------------------:|:---------:|
+|Variable type             |  numeric|
+|Number of missing obs.    |  0 (0 %)|
+|Number of unique values   |       10|
+|Median                    |        2|
+|1st and 3rd quartiles     |     1; 4|
+|Min. and max.             |     0; 9|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-21-NumCoWork-1.png)<!-- -->
 
@@ -582,21 +561,14 @@ Min. and max.                  0; 9
 
 ## OverTime
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           2
-
-Median                            0
-
-1st and 3rd quartiles          0; 1
-
-Min. and max.                  0; 1
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         2|
+|Median                   |         0|
+|1st and 3rd quartiles    |      0; 1|
+|Min. and max.            |      0; 1|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-23-OverTime-1.png)<!-- -->
 
@@ -605,21 +577,15 @@ Min. and max.                  0; 1
 
 ## SalaryIncr
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |        15|
+|Median                   |        14|
+|1st and 3rd quartiles    |    12; 18|
+|Min. and max.            |    11; 25|
 
-Number of missing obs.      0 (0 %)
-
-Number of unique values          15
-
-Median                           14
-
-1st and 3rd quartiles        12; 18
-
-Min. and max.                11; 25
------------------------------------
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-24-SalaryIncr-1.png)<!-- -->
 
@@ -628,21 +594,14 @@ Min. and max.                11; 25
 
 ## PerformRate
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           2
-
-Median                            3
-
-1st and 3rd quartiles          3; 3
-
-Min. and max.                  3; 4
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         2|
+|Median                   |         3|
+|1st and 3rd quartiles    |      3; 3|
+|Min. and max.            |      3; 4|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-25-PerformRate-1.png)<!-- -->
 
@@ -651,21 +610,15 @@ Min. and max.                  3; 4
 
 ## RelateSatis
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         4|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 4|
+|Min. and max.            |      1; 4|
 
-Number of missing obs.      0 (0 %)
-
-Number of unique values           4
-
-Median                            3
-
-1st and 3rd quartiles          2; 4
-
-Min. and max.                  1; 4
------------------------------------
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-26-RelateSatis-1.png)<!-- -->
 
@@ -681,21 +634,14 @@ Min. and max.                  1; 4
 
 ## StockOption
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           4
-
-Median                            1
-
-1st and 3rd quartiles          0; 1
-
-Min. and max.                  0; 3
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         4|
+|Median                   |         1|
+|1st and 3rd quartiles    |      0; 1|
+|Min. and max.            |      0; 3|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-28-StockOption-1.png)<!-- -->
 
@@ -704,21 +650,14 @@ Min. and max.                  0; 3
 
 ## NumWorkYear
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values          40
-
-Median                           10
-
-1st and 3rd quartiles         6; 15
-
-Min. and max.                 0; 40
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |        40|
+|Median                   |        10|
+|1st and 3rd quartiles    |     6; 15|
+|Min. and max.            |     0; 40|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-29-NumWorkYear-1.png)<!-- -->
 
@@ -727,21 +666,14 @@ Min. and max.                 0; 40
 
 ## TrainTime
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           7
-
-Median                            3
-
-1st and 3rd quartiles          2; 3
-
-Min. and max.                  0; 6
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:----------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         7|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 3|
+|Min. and max.            |      0; 6|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-30-TrainTime-1.png)<!-- -->
 
@@ -750,21 +682,14 @@ Min. and max.                  0; 6
 
 ## WorkLifeBal
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values           4
-
-Median                            3
-
-1st and 3rd quartiles          2; 3
-
-Min. and max.                  1; 4
------------------------------------
+|Feature                  |    Result|
+|-------------------------:|:---------|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |         4|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 3|
+|Min. and max.            |      1; 4|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-31-WorkLifeBal-1.png)<!-- -->
 
@@ -773,21 +698,14 @@ Min. and max.                  1; 4
 
 ## YearsAtCo
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values          37
-
-Median                            5
-
-1st and 3rd quartiles          3; 9
-
-Min. and max.                 0; 40
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |        37|
+|Median                   |         5|
+|1st and 3rd quartiles    |      3; 9|
+|Min. and max.            |     0; 40|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-32-YearsAtCo-1.png)<!-- -->
 
@@ -796,21 +714,14 @@ Min. and max.                 0; 40
 
 ## DuraCurRole
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values          19
-
-Median                            3
-
-1st and 3rd quartiles          2; 7
-
-Min. and max.                 0; 18
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |        19|
+|Median                   |         3|
+|1st and 3rd quartiles    |      2; 7|
+|Min. and max.            |     0; 18|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-33-DuraCurRole-1.png)<!-- -->
 
@@ -819,21 +730,14 @@ Min. and max.                 0; 18
 
 ## LastPromote
 
------------------------------------
-Feature                      Result
-------------------------- ---------
-Variable type               numeric
-
-Number of missing obs.      0 (0 %)
-
-Number of unique values          16
-
-Median                            1
-
-1st and 3rd quartiles          0; 3
-
-Min. and max.                 0; 15
------------------------------------
+|Feature                  |    Result|
+|:-------------------------:|:---------:|
+|Variable type            |   numeric|
+|Number of missing obs.   |   0 (0 %)|
+|Number of unique values  |        16|
+|Median                   |         1|
+|1st and 3rd quartiles    |      0; 3|
+|Min. and max.            |     0; 15|
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-34-LastPromote-1.png)<!-- -->
 
@@ -841,7 +745,6 @@ Min. and max.                 0; 15
 ---
 
 ## CurManage
-
 
 |Feature                   |   Result|
 |:-------------------------:|:---------:|
