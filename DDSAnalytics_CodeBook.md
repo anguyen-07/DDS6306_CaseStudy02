@@ -127,11 +127,8 @@ Min. and max.                18; 60
 -----------------------------------
 
 
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-1-Age-1.png)<!-- -->
-</div>
-</div>
+
 
 
 
