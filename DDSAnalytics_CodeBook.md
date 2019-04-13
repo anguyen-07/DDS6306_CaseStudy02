@@ -842,7 +842,7 @@ Min. and max.                 0; 15
 
 ## CurManage
 
-|--------------------------|---------|
+
 |Feature                   |   Result|
 |:-------------------------:|:---------:|
 |Variable type             |  numeric|
@@ -856,7 +856,7 @@ Min. and max.                 0; 15
 |1st and 3rd quartiles     |     2; 7|
 |                          |         |
 |Min. and max.             |    0; 17|
-|--------------------------|---------|
+
 
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-35-CurManage-1.png)<!-- -->
 
