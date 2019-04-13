@@ -12,7 +12,6 @@ output:
 # Data report overview
 The dataset examined has the following dimensions:
 
-
 ---------------------------------
 Feature                    Result
 ------------------------ --------
@@ -20,8 +19,6 @@ Number of observations       1470
 
 Number of variables            35
 ---------------------------------
-
-
 
 
 # Codebook summary table
@@ -102,13 +99,8 @@ Number of variables            35
 --------------------------------------------------------------------
 
 
-
-
 # Variable list
 ## Age
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -130,15 +122,10 @@ Min. and max.                18; 60
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-1-Age-1.png)<!-- -->
 
 
-
-
-
 ---
 
 ## Attrition
 
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -156,14 +143,7 @@ Median                            0
 Min. and max.                  0; 1
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-2-Attrition-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
@@ -189,22 +169,12 @@ Median                            2
 Min. and max.                  1; 3
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-3-Travel-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## DailyRate
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -------------------------------------
 Feature                        Result
@@ -222,22 +192,12 @@ Median                            802
 Min. and max.               102; 1499
 -------------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-4-DailyRate-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## Department
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -255,22 +215,12 @@ Median                            2
 Min. and max.                  1; 3
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-5-Department-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## DisFromHome
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -288,22 +238,12 @@ Median                            7
 Min. and max.                 1; 29
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-6-DisFromHome-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## Education
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -321,22 +261,12 @@ Median                            3
 Min. and max.                  1; 5
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-7-Education-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## EduField
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -354,14 +284,7 @@ Median                            3
 Min. and max.                  1; 6
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-8-EduField-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
@@ -370,14 +293,9 @@ Min. and max.                  1; 6
 
 * The variable only takes one (non-missing) value: \"1\". The variable contains 0 \% missing observations.
 
-
-
 ---
 
 ## EmployeeID
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -------------------------------------------
 Feature                              Result
@@ -395,22 +313,12 @@ Median                               1020.5
 Min. and max.                       1; 2068
 -------------------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-10-EmployeeID-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## EnvSatis
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -428,22 +336,12 @@ Median                            3
 Min. and max.                  1; 4
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-11-EnvSatis-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## Gender
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -461,22 +359,12 @@ Median                            1
 Min. and max.                  0; 1
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-12-Gender-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## HourlyRate
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -------------------------------------
 Feature                        Result
@@ -494,14 +382,7 @@ Median                             66
 Min. and max.                 30; 100
 -------------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-13-HourlyRate-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
@@ -527,22 +408,12 @@ Median                            3
 Min. and max.                  1; 4
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-14-JobInvolve-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## JobLevel
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -560,22 +431,12 @@ Median                            2
 Min. and max.                  1; 5
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-15-JobLevel-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## JobRole
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -593,22 +454,12 @@ Median                            6
 Min. and max.                  0; 9
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-16-JobRole-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## JobSatis
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -626,22 +477,12 @@ Median                            3
 Min. and max.                  1; 4
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-17-JobSatis-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## MaritalStat
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -659,22 +500,12 @@ Median                            2
 Min. and max.                  1; 3
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-18-MaritalStat-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## MonIncome
-
-<div class = "row">
-<div class = "col-lg-8">
 
 ---------------------------------------
 Feature                          Result
@@ -692,22 +523,12 @@ Median                             4919
 Min. and max.               1009; 19999
 ---------------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-19-MonIncome-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## MonthlyRate
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------------
 Feature                            Result
@@ -725,22 +546,12 @@ Median                            14235.5
 Min. and max.                 2094; 26999
 -----------------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-20-MonthlyRate-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## NumCoWork
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -758,14 +569,7 @@ Median                            2
 Min. and max.                  0; 9
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-21-NumCoWork-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
@@ -774,14 +578,9 @@ Min. and max.                  0; 9
 
 * The variable only takes one (non-missing) value: \"Y\". The variable contains 0 \% missing observations.
 
-
-
 ---
 
 ## OverTime
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -799,22 +598,12 @@ Median                            0
 Min. and max.                  0; 1
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-23-OverTime-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## SalaryIncr
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -832,22 +621,12 @@ Median                           14
 Min. and max.                11; 25
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-24-SalaryIncr-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## PerformRate
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -865,22 +644,12 @@ Median                            3
 Min. and max.                  3; 4
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-25-PerformRate-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## RelateSatis
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -898,14 +667,7 @@ Median                            3
 Min. and max.                  1; 4
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-26-RelateSatis-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
@@ -915,13 +677,9 @@ Min. and max.                  1; 4
 * The variable only takes one (non-missing) value: \"80\". The variable contains 0 \% missing observations.
 
 
-
 ---
 
 ## StockOption
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -939,22 +697,12 @@ Median                            1
 Min. and max.                  0; 3
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-28-StockOption-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## NumWorkYear
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -972,22 +720,12 @@ Median                           10
 Min. and max.                 0; 40
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-29-NumWorkYear-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## TrainTime
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -1005,22 +743,12 @@ Median                            3
 Min. and max.                  0; 6
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-30-TrainTime-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## WorkLifeBal
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -1038,22 +766,12 @@ Median                            3
 Min. and max.                  1; 4
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-31-WorkLifeBal-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## YearsAtCo
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -1071,22 +789,12 @@ Median                            5
 Min. and max.                 0; 40
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-32-YearsAtCo-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## DuraCurRole
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -1104,22 +812,12 @@ Median                            3
 Min. and max.                 0; 18
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-33-DuraCurRole-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## LastPromote
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -1137,22 +835,12 @@ Median                            1
 Min. and max.                 0; 15
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-34-LastPromote-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
 
 ## CurManage
-
-<div class = "row">
-<div class = "col-lg-8">
 
 -----------------------------------
 Feature                      Result
@@ -1170,19 +858,10 @@ Median                            3
 Min. and max.                 0; 17
 -----------------------------------
 
-
-</div>
-<div class = "col-lg-4">
 ![](DDSAnalytics_CodeBook_files/figure-html/Var-35-CurManage-1.png)<!-- -->
-</div>
-</div>
-
-
 
 
 ---
-
-
 
 Report generation information:
 
