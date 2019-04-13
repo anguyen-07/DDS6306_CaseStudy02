@@ -15,47 +15,59 @@ sessionInfo()
 
 ```
 ## R version 3.5.2 (2018-12-20)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 17763)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS High Sierra 10.13.6
 ## 
 ## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
-## [1] LC_COLLATE=English_United States.1252 
-## [2] LC_CTYPE=English_United States.1252   
-## [3] LC_MONETARY=English_United States.1252
-## [4] LC_NUMERIC=C                          
-## [5] LC_TIME=English_United States.1252    
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] MASS_7.3-51.1              corrplot_0.84             
-##  [3] pastecs_1.3.21             tidyquant_0.5.5           
-##  [5] forcats_0.3.0              stringr_1.4.0             
-##  [7] dplyr_0.7.8                purrr_0.2.5               
-##  [9] readr_1.3.1                tidyr_0.8.2               
-## [11] tibble_1.4.2               ggplot2_3.1.0             
-## [13] tidyverse_1.2.1            quantmod_0.4-14           
-## [15] TTR_0.23-4                 PerformanceAnalytics_1.5.2
-## [17] xts_0.11-2                 zoo_1.8-4                 
-## [19] lubridate_1.7.4            readxl_1.2.0              
+##  [1] caret_6.0-81               lattice_0.20-38           
+##  [3] randomForest_4.6-14        ROSE_0.0-3                
+##  [5] rpart.plot_3.0.6           rpart_4.1-13              
+##  [7] MASS_7.3-51.1              corrplot_0.84             
+##  [9] pastecs_1.3.21             tidyquant_0.5.5           
+## [11] forcats_0.4.0              stringr_1.3.1             
+## [13] dplyr_0.7.8                purrr_0.2.5               
+## [15] readr_1.3.1                tidyr_0.8.2               
+## [17] tibble_2.0.0               ggplot2_3.1.0             
+## [19] tidyverse_1.2.1            quantmod_0.4-14           
+## [21] TTR_0.23-4                 PerformanceAnalytics_1.5.2
+## [23] xts_0.11-2                 zoo_1.8-4                 
+## [25] lubridate_1.7.4            readxl_1.3.1              
+## [27] kableExtra_1.1.0           knitr_1.21                
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_0.2.5 xfun_0.4         haven_2.0.0      lattice_0.20-38 
-##  [5] colorspace_1.3-2 generics_0.0.2   htmltools_0.3.6  yaml_2.2.0      
-##  [9] rlang_0.3.0.1    pillar_1.3.1     withr_2.1.2      glue_1.3.0      
-## [13] modelr_0.1.4     bindrcpp_0.2.2   bindr_0.1.1      plyr_1.8.4      
-## [17] Quandl_2.9.1     munsell_0.5.0    gtable_0.2.0     cellranger_1.1.0
-## [21] rvest_0.3.2      evaluate_0.13    knitr_1.21       curl_3.2        
-## [25] broom_0.5.1      Rcpp_1.0.0       backports_1.1.3  scales_1.0.0    
-## [29] jsonlite_1.6     hms_0.4.2        digest_0.6.18    stringi_1.2.4   
-## [33] grid_3.5.2       cli_1.0.1        quadprog_1.5-5   tools_3.5.2     
-## [37] magrittr_1.5     lazyeval_0.2.1   crayon_1.3.4     pkgconfig_2.0.2 
-## [41] xml2_1.2.0       rstudioapi_0.8   assertthat_0.2.0 rmarkdown_1.11  
-## [45] httr_1.4.0       boot_1.3-20      R6_2.3.0         nlme_3.1-137    
-## [49] compiler_3.5.2
+##  [1] nlme_3.1-137       webshot_0.5.1      httr_1.4.0        
+##  [4] tools_3.5.2        backports_1.1.3    R6_2.3.0          
+##  [7] lazyeval_0.2.1     colorspace_1.3-2   nnet_7.3-12       
+## [10] withr_2.1.2        tidyselect_0.2.5   curl_3.3          
+## [13] compiler_3.5.2     cli_1.0.1          rvest_0.3.2       
+## [16] xml2_1.2.0         scales_1.0.0       quadprog_1.5-5    
+## [19] digest_0.6.18      rmarkdown_1.11     pkgconfig_2.0.2   
+## [22] htmltools_0.3.6    rlang_0.3.1        rstudioapi_0.9.0  
+## [25] bindr_0.1.1        generics_0.0.2     jsonlite_1.6      
+## [28] ModelMetrics_1.2.2 magrittr_1.5       Matrix_1.2-15     
+## [31] Rcpp_1.0.0         Quandl_2.9.1       munsell_0.5.0     
+## [34] stringi_1.2.4      yaml_2.2.0         plyr_1.8.4        
+## [37] recipes_0.1.4      grid_3.5.2         crayon_1.3.4      
+## [40] haven_2.0.0        splines_3.5.2      hms_0.4.2         
+## [43] pillar_1.3.1       boot_1.3-20        stats4_3.5.2      
+## [46] reshape2_1.4.3     codetools_0.2-15   glue_1.3.0        
+## [49] evaluate_0.12      data.table_1.12.0  modelr_0.1.4      
+## [52] foreach_1.4.4      cellranger_1.1.0   gtable_0.2.0      
+## [55] assertthat_0.2.0   xfun_0.4           gower_0.2.0       
+## [58] prodlim_2018.04.18 broom_0.5.1        class_7.3-14      
+## [61] survival_2.43-3    viridisLite_0.3.0  timeDate_3043.102 
+## [64] iterators_1.0.10   lava_1.6.5         bindrcpp_0.2.2    
+## [67] ipred_0.9-8
 ```
 
 ### Clean Raw Data
@@ -64,21 +76,15 @@ sessionInfo()
 ```r
 require(readxl)
 Employee_rawdata <- as.data.frame(read_excel("CaseStudy2-data.xlsx"))
-```
-
-```
-## readxl works best with a newer version of the tibble package.
-## You currently have tibble v1.4.2.
-## Falling back to column name repair from tibble <= v1.4.2.
-## Message displays once per session.
-```
-
-```r
 dim(Employee_rawdata)
 ```
 
 ```
 ## [1] 1470   35
+```
+
+```r
+emp <- Employee_rawdata
 ```
 
 
@@ -505,13 +511,10 @@ round(prop.table(mytable_yearswithmanager,1)*100,2)
 # All employees are older than 18
 hr <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
 hr$Over18 <- NULL
-
 # All employees had 80 standard work hours
 hr$StdHours <- NULL
-
 # All employee counts are 1
 hr$EmpCount <- NULL
-
 # Transform Categorical Variables to Indicator Variables
 hr <- hr %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
 hr <- hr %>% mutate(Travel=ifelse(Travel=="Travel_Rarely", 2, 
@@ -551,7 +554,6 @@ for (x in roles$JobRole)
   roles$Percents[roles$JobRole == x] <- roles$n[roles$JobRole == x] / roles$Totals[roles$JobRole == x] * 100
 }
 roles <- as.data.frame(roles)
-
 # Percent Attrition by Department
 depts <- Employee_rawdata %>% group_by(Department, Attrition) %>% summarise(n = n())
 depts[,c("Totals", "Percents")] <- NA
@@ -561,7 +563,6 @@ for (x in depts$Department)
   depts$Percents[depts$Department == x] <- depts$n[depts$Department == x] / depts$Totals[depts$Department == x] * 100
 }
 depts <- as.data.frame(depts)
-
 # Percent Attrition by Travel
 travel <- Employee_rawdata %>% group_by(Travel, Attrition) %>% summarise(n = n())
 travel[,c("Totals", "Percents")] <- NA
@@ -571,7 +572,6 @@ for (x in travel$Travel)
   travel$Percents[travel$Travel == x] <- travel$n[travel$Travel == x] / travel$Totals[travel$Travel == x] * 100
 }
 travel <- as.data.frame(travel)
-
 # Percent Attrition by Education Field
 educfield <- Employee_rawdata %>% group_by(EduField, Attrition) %>% summarise(n = n())
 educfield[,c("Totals", "Percents")] <- NA
@@ -581,7 +581,6 @@ for (x in educfield$EduField)
   educfield$Percents[educfield$EduField == x] <- educfield$n[educfield$EduField == x] / educfield$Totals[educfield$EduField == x] * 100
 }
 educfield <- as.data.frame(educfield)
-
 # Percent Attrition by Gender
 gender <- Employee_rawdata %>% group_by(Gender, Attrition) %>% summarise(n = n())
 gender[,c("Totals", "Percents")] <- NA
@@ -591,7 +590,6 @@ for (x in gender$Gender)
   gender$Percents[gender$Gender == x] <- gender$n[gender$Gender == x] / gender$Totals[gender$Gender == x] * 100
 }
 gender <- as.data.frame(gender)
-
 # Percent Attrition by Years of Education
 educyr <- Employee_rawdata %>% group_by(Education, Attrition) %>% summarise(n = n())
 educyr[,c("Totals", "Percents")] <- NA
@@ -601,7 +599,6 @@ for (x in educyr$Education)
   educyr$Percents[educyr$Education == x] <- educyr$n[educyr$Education == x] / educyr$Totals[educyr$Education == x] * 100
 }
 educyr <- as.data.frame(educyr)
-
 # Percent Attrition by Marital Status
 marital_status <- Employee_rawdata %>% group_by(MaritalStat, Attrition) %>% summarise(n = n())
 marital_status[,c("Totals", "Percents")] <- NA
@@ -611,97 +608,7 @@ for (x in marital_status$MaritalStat)
   marital_status$Percents[marital_status$MaritalStat == x] <- marital_status$n[marital_status$MaritalStat == x] / marital_status$Totals[marital_status$MaritalStat == x] * 100
 }
 marital_status <- as.data.frame(marital_status)
-
-# Percent Attrition by JobRole
-roles %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(JobRole, -Percents), y = Percents, fill=JobRole)) + 
-  geom_bar(stat = "identity") + 
-  coord_flip() + 
-  xlab("Job Role") + ylab("Percent Attrition") +
-  ggtitle("Percent Attrition by Job Role") +
-  theme_classic() +
-  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
-  guides(fill=guide_legend(title="Job Role"))
 ```
-
-![](MasterCode_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
-
-```r
-# Percent Attrition by Department
-depts %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Department, -Percents), y = Percents, fill=Department)) + 
-  geom_bar(stat = "identity") + 
-  xlab("Department") + ylab("Percent Attrition") +
-  ggtitle("Percent Attrition by Department") +
-  theme_classic() +
-  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
-  guides(fill=guide_legend(title="Department"))
-```
-
-![](MasterCode_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
-
-```r
-# Percent Attrition by Travel
-travel %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Travel, -Percents), y = Percents, fill=Travel)) + 
-  geom_bar(stat = "identity") + 
-  xlab("Business Travel") + ylab("Percent Attrition") +
-  ggtitle("Percent Attrition by Business Travel") +
-  theme_classic() +
-  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
-  guides(fill=guide_legend(title="Business Travel"))
-```
-
-![](MasterCode_files/figure-html/unnamed-chunk-1-3.png)<!-- -->
-
-```r
-# Percent Attrition by Education Field
-educfield %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(EduField, -Percents), y = Percents, fill=EduField)) + 
-  geom_bar(stat = "identity") + 
-  xlab("Education Field") + ylab("Percent Attrition") +
-  ggtitle("Percent Attrition by Field of Education") +
-  theme_classic() +
-  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
-  guides(fill=guide_legend(title="Education Field"))
-```
-
-![](MasterCode_files/figure-html/unnamed-chunk-1-4.png)<!-- -->
-
-```r
-# Percent Attrition by Gender
-gender %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Gender, -Percents), y = Percents, fill=Gender)) + 
-  geom_bar(stat = "identity") + 
-  xlab("Gender") + ylab("Percent Attrition") +
-  ggtitle("Percent Attrition by Gender") +
-  theme_classic() +
-  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
-  guides(fill=guide_legend(title="Gender"))
-```
-
-![](MasterCode_files/figure-html/unnamed-chunk-1-5.png)<!-- -->
-
-```r
-# Percent Attrition by Years of Education
-educyr %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Education, -Percents), y = Percents, fill=Education)) + 
-  geom_bar(stat = "identity") + 
-  xlab("Years of Education") + ylab("Percent Attrition") +
-  ggtitle("Percent Attrition by Years of Education") +
-  theme_classic() +
-  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
-  guides(fill=guide_legend(title="Years of Education"))
-```
-
-![](MasterCode_files/figure-html/unnamed-chunk-1-6.png)<!-- -->
-
-```r
-# Percent Attrition by Marital Status
-marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(MaritalStat, -Percents), y = Percents, fill=MaritalStat)) + 
-  geom_bar(stat = "identity") + 
-  xlab("Marital Status") + ylab("Percent Attrition") +
-  ggtitle("Percent Attrition by Marital Status") +
-  theme_classic() +
-  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
-  guides(fill=guide_legend(title="Marital Status"))
-```
-
-![](MasterCode_files/figure-html/unnamed-chunk-1-7.png)<!-- -->
 
 #### Correlation Plot of all variables
 
@@ -718,7 +625,6 @@ corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'ful
 
 ```r
 require(pastecs)
-
 # Consider Department, EducationBackground, JobRole, and Gender with Credentials
 Credentials <- hr[,(names(hr) %in%
                                    c("Age","Education","JobLevel","PerformRate"))]
@@ -730,10 +636,8 @@ LifeSatisfaction <- hr[,(names(hr) %in%
 # Consider Overtime with Compensation                                  
 Compensation <- hr[,(names(hr) %in%
                                   c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
-
 Loyalty <- hr[,(names(hr) %in%
                              c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
-
 stat.desc(Credentials)
 ```
 
@@ -853,6 +757,7 @@ stat.desc(Loyalty)
 
 ```r
 require(ggplot2)
+# Histogram of Employee Monthly Incomes
 ggplot(hr, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins = 25) + 
   labs(title = "Histogram of Monthly Income", x = "Monthly Income", y = "Frequency") + 
   theme(plot.title = element_text(hjust = 0.5))
@@ -861,6 +766,7 @@ ggplot(hr, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins =
 ![](MasterCode_files/figure-html/3b-1.png)<!-- -->
 
 ```r
+# Histogram of Percent Salary Hikes
 ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=4) + 
   labs(title = "Histogram of Percent Salary Hike", x = "Percent Salary Hike", y = "Frequency") + 
   theme(plot.title = element_text(hjust = 0.5))
@@ -870,6 +776,7 @@ ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=
 
 
 ```r
+# Frequency Table for Employee Gender
 Gender <- as.data.frame(table(Employee_rawdata$Gender))
 colnames(Gender) <- c("Gender","Frequency")
 Gender
@@ -882,6 +789,7 @@ Gender
 ```
 
 ```r
+# Frequency Table for Employee Education
 Education <- as.data.frame(table(Employee_rawdata$EduField))
 colnames(Education) <- c("Education","Frequency")
 Education
@@ -898,6 +806,7 @@ Education
 ```
 
 ```r
+# Frequency Table for Employee Occupation
 Occupation <- as.data.frame(table(Employee_rawdata$JobRole))
 colnames(Occupation) <- c("Occupation","Frequency")
 Occupation
@@ -918,6 +827,7 @@ Occupation
 
 
 ```r
+# Frequency table of Management Positions
 Management <- Occupation[c(4:6),]
 colnames(Management) <- c("Position","Frequency")
 Management
@@ -931,6 +841,470 @@ Management
 ```
 
 
+```r
+# Labeling Income Level by Annual Salary
+for (i in 1:nrow(hr)) {
+  if (hr$MonIncome[i] < 2500){ # <30k annually
+    hr$IncomeLvl[i] <- "Entry"
+  } else if ((hr$MonIncome[i] >= 2500) & (hr$MonIncome[i] < 4167)){ # 30k - 50k annually
+    hr$IncomeLvl[i] <- "Middle"
+  } else if ((hr$MonIncome[i] >= 4167) & (hr$MonIncome[i] < 6250)){ # 50k - 75k annually
+    hr$IncomeLvl[i] <- "Mid-High"
+  } else if ((hr$MonIncome[i] >= 4167) & (hr$MonIncome[i] < 8333)){ # 75k - 100k annually
+    hr$IncomeLvl[i] <- "High"
+  } else if (hr$MonIncome[i] >= 8333){ # >100k annually
+      hr$IncomeLvl[i] <- "Executive"
+  }
+}
+# Table for Attrition by Income Level
+xtabs(~IncomeLvl+Attrition, data = hr)
+```
+
+```
+##            Attrition
+## IncomeLvl     0   1
+##   Entry     147  77
+##   Executive 332  38
+##   High      142  16
+##   Mid-High  322  44
+##   Middle    290  62
+```
+
+```r
+# Approximating Turnover Cost based on CAP Averages
+# 20.4% of annual salary used for mid-high and high positions for a conservative estimate
+# 125% of annual salary used for executive positions for a conservative estimate
+aprxTOcost <- 0
+for (i in 1:nrow(hr)) {
+  if (hr$IncomeLvl[i] == "Entry"){
+    TOcost <- hr$MonIncome[i]*12*0.161
+  } else if (hr$IncomeLvl[i] == "Middle"){
+    TOcost <- hr$MonIncome[i]*12*0.197
+  } else if (hr$IncomeLvl[i] == "Mid-High"){
+    TOcost <- hr$MonIncome[i]*12*0.204
+  } else if (hr$IncomeLvl[i] == "High"){
+    TOcost <- hr$MonIncome[i]*12*0.204
+  } else if (hr$IncomeLvl[i] == "Executive"){
+    TOcost <- hr$MonIncome[i]*12*1.25
+  }
+aprxTOcost <- aprxTOcost + TOcost
+}
+aprxTOcost
+```
+
+```
+## [1] 85667750
+```
+
+```r
+# Percent Attrition by Years with Current Manager
+mytable_curmanage <- xtabs(~CurManage+Attrition, data=Employee_rawdata) 
+round(prop.table(mytable_curmanage,1)*100,2) 
+```
+
+```
+##          Attrition
+## CurManage     No    Yes
+##        0   67.68  32.32
+##        1   85.53  14.47
+##        2   85.47  14.53
+##        3   86.62  13.38
+##        4   88.78  11.22
+##        5   87.10  12.90
+##        6   86.21  13.79
+##        7   85.65  14.35
+##        8   90.65   9.35
+##        9   90.62   9.38
+##        10  88.89  11.11
+##        11  95.45   4.55
+##        12 100.00   0.00
+##        13 100.00   0.00
+##        14  60.00  40.00
+##        15 100.00   0.00
+##        16 100.00   0.00
+##        17 100.00   0.00
+```
+
+```r
+# Percent Attrition by Years with Current Manager and Years at Company
+mytable_curmanage.yearsatco <- xtabs(~CurManage+YearsAtCo+Attrition, data=Employee_rawdata) 
+round(prop.table(mytable_curmanage.yearsatco,1)*100,2) 
+```
+
+```
+## , , Attrition = No
+## 
+##          YearsAtCo
+## CurManage     0     1     2     3     4     5     6     7     8     9
+##        0  10.65 39.16  2.28  1.90  1.14  4.18  1.14  1.14  1.52  2.28
+##        1   0.00 11.84 14.47  6.58 11.84  7.89  6.58  2.63  7.89  5.26
+##        2   0.00  0.00 24.13 28.49 11.92 11.92  4.07  0.87  0.58  0.87
+##        3   0.00  0.00  0.00  0.00 26.76 41.55 11.97  1.41  1.41  0.70
+##        4   0.00  0.00  0.00  0.00  0.00 59.18 17.35  1.02  0.00  3.06
+##        5   0.00  0.00  0.00  0.00  0.00  0.00 35.48 12.90  9.68 12.90
+##        6   0.00  0.00  0.00  0.00  0.00  0.00  0.00 20.69 17.24  6.90
+##        7   0.00  0.00  0.00  0.00  0.00  0.00  0.00 26.85 22.69  8.80
+##        8   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00 29.91
+##        9   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        10  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        11  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        12  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        13  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        14  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        15  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        16  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        17  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##          YearsAtCo
+## CurManage    10    11    12    13    14    15    16    17    18    19
+##        0   1.52  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        1   3.95  2.63  0.00  1.32  1.32  0.00  1.32  0.00  0.00  0.00
+##        2   2.03  0.00  0.00  0.00  0.00  0.00  0.00  0.29  0.00  0.29
+##        3   1.41  0.70  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        4   6.12  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        5   9.68  0.00  3.23  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        6  20.69  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        7   9.72  3.70  1.85  2.78  0.46  0.93  0.46  0.46  0.46  0.46
+##        8  26.17  6.54  3.74  3.74  2.80  2.80  0.93  1.87  0.93  2.80
+##        9  34.38 12.50  1.56  9.38  3.12  3.12  0.00  1.56  0.00  4.69
+##        10  0.00 14.81  3.70  0.00 11.11  0.00  7.41  0.00  0.00  0.00
+##        11  0.00  0.00 13.64  0.00 18.18 22.73  4.55  4.55 18.18  4.55
+##        12  0.00  0.00  0.00 27.78  5.56 27.78  5.56  0.00 11.11  0.00
+##        13  0.00  0.00  0.00  0.00  7.14 14.29 14.29  0.00 14.29  0.00
+##        14  0.00  0.00  0.00  0.00  0.00  0.00 40.00  0.00  0.00  0.00
+##        15  0.00  0.00  0.00  0.00  0.00  0.00  0.00 40.00  0.00  0.00
+##        16  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00 50.00
+##        17  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00 28.57  0.00
+##          YearsAtCo
+## CurManage    20    21    22    23    24    25    26    27    29    30
+##        0   0.00  0.00  0.00  0.00  0.00  0.00  0.38  0.00  0.00  0.00
+##        1   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        2   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        3   0.00  0.70  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        4   0.00  0.00  1.02  1.02  0.00  0.00  0.00  0.00  0.00  0.00
+##        5   0.00  0.00  3.23  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        6  10.34 10.34  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        7   1.39  0.46  0.93  0.00  0.93  0.46  0.46  0.46  0.00  0.00
+##        8   3.74  2.80  0.00  0.00  0.00  0.00  0.00  0.93  0.00  0.00
+##        9   6.25  3.12  1.56  0.00  1.56  1.56  1.56  0.00  0.00  0.00
+##        10 18.52  7.41 14.81  0.00  0.00  0.00  0.00  0.00  7.41  0.00
+##        11  0.00  0.00  4.55  0.00  4.55  0.00  0.00  0.00  0.00  0.00
+##        12  5.56  0.00  0.00  0.00  0.00  5.56  5.56  0.00  0.00  0.00
+##        13 14.29  0.00  7.14  0.00  0.00  7.14  0.00  0.00  0.00  7.14
+##        14  0.00  0.00 20.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        15 20.00  0.00 20.00  0.00 20.00  0.00  0.00  0.00  0.00  0.00
+##        16  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        17 42.86 14.29 14.29  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##          YearsAtCo
+## CurManage    31    32    33    34    36    37    40
+##        0   0.00  0.00  0.38  0.00  0.00  0.00  0.00
+##        1   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        2   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        3   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        4   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        5   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        6   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        7   0.46  0.46  0.00  0.00  0.00  0.00  0.00
+##        8   0.00  0.00  0.00  0.00  0.00  0.93  0.00
+##        9   1.56  1.56  1.56  0.00  0.00  0.00  0.00
+##        10  0.00  0.00  3.70  0.00  0.00  0.00  0.00
+##        11  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        12  0.00  0.00  5.56  0.00  0.00  0.00  0.00
+##        13  0.00  0.00  0.00  0.00 14.29  0.00  0.00
+##        14  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        15  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        16  0.00  0.00  0.00 50.00  0.00  0.00  0.00
+##        17  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+## 
+## , , Attrition = Yes
+## 
+##          YearsAtCo
+## CurManage     0     1     2     3     4     5     6     7     8     9
+##        0   6.08 20.91  1.52  0.38  0.38  1.52  0.38  0.76  0.00  0.00
+##        1   0.00  5.26  2.63  0.00  1.32  1.32  2.63  0.00  0.00  0.00
+##        2   0.00  0.00  6.10  5.52  2.03  0.29  0.58  0.00  0.00  0.00
+##        3   0.00  0.00  0.00  0.00  7.04  4.23  0.70  0.70  0.00  0.70
+##        4   0.00  0.00  0.00  0.00  0.00  9.18  1.02  0.00  1.02  0.00
+##        5   0.00  0.00  0.00  0.00  0.00  0.00  6.45  0.00  0.00  0.00
+##        6   0.00  0.00  0.00  0.00  0.00  0.00  0.00  3.45  0.00  3.45
+##        7   0.00  0.00  0.00  0.00  0.00  0.00  0.00  3.24  3.70  2.78
+##        8   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        9   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        10  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        11  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        12  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        13  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        14  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        15  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        16  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        17  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##          YearsAtCo
+## CurManage    10    11    12    13    14    15    16    17    18    19
+##        0   0.00  0.00  0.00  0.38  0.00  0.00  0.00  0.00  0.00  0.00
+##        1   1.32  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        2   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        3   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        4   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        5   3.23  0.00  0.00  0.00  0.00  0.00  0.00  0.00  3.23  0.00
+##        6   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        7   3.24  0.46  0.00  0.00  0.46  0.00  0.46  0.00  0.00  0.00
+##        8   4.67  0.00  0.00  0.93  0.93  0.00  0.00  0.00  0.00  0.93
+##        9   6.25  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        10  0.00  3.70  0.00  0.00  0.00  3.70  0.00  0.00  0.00  0.00
+##        11  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        12  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        13  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        14  0.00  0.00  0.00  0.00  0.00  0.00  0.00 20.00  0.00  0.00
+##        15  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        16  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        17  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##          YearsAtCo
+## CurManage    20    21    22    23    24    25    26    27    29    30
+##        0   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        1   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        2   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        3   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        4   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        5   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        6   3.45  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        7   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        8   0.00  0.00  0.93  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        9   0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        10  0.00  0.00  0.00  3.70  0.00  0.00  0.00  0.00  0.00  0.00
+##        11  0.00  0.00  0.00  0.00  4.55  0.00  0.00  0.00  0.00  0.00
+##        12  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        13  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        14  0.00 20.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        15  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        16  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        17  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##          YearsAtCo
+## CurManage    31    32    33    34    36    37    40
+##        0   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        1   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        2   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        3   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        4   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        5   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        6   0.00  0.00  0.00  0.00  0.00  0.00  3.45
+##        7   0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        8   0.93  0.00  0.00  0.00  0.00  0.00  0.00
+##        9   0.00  1.56  1.56  0.00  0.00  0.00  0.00
+##        10  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        11  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        12  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        13  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        14  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        15  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        16  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+##        17  0.00  0.00  0.00  0.00  0.00  0.00  0.00
+```
+
+```r
+# Percet Employy by Number Training Sessions and Job Role
+mytable_manager.traintime<- xtabs(~JobRole+TrainTime, data=Employee_rawdata)
+round(prop.table(mytable_manager.traintime,1)*100,2)
+```
+
+```
+##                            TrainTime
+## JobRole                         0     1     2     3     4     5     6
+##   Healthcare Representative  4.58  6.11 38.93 29.01  8.40  7.63  5.34
+##   Human Resources            3.85  9.62 38.46 32.69  7.69  5.77  1.92
+##   Laboratory Technician      2.32  3.09 37.07 33.20  9.27  9.27  5.79
+##   Manager                    1.96  1.96 44.12 33.33  5.88  8.82  3.92
+##   Manufacturing Director     4.14  7.59 38.62 28.28  8.97  5.52  6.90
+##   Research Director          3.75  6.25 32.50 37.50  8.75  8.75  2.50
+##   Research Scientist         5.82  4.45 39.38 31.16  9.25  6.85  3.08
+##   Sales Executive            3.37  4.91 35.58 35.28  7.36  9.20  4.29
+##   Sales Representative       1.20  3.61 26.51 46.99  8.43  9.64  3.61
+```
+
+```r
+# Table for Stock Option Income Level
+table(hr$IncomeLvl,hr$StockOption)
+```
+
+```
+##            
+##               0   1   2   3
+##   Entry     108  82  18  16
+##   Executive 143 180  30  17
+##   High       66  62  20  10
+##   Mid-High  157 135  57  17
+##   Middle    157 137  33  25
+```
+
+```r
+# Table for Income Level by Job Role
+table(Employee_rawdata$JobRole,hr$IncomeLvl)
+```
+
+```
+##                            
+##                             Entry Executive High Mid-High Middle
+##   Healthcare Representative     0        45   40       38      8
+##   Human Resources              14         5    6        8     19
+##   Laboratory Technician        83         0    5       43    128
+##   Manager                       0       102    0        0      0
+##   Manufacturing Director        0        47   30       65      3
+##   Research Director             0        80    0        0      0
+##   Research Scientist           88         1    5       56    142
+##   Sales Executive               0        90   71      153     12
+##   Sales Representative         39         0    1        3     40
+```
+
+```r
+# Table for Last Promotion by Job Role
+table(Employee_rawdata$JobRole,hr$LastPromote)
+```
+
+```
+##                            
+##                               0   1   2   3   4   5   6   7   8   9  10
+##   Healthcare Representative  43  35  10   5   8   2   2   7   2   1   2
+##   Human Resources            22  15   6   3   2   3   0   1   0   0   0
+##   Laboratory Technician     126  64  25  12   5   6   4   9   1   4   1
+##   Manager                    23  15   9   3  12   2   5   7   1   3   1
+##   Manufacturing Director     56  38   9   7   7   9   4   9   2   0   0
+##   Research Director          24  17   9   4   5   5   3   2   3   0   0
+##   Research Scientist        121  82  45   8   6   3   5  13   4   2   1
+##   Sales Executive           122  75  32   9  14  11   8  27   5   7   1
+##   Sales Representative       44  16  14   1   2   4   1   1   0   0   0
+##                            
+##                              11  12  13  14  15
+##   Healthcare Representative   6   4   1   1   2
+##   Human Resources             0   0   0   0   0
+##   Laboratory Technician       0   1   0   0   1
+##   Manager                     8   2   2   4   5
+##   Manufacturing Director      1   0   0   2   1
+##   Research Director           0   2   3   1   2
+##   Research Scientist          1   0   1   0   0
+##   Sales Executive             8   1   3   1   2
+##   Sales Representative        0   0   0   0   0
+```
+
+```r
+# Table for Performance Rating by Job Role
+table(Employee_rawdata$JobRole,hr$PerformRate)
+```
+
+```
+##                            
+##                               3   4
+##   Healthcare Representative 111  20
+##   Human Resources            45   7
+##   Laboratory Technician     217  42
+##   Manager                    82  20
+##   Manufacturing Director    118  27
+##   Research Director          72   8
+##   Research Scientist        243  49
+##   Sales Executive           285  41
+##   Sales Representative       71  12
+```
+
+```r
+# Table for Employee Job Satisfaction
+table(hr$JobSatis)
+```
+
+```
+## 
+##   1   2   3   4 
+## 289 280 442 459
+```
+
+
+```r
+# Percent Attrition by JobRole
+roles %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(JobRole, -Percents), y = Percents, fill=JobRole)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() + 
+  xlab("Job Role") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Job Role") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Job Role"))
+```
+
+![](MasterCode_files/figure-html/4b-1.png)<!-- -->
+
+```r
+# Percent Attrition by Department
+depts %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Department, -Percents), y = Percents, fill=Department)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Department") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Department") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Department"))
+```
+
+![](MasterCode_files/figure-html/4b-2.png)<!-- -->
+
+```r
+# Percent Attrition by Travel
+travel %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Travel, -Percents), y = Percents, fill=Travel)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Business Travel") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Business Travel") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Business Travel"))
+```
+
+![](MasterCode_files/figure-html/4b-3.png)<!-- -->
+
+```r
+# Percent Attrition by Education Field
+educfield %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(EduField, -Percents), y = Percents, fill=EduField)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Education Field") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Field of Education") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Education Field"))
+```
+
+![](MasterCode_files/figure-html/4b-4.png)<!-- -->
+
+```r
+# Percent Attrition by Gender
+gender %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Gender, -Percents), y = Percents, fill=Gender)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Gender") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Gender") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Gender"))
+```
+
+![](MasterCode_files/figure-html/4b-5.png)<!-- -->
+
+```r
+# Percent Attrition by Years of Education
+educyr %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Education, -Percents), y = Percents, fill=Education)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Years of Education") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Years of Education") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Years of Education"))
+```
+
+![](MasterCode_files/figure-html/4b-6.png)<!-- -->
+
+```r
+# Percent Attrition by Marital Status
+marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(MaritalStat, -Percents), y = Percents, fill=MaritalStat)) + 
+  geom_bar(stat = "identity") + 
+  xlab("Marital Status") + ylab("Percent Attrition") +
+  ggtitle("Percent Attrition by Marital Status") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 20, hjust = 0.5)) +
+  guides(fill=guide_legend(title="Marital Status"))
+```
+
+![](MasterCode_files/figure-html/4b-7.png)<!-- -->
 
 
 ```r
@@ -1012,48 +1386,52 @@ summary(attritlm)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.59553 -0.21218 -0.08490  0.07369  1.13985 
+## -0.58756 -0.20758 -0.08011  0.08084  1.15040 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  6.469e-01  1.367e-01   4.732 2.44e-06 ***
-## Age         -3.796e-03  1.336e-03  -2.842 0.004550 ** 
-## Travel       8.238e-02  1.610e-02   5.118 3.51e-07 ***
-## DailyRate   -3.170e-05  2.137e-05  -1.483 0.138242    
-## Department   7.432e-02  2.410e-02   3.084 0.002080 ** 
-## DisFromHome  3.544e-03  1.059e-03   3.346 0.000841 ***
-## Education    4.802e-04  8.580e-03   0.056 0.955375    
-## EduField     6.668e-03  6.449e-03   1.034 0.301333    
-## EmployeeID  -8.218e-06  1.430e-05  -0.575 0.565631    
-## EnvSatis    -4.030e-02  7.858e-03  -5.129 3.31e-07 ***
-## Gender       3.909e-02  1.755e-02   2.227 0.026111 *  
-## HourlyRate  -2.468e-04  4.231e-04  -0.583 0.559769    
-## JobInvolve  -6.139e-02  1.209e-02  -5.079 4.30e-07 ***
-## JobLevel    -3.584e-02  2.639e-02  -1.358 0.174654    
-## JobRole     -8.061e-03  5.135e-03  -1.570 0.116661    
-## JobSatis    -3.877e-02  7.804e-03  -4.968 7.57e-07 ***
-## MaritalStat -5.388e-02  1.583e-02  -3.403 0.000685 ***
-## MonIncome    1.288e-06  6.002e-06   0.215 0.830133    
-## MonthlyRate  5.262e-07  1.205e-06   0.437 0.662502    
-## NumCoWork    1.691e-02  3.831e-03   4.414 1.09e-05 ***
-## OverTime     2.074e-01  1.918e-02  10.814  < 2e-16 ***
-## SalaryIncr  -3.415e-03  3.697e-03  -0.924 0.355700    
-## PerformRate  2.263e-02  3.748e-02   0.604 0.546003    
-## RelateSatis -2.230e-02  7.968e-03  -2.799 0.005197 ** 
-## StockOption -2.321e-02  1.351e-02  -1.717 0.086129 .  
-## NumWorkYear -3.452e-03  2.404e-03  -1.436 0.151123    
-## TrainTime   -1.258e-02  6.682e-03  -1.882 0.059986 .  
-## WorkLifeBal -2.778e-02  1.216e-02  -2.285 0.022439 *  
-## YearsAtCo    5.970e-03  2.981e-03   2.003 0.045404 *  
-## DuraCurRole -1.026e-02  3.881e-03  -2.644 0.008278 ** 
-## LastPromote  1.110e-02  3.421e-03   3.245 0.001202 ** 
-## CurManage   -1.045e-02  3.979e-03  -2.627 0.008700 ** 
+##                      Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)         6.818e-01  1.371e-01   4.974 7.34e-07 ***
+## Age                -3.439e-03  1.318e-03  -2.609 0.009169 ** 
+## Travel              8.289e-02  1.589e-02   5.216 2.10e-07 ***
+## DailyRate          -3.014e-05  2.108e-05  -1.430 0.152908    
+## Department          9.995e-02  2.449e-02   4.081 4.73e-05 ***
+## DisFromHome         3.690e-03  1.048e-03   3.522 0.000442 ***
+## Education           4.027e-03  8.513e-03   0.473 0.636275    
+## EduField            6.296e-03  6.358e-03   0.990 0.322233    
+## EmployeeID         -6.228e-06  1.410e-05  -0.442 0.658758    
+## EnvSatis           -4.261e-02  7.756e-03  -5.494 4.64e-08 ***
+## Gender              3.552e-02  1.731e-02   2.052 0.040369 *  
+## HourlyRate         -2.758e-04  4.175e-04  -0.661 0.508908    
+## JobInvolve         -6.041e-02  1.196e-02  -5.052 4.94e-07 ***
+## JobLevel           -5.962e-03  2.786e-02  -0.214 0.830581    
+## JobRole            -1.062e-02  5.111e-03  -2.078 0.037854 *  
+## JobSatis           -3.714e-02  7.704e-03  -4.821 1.58e-06 ***
+## MaritalStat        -5.265e-02  1.562e-02  -3.371 0.000770 ***
+## MonIncome          -1.958e-06  7.354e-06  -0.266 0.790033    
+## MonthlyRate         7.614e-07  1.191e-06   0.640 0.522551    
+## NumCoWork           1.849e-02  3.788e-03   4.882 1.17e-06 ***
+## OverTime            2.068e-01  1.892e-02  10.930  < 2e-16 ***
+## SalaryIncr         -3.553e-03  3.647e-03  -0.974 0.330143    
+## PerformRate         1.801e-02  3.696e-02   0.487 0.626106    
+## RelateSatis        -2.459e-02  7.871e-03  -3.124 0.001820 ** 
+## StockOption        -2.313e-02  1.332e-02  -1.736 0.082770 .  
+## NumWorkYear        -4.236e-03  2.381e-03  -1.779 0.075409 .  
+## TrainTime          -1.425e-02  6.591e-03  -2.163 0.030743 *  
+## WorkLifeBal        -2.620e-02  1.200e-02  -2.183 0.029162 *  
+## YearsAtCo           4.633e-03  2.959e-03   1.566 0.117614    
+## DuraCurRole        -7.021e-03  3.878e-03  -1.810 0.070430 .  
+## LastPromote         9.686e-03  3.387e-03   2.860 0.004297 ** 
+## CurManage          -7.846e-03  3.944e-03  -1.989 0.046884 *  
+## IncomeLvlExecutive -1.370e-01  5.803e-02  -2.361 0.018355 *  
+## IncomeLvlHigh      -1.846e-01  4.218e-02  -4.377 1.29e-05 ***
+## IncomeLvlMid-High  -1.976e-01  3.249e-02  -6.082 1.52e-09 ***
+## IncomeLvlMiddle    -1.273e-01  2.846e-02  -4.474 8.27e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.3263 on 1438 degrees of freedom
-## Multiple R-squared:  0.2299,	Adjusted R-squared:  0.2133 
-## F-statistic: 13.85 on 31 and 1438 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.3216 on 1434 degrees of freedom
+## Multiple R-squared:  0.254,	Adjusted R-squared:  0.2358 
+## F-statistic: 13.95 on 35 and 1434 DF,  p-value: < 2.2e-16
 ```
 
 ### Stepwise variable selction using AIC as the stop criteria
@@ -1068,46 +1446,50 @@ summary(fit1lm)
 ## 
 ## Call:
 ## lm(formula = Attrition ~ Age + Travel + DailyRate + Department + 
-##     DisFromHome + EnvSatis + Gender + JobInvolve + JobLevel + 
-##     JobRole + JobSatis + MaritalStat + NumCoWork + OverTime + 
-##     RelateSatis + StockOption + TrainTime + WorkLifeBal + YearsAtCo + 
-##     DuraCurRole + LastPromote + CurManage, data = hr)
+##     DisFromHome + EnvSatis + Gender + JobInvolve + JobRole + 
+##     JobSatis + MaritalStat + NumCoWork + OverTime + RelateSatis + 
+##     StockOption + NumWorkYear + TrainTime + WorkLifeBal + YearsAtCo + 
+##     DuraCurRole + LastPromote + CurManage + IncomeLvl, data = hr)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -0.56937 -0.21102 -0.08677  0.06624  1.13606 
+## -0.57724 -0.20849 -0.08236  0.07666  1.18585 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  6.897e-01  9.332e-02   7.390 2.46e-13 ***
-## Age         -4.818e-03  1.141e-03  -4.223 2.56e-05 ***
-## Travel       8.170e-02  1.604e-02   5.094 3.96e-07 ***
-## DailyRate   -3.259e-05  2.125e-05  -1.534 0.125267    
-## Department   7.635e-02  2.376e-02   3.214 0.001339 ** 
-## DisFromHome  3.466e-03  1.053e-03   3.293 0.001016 ** 
-## EnvSatis    -3.939e-02  7.811e-03  -5.043 5.16e-07 ***
-## Gender       3.853e-02  1.750e-02   2.201 0.027864 *  
-## JobInvolve  -6.144e-02  1.204e-02  -5.102 3.81e-07 ***
-## JobLevel    -4.119e-02  1.033e-02  -3.989 6.98e-05 ***
-## JobRole     -7.912e-03  5.106e-03  -1.550 0.121469    
-## JobSatis    -3.845e-02  7.754e-03  -4.958 7.95e-07 ***
-## MaritalStat -5.275e-02  1.577e-02  -3.344 0.000847 ***
-## NumCoWork    1.579e-02  3.724e-03   4.240 2.38e-05 ***
-## OverTime     2.076e-01  1.914e-02  10.847  < 2e-16 ***
-## RelateSatis -2.143e-02  7.924e-03  -2.704 0.006929 ** 
-## StockOption -2.433e-02  1.342e-02  -1.813 0.069978 .  
-## TrainTime   -1.209e-02  6.658e-03  -1.816 0.069580 .  
-## WorkLifeBal -2.697e-02  1.212e-02  -2.224 0.026299 *  
-## YearsAtCo    4.707e-03  2.834e-03   1.661 0.096899 .  
-## DuraCurRole -1.027e-02  3.870e-03  -2.654 0.008035 ** 
-## LastPromote  1.138e-02  3.410e-03   3.337 0.000869 ***
-## CurManage   -1.063e-02  3.956e-03  -2.686 0.007320 ** 
+##                      Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)         6.879e-01  9.488e-02   7.250 6.77e-13 ***
+## Age                -3.436e-03  1.301e-03  -2.641 0.008362 ** 
+## Travel              8.356e-02  1.582e-02   5.281 1.48e-07 ***
+## DailyRate          -3.022e-05  2.096e-05  -1.442 0.149612    
+## Department          9.993e-02  2.417e-02   4.134 3.77e-05 ***
+## DisFromHome         3.689e-03  1.039e-03   3.551 0.000396 ***
+## EnvSatis           -4.190e-02  7.706e-03  -5.437 6.34e-08 ***
+## Gender              3.467e-02  1.725e-02   2.009 0.044701 *  
+## JobInvolve         -6.086e-02  1.190e-02  -5.115 3.57e-07 ***
+## JobRole            -1.043e-02  5.075e-03  -2.056 0.040003 *  
+## JobSatis           -3.720e-02  7.651e-03  -4.863 1.29e-06 ***
+## MaritalStat        -5.197e-02  1.556e-02  -3.341 0.000857 ***
+## NumCoWork           1.872e-02  3.767e-03   4.969 7.52e-07 ***
+## OverTime            2.073e-01  1.887e-02  10.987  < 2e-16 ***
+## RelateSatis        -2.413e-02  7.830e-03  -3.081 0.002100 ** 
+## StockOption        -2.456e-02  1.323e-02  -1.856 0.063633 .  
+## NumWorkYear        -4.745e-03  2.175e-03  -2.182 0.029285 *  
+## TrainTime          -1.403e-02  6.567e-03  -2.137 0.032770 *  
+## WorkLifeBal        -2.586e-02  1.196e-02  -2.161 0.030833 *  
+## YearsAtCo           4.388e-03  2.930e-03   1.498 0.134421    
+## DuraCurRole        -6.824e-03  3.849e-03  -1.773 0.076434 .  
+## LastPromote         9.927e-03  3.377e-03   2.939 0.003342 ** 
+## CurManage          -7.674e-03  3.922e-03  -1.957 0.050572 .  
+## IncomeLvlExecutive -1.654e-01  3.601e-02  -4.592 4.77e-06 ***
+## IncomeLvlHigh      -1.979e-01  3.615e-02  -5.473 5.20e-08 ***
+## IncomeLvlMid-High  -2.045e-01  2.950e-02  -6.931 6.29e-12 ***
+## IncomeLvlMiddle    -1.289e-01  2.782e-02  -4.634 3.90e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.3258 on 1447 degrees of freedom
-## Multiple R-squared:  0.2274,	Adjusted R-squared:  0.2156 
-## F-statistic: 19.36 on 22 and 1447 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.321 on 1443 degrees of freedom
+## Multiple R-squared:  0.252,	Adjusted R-squared:  0.2385 
+## F-statistic:  18.7 on 26 and 1443 DF,  p-value: < 2.2e-16
 ```
 
 ### logistic regression
@@ -1125,50 +1507,300 @@ summary(glm_test)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.1088  -0.5191  -0.2658  -0.1021   3.3955  
+## -1.8764  -0.4987  -0.2572  -0.0950   3.2745  
 ## 
 ## Coefficients:
-##               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  2.083e+00  1.365e+00   1.527 0.126872    
-## Age         -2.996e-02  1.318e-02  -2.273 0.023035 *  
-## Travel       9.287e-01  1.676e-01   5.542 3.00e-08 ***
-## DailyRate   -3.106e-04  2.132e-04  -1.456 0.145270    
-## Department   1.102e+00  2.786e-01   3.955 7.66e-05 ***
-## DisFromHome  4.274e-02  1.042e-02   4.103 4.07e-05 ***
-## Education    1.153e-02  8.488e-02   0.136 0.891973    
-## EduField     7.520e-02  6.583e-02   1.142 0.253346    
-## EmployeeID  -1.388e-04  1.457e-04  -0.952 0.340913    
-## EnvSatis    -4.148e-01  7.983e-02  -5.197 2.03e-07 ***
-## Gender       4.043e-01  1.790e-01   2.259 0.023884 *  
-## HourlyRate  -2.449e-04  4.255e-03  -0.058 0.954091    
-## JobInvolve  -5.353e-01  1.196e-01  -4.475 7.63e-06 ***
-## JobLevel    -3.817e-01  2.823e-01  -1.352 0.176312    
-## JobRole     -1.433e-01  5.462e-02  -2.624 0.008688 ** 
-## JobSatis    -4.190e-01  7.926e-02  -5.286 1.25e-07 ***
-## MaritalStat -5.445e-01  1.671e-01  -3.259 0.001119 ** 
-## MonIncome   -4.089e-05  6.679e-05  -0.612 0.540386    
-## MonthlyRate  2.615e-06  1.215e-05   0.215 0.829552    
-## NumCoWork    1.871e-01  3.698e-02   5.059 4.22e-07 ***
-## OverTime     1.866e+00  1.854e-01  10.067  < 2e-16 ***
-## SalaryIncr  -3.226e-02  3.801e-02  -0.849 0.395994    
-## PerformRate  1.827e-01  3.853e-01   0.474 0.635379    
-## RelateSatis -2.459e-01  8.025e-02  -3.064 0.002187 ** 
-## StockOption -2.563e-01  1.467e-01  -1.747 0.080626 .  
-## NumWorkYear -6.038e-02  2.821e-02  -2.140 0.032359 *  
-## TrainTime   -1.868e-01  7.080e-02  -2.638 0.008337 ** 
-## WorkLifeBal -3.027e-01  1.184e-01  -2.556 0.010590 *  
-## YearsAtCo    1.033e-01  3.751e-02   2.754 0.005888 ** 
-## DuraCurRole -1.493e-01  4.359e-02  -3.426 0.000613 ***
-## LastPromote  1.633e-01  4.069e-02   4.013 5.99e-05 ***
-## CurManage   -1.411e-01  4.505e-02  -3.132 0.001737 ** 
+##                      Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)         2.290e+00  1.425e+00   1.606 0.108172    
+## Age                -2.708e-02  1.336e-02  -2.027 0.042624 *  
+## Travel              9.393e-01  1.707e-01   5.504 3.72e-08 ***
+## DailyRate          -3.754e-04  2.189e-04  -1.715 0.086313 .  
+## Department          1.355e+00  2.921e-01   4.638 3.51e-06 ***
+## DisFromHome         4.465e-02  1.070e-02   4.172 3.02e-05 ***
+## Education           4.507e-02  8.796e-02   0.512 0.608367    
+## EduField            8.816e-02  6.713e-02   1.313 0.189096    
+## EmployeeID         -1.418e-04  1.494e-04  -0.949 0.342621    
+## EnvSatis           -4.728e-01  8.281e-02  -5.709 1.13e-08 ***
+## Gender              3.864e-01  1.824e-01   2.119 0.034131 *  
+## HourlyRate          5.876e-04  4.393e-03   0.134 0.893590    
+## JobInvolve         -5.594e-01  1.236e-01  -4.527 5.97e-06 ***
+## JobLevel           -7.936e-02  3.159e-01  -0.251 0.801635    
+## JobRole            -1.712e-01  5.631e-02  -3.040 0.002365 ** 
+## JobSatis           -3.980e-01  8.104e-02  -4.911 9.07e-07 ***
+## MaritalStat        -5.744e-01  1.713e-01  -3.354 0.000798 ***
+## MonIncome          -1.674e-04  9.274e-05  -1.805 0.071014 .  
+## MonthlyRate         3.471e-06  1.244e-05   0.279 0.780234    
+## NumCoWork           2.110e-01  3.812e-02   5.534 3.13e-08 ***
+## OverTime            1.957e+00  1.933e-01  10.126  < 2e-16 ***
+## SalaryIncr         -3.716e-02  3.888e-02  -0.956 0.339147    
+## PerformRate         1.700e-01  3.941e-01   0.431 0.666150    
+## RelateSatis        -2.776e-01  8.230e-02  -3.373 0.000745 ***
+## StockOption        -2.537e-01  1.503e-01  -1.688 0.091473 .  
+## NumWorkYear        -6.613e-02  2.822e-02  -2.343 0.019124 *  
+## TrainTime          -2.019e-01  7.235e-02  -2.791 0.005259 ** 
+## WorkLifeBal        -2.825e-01  1.216e-01  -2.323 0.020199 *  
+## YearsAtCo           9.551e-02  3.847e-02   2.483 0.013044 *  
+## DuraCurRole        -1.219e-01  4.526e-02  -2.694 0.007069 ** 
+## LastPromote         1.478e-01  4.087e-02   3.616 0.000299 ***
+## CurManage          -1.278e-01  4.563e-02  -2.800 0.005104 ** 
+## IncomeLvlExecutive  2.879e-01  7.074e-01   0.407 0.683999    
+## IncomeLvlHigh      -7.781e-01  5.007e-01  -1.554 0.120166    
+## IncomeLvlMid-High  -1.239e+00  3.535e-01  -3.504 0.000459 ***
+## IncomeLvlMiddle    -6.587e-01  2.612e-01  -2.522 0.011668 *  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
 ##     Null deviance: 1298.58  on 1469  degrees of freedom
-## Residual deviance:  899.18  on 1438  degrees of freedom
-## AIC: 963.18
+## Residual deviance:  867.43  on 1434  degrees of freedom
+## AIC: 939.43
 ## 
 ## Number of Fisher Scoring iterations: 6
 ```
+
+### Decision Tree
+
+```r
+term_vars <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","Attrition")
+emp_term_train <- subset(emp, Education < 4)
+emp_term_test <- subset(emp, Education >= 4)
+set.seed(99)  # set a pre-defined value for the random seed so that results are repeatable
+# Decision tree model
+rpart_model <- rpart(Attrition ~.,
+                     data = emp_term_train[term_vars],
+                     method = 'class',
+                     parms = list(split='information'),
+                     control = rpart.control(usesurrogate = 0,
+                                             maxsurrogate = 0))
+# Plot the decision tree
+rpart.plot(rpart_model, roundint = FALSE, type = 3)
+```
+
+![](MasterCode_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+
+### Random Forest Analysis
+
+```r
+emp$resigned <- as.factor(emp$Attrition)  # create factor for Attrition field
+
+emp_cat <- data.frame(emp$Age,emp$Education,emp$MonthlyIncome,emp$BusinessTravel,emp$Department,emp$DistanceFromHome,emp$EducationField, emp$Gender,emp$JobInvolvement,emp$JobLevel, emp$JobRole, emp$JobSatisfaction, emp$MaritalStatus, emp$MonthlyIncome,emp$NumCompaniesWorked, emp$OverTime,emp$PercentSalaryHike,emp$PerformanceRating, emp$StockOptionLevel, emp$TotalWorkingYears,emp$TrainingTimesLastYear, emp$WorkLifeBalance,emp$RelationshipSatisfaction,emp$YearsAtCompany,emp$YearsInCurrentRole, emp$YearsSinceLastPromotion,emp$YearsWithCurrManager,emp$resigned,emp$EmployeeNumber)
+
+
+col_headings <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","resigned","EmployeeNumber")
+
+names(emp_cat) <- col_headings
+emp_train <- subset(emp_cat, Education < 4)
+emp_test <- subset(emp_cat, Education >= 4)
+
+emp_train_rose <- ROSE(resigned ~ ., data = emp_train, seed=125)$data
+# Tables to show balanced dataset sample sizes
+
+res_vars <- c("Age","Education","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","resigned")
+set.seed(222)
+emp_res_rose_RF <- randomForest(resigned ~ .,
+                           data = emp_train_rose[res_vars],
+                           ntree=500, importance = TRUE,
+                           na.action = na.omit)
+imp <- varImpPlot(emp_res_rose_RF, type=1, n.var = min(20), main="Attrition Variable Importance (Accuracy)", sub = "Random Forest Model", class = NULL, scale=TRUE)
+```
+
+![](MasterCode_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+
+```r
+imp <- as.data.frame(imp[1:20,])
+imp$varnames <- rownames(imp) # row names to column
+rownames(imp) <- NULL  
+col_headings <- c("Importance", "varnames")
+names(imp) <-col_headings
+imp$var_categ <- rep(1:20)
+
+
+ggplot(imp, aes(x=reorder(varnames, Importance), y=Importance, color=as.factor(var_categ))) + 
+  geom_point() +
+  geom_segment(aes(x=varnames,xend=varnames,y=0,yend=Importance)) +
+  scale_color_discrete(name="Variable Group") +
+  ggtitle("Attrition Variable Importance") +
+  ylab("Importance Measurement") +
+  xlab("Variable Name") +
+  theme(legend.position = "none") +
+  coord_flip()
+```
+
+![](MasterCode_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+
+### Attrition Prediction using Random Forest
+
+```r
+# generate predictions based on test data ("emp_test")
+emp_res_rose_RF_pred <- predict(emp_res_rose_RF, newdata = emp_test)
+confusionMatrix(data = emp_res_rose_RF_pred,
+                reference = emp_test$resigned,
+                positive = "Yes", mode = "prec_recall")
+```
+
+```
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  No Yes
+##        No  316  24
+##        Yes  67  39
+##                                           
+##                Accuracy : 0.796           
+##                  95% CI : (0.7555, 0.8324)
+##     No Information Rate : 0.8587          
+##     P-Value [Acc > NIR] : 0.9999          
+##                                           
+##                   Kappa : 0.3456          
+##  Mcnemar's Test P-Value : 1.069e-05       
+##                                           
+##               Precision : 0.36792         
+##                  Recall : 0.61905         
+##                      F1 : 0.46154         
+##              Prevalence : 0.14126         
+##          Detection Rate : 0.08744         
+##    Detection Prevalence : 0.23767         
+##       Balanced Accuracy : 0.72206         
+##                                           
+##        'Positive' Class : Yes             
+## 
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+```r
+# Calculate prediction probabilites of employees who will resign
+emp_res_rose_RF_pred_probs <- predict(emp_res_rose_RF, emp_test, type="prob")
+Employees_flight_risk <- as.data.frame(cbind(emp_test$EmployeeNumber,emp_res_rose_RF_pred_probs))
+
+# Predition table formatting using kable
+
+col_headings <- c("Employee Num","No","Yes")
+names(Employees_flight_risk) <- col_headings
+Employees_flight_risk <- arrange(Employees_flight_risk, desc(Yes))
+Employees_flight_risk[1:25, 1 ] <- "####"
+write.csv(Employees_flight_risk[1:25, ], file = "FlightRiskData.csv")
+Employees_flight_risk[1:25, 3]  <- paste(round((Employees_flight_risk[1:25, 3])*100,digits=0),"%",sep="")
+Employees_flight_risk[, 2]  <- NULL
+c1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+df <- data.frame(c1, Employees_flight_risk[1:20, 1 ], Employees_flight_risk[1:20, 2])
+col_headings <- c("#", "Employee Number","Predict Attrition %")
+names(df) <- col_headings
+kable(df, caption="Attrition Prediction Table") %>%
+  kable_styling(bootstrap_options = "striped", font_size = 11)
+```
+
+<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">Attrition Prediction Table</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> # </th>
+   <th style="text-align:left;"> Employee Number </th>
+   <th style="text-align:left;"> Predict Attrition % </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 94% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 93% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 91% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 91% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 90% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 88% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 88% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 88% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 87% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 86% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 86% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 85% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 84% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 83% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 82% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 82% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 82% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 81% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 81% </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> #### </td>
+   <td style="text-align:left;"> 81% </td>
+  </tr>
+</tbody>
+</table>
+
