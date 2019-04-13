@@ -8,13 +8,19 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
+library(knitr)
+library(kableExtra)
 library(readxl)
 library(tidyquant)
 library(pastecs)
 library(ggplot2)
 library(corrplot)
 library(MASS)
+library(rpart.plot)
+library(ROSE)
+library(randomForest)
+library(caret)
+
 ```
 
 ``` {r SessionInfo}
@@ -27,6 +33,7 @@ sessionInfo()
 require(readxl)
 Employee_rawdata <- as.data.frame(read_excel("CaseStudy2-data.xlsx"))
 dim(Employee_rawdata)
+emp <- Employee_rawdata
 ```
 
 ``` {r 2b, include = FALSE, echo = FALSE}
@@ -36,7 +43,6 @@ for (i in 1:ncol(Employee_rawdata)) {
     print(i)
   }
 }
-
 # BusinessTravel shortened to Travel
 colnames(Employee_rawdata)[3] <- "Travel"
 # DistanceFromHome shortened to DisFromHome
@@ -83,7 +89,6 @@ colnames(Employee_rawdata)[33] <- "DuraCurRole"
 colnames(Employee_rawdata)[34] <- "LastPromote"
 # YearsWithCurrManager shortened to CurManage
 colnames(Employee_rawdata)[35] <- "CurManage"
-
 str(Employee_rawdata)
 ```
 
@@ -91,61 +96,42 @@ str(Employee_rawdata)
 ``` {r tables}
 mytable_performance<- xtabs(~PerformRate+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_performance,1)*100,2)
-
 mytable_age<- xtabs(~Age+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_age,1)*100,2)
-
 mytable_overtime<- xtabs(~OverTime+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_overtime,1)*100,2)
-
 mytable_worklifebalance<- xtabs(~WorkLifeBal+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_worklifebalance,1)*100,2)
-
 mytable_jobrole<- xtabs(~JobRole+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobrole,1)*100,2)
-
 mytable_numcompaniesworked<- xtabs(~NumCoWork+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_numcompaniesworked,1)*100,2)
-
 mytable_maritalstatus<- xtabs(~MaritalStat+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_maritalstatus,1)*100,2)
-
 mytable_gender<- xtabs(~Gender+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_gender,1)*100,2)
-
 mytable_environmentsatisfaction<- xtabs(~EnvSatis+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_environmentsatisfaction,1)*100,2)
-
 mytable_businesstravel<- xtabs(~Travel+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_businesstravel,1)*100,2)
-
 mytable_educationfield<- xtabs(~EduField+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_educationfield,1)*100,2)
-
 mytable_jobsatisfaction<- xtabs(~JobSatis+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobsatisfaction,1)*100,2)
-
 mytable_education<- xtabs(~Education+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_education,1)*100,2)
-
 mytable_jobinvolvement<- xtabs(~JobInvolve+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobinvolvement,1)*100,2)
-
 mytable_salaryincrease<- xtabs(~SalaryIncr+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_salaryincrease,1)*100,2)
-
 mytable_trainingtime<- xtabs(~TrainTime+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_trainingtime,1)*100,2)
-
 mytable_yearsatcompany<- xtabs(~YearsAtCo+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearsatcompany,1)*100,2)
-
 mytable_yearsincurrentrole<- xtabs(~DuraCurRole+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearsincurrentrole,1)*100,2)
-
 mytable_lastpromotion<- xtabs(~LastPromote+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_lastpromotion,1)*100,2)
-
 mytable_yearswithmanager<- xtabs(~CurManage+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearswithmanager,1)*100,2)
 ```
@@ -156,13 +142,10 @@ round(prop.table(mytable_yearswithmanager,1)*100,2)
 # All employees are older than 18
 hr <- subset(Employee_rawdata, Employee_rawdata$Age >= 18)
 hr$Over18 <- NULL
-
 # All employees had 80 standard work hours
 hr$StdHours <- NULL
-
 # All employee counts are 1
 hr$EmpCount <- NULL
-
 # Transform Categorical Variables to Indicator Variables
 hr <- hr %>% mutate(Attrition=ifelse(Attrition=="Yes", 1, 0))
 hr <- hr %>% mutate(Travel=ifelse(Travel=="Travel_Rarely", 2, 
@@ -201,7 +184,6 @@ for (x in roles$JobRole)
   roles$Percents[roles$JobRole == x] <- roles$n[roles$JobRole == x] / roles$Totals[roles$JobRole == x] * 100
 }
 roles <- as.data.frame(roles)
-
 # Percent Attrition by Department
 depts <- Employee_rawdata %>% group_by(Department, Attrition) %>% summarise(n = n())
 depts[,c("Totals", "Percents")] <- NA
@@ -211,7 +193,6 @@ for (x in depts$Department)
   depts$Percents[depts$Department == x] <- depts$n[depts$Department == x] / depts$Totals[depts$Department == x] * 100
 }
 depts <- as.data.frame(depts)
-
 # Percent Attrition by Travel
 travel <- Employee_rawdata %>% group_by(Travel, Attrition) %>% summarise(n = n())
 travel[,c("Totals", "Percents")] <- NA
@@ -221,7 +202,6 @@ for (x in travel$Travel)
   travel$Percents[travel$Travel == x] <- travel$n[travel$Travel == x] / travel$Totals[travel$Travel == x] * 100
 }
 travel <- as.data.frame(travel)
-
 # Percent Attrition by Education Field
 educfield <- Employee_rawdata %>% group_by(EduField, Attrition) %>% summarise(n = n())
 educfield[,c("Totals", "Percents")] <- NA
@@ -231,7 +211,6 @@ for (x in educfield$EduField)
   educfield$Percents[educfield$EduField == x] <- educfield$n[educfield$EduField == x] / educfield$Totals[educfield$EduField == x] * 100
 }
 educfield <- as.data.frame(educfield)
-
 # Percent Attrition by Gender
 gender <- Employee_rawdata %>% group_by(Gender, Attrition) %>% summarise(n = n())
 gender[,c("Totals", "Percents")] <- NA
@@ -241,7 +220,6 @@ for (x in gender$Gender)
   gender$Percents[gender$Gender == x] <- gender$n[gender$Gender == x] / gender$Totals[gender$Gender == x] * 100
 }
 gender <- as.data.frame(gender)
-
 # Percent Attrition by Years of Education
 educyr <- Employee_rawdata %>% group_by(Education, Attrition) %>% summarise(n = n())
 educyr[,c("Totals", "Percents")] <- NA
@@ -251,7 +229,6 @@ for (x in educyr$Education)
   educyr$Percents[educyr$Education == x] <- educyr$n[educyr$Education == x] / educyr$Totals[educyr$Education == x] * 100
 }
 educyr <- as.data.frame(educyr)
-
 # Percent Attrition by Marital Status
 marital_status <- Employee_rawdata %>% group_by(MaritalStat, Attrition) %>% summarise(n = n())
 marital_status[,c("Totals", "Percents")] <- NA
@@ -274,7 +251,6 @@ corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'ful
 
 ``` {r 3b}
 require(pastecs)
-
 # Consider Department, EducationBackground, JobRole, and Gender with Credentials
 Credentials <- hr[,(names(hr) %in%
                                    c("Age","Education","JobLevel","PerformRate"))]
@@ -286,15 +262,12 @@ LifeSatisfaction <- hr[,(names(hr) %in%
 # Consider Overtime with Compensation                                  
 Compensation <- hr[,(names(hr) %in%
                                   c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
-
 Loyalty <- hr[,(names(hr) %in%
                              c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
-
 stat.desc(Credentials)
 stat.desc(LifeSatisfaction)
 stat.desc(Compensation)
 stat.desc(Loyalty)
-
 require(ggplot2)
 # Histogram of Employee Monthly Incomes
 ggplot(hr, aes(x=MonIncome)) + geom_histogram(color="black", fill="white",bins = 25) + 
@@ -311,12 +284,10 @@ ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=
 Gender <- as.data.frame(table(Employee_rawdata$Gender))
 colnames(Gender) <- c("Gender","Frequency")
 Gender
-
 # Frequency Table for Employee Education
 Education <- as.data.frame(table(Employee_rawdata$EduField))
 colnames(Education) <- c("Education","Frequency")
 Education
-
 # Frequency Table for Employee Occupation
 Occupation <- as.data.frame(table(Employee_rawdata$JobRole))
 colnames(Occupation) <- c("Occupation","Frequency")
@@ -331,7 +302,6 @@ Management
 ```
 
 ``` {r EDA}
-
 # Labeling Income Level by Annual Salary
 for (i in 1:nrow(hr)) {
   if (hr$MonIncome[i] < 2500){ # <30k annually
@@ -346,10 +316,8 @@ for (i in 1:nrow(hr)) {
       hr$IncomeLvl[i] <- "Executive"
   }
 }
-
 # Table for Attrition by Income Level
 xtabs(~IncomeLvl+Attrition, data = hr)
-
 # Approximating Turnover Cost based on CAP Averages
 # 20.4% of annual salary used for mid-high and high positions for a conservative estimate
 # 125% of annual salary used for executive positions for a conservative estimate
@@ -369,34 +337,25 @@ for (i in 1:nrow(hr)) {
 aprxTOcost <- aprxTOcost + TOcost
 }
 aprxTOcost
-
 # Percent Attrition by Years with Current Manager
 mytable_curmanage <- xtabs(~CurManage+Attrition, data=Employee_rawdata) 
 round(prop.table(mytable_curmanage,1)*100,2) 
-
 # Percent Attrition by Years with Current Manager and Years at Company
 mytable_curmanage.yearsatco <- xtabs(~CurManage+YearsAtCo+Attrition, data=Employee_rawdata) 
 round(prop.table(mytable_curmanage.yearsatco,1)*100,2) 
-
 # Percet Employy by Number Training Sessions and Job Role
 mytable_manager.traintime<- xtabs(~JobRole+TrainTime, data=Employee_rawdata)
 round(prop.table(mytable_manager.traintime,1)*100,2)
-
 # Table for Stock Option Income Level
 table(hr$IncomeLvl,hr$StockOption)
-
 # Table for Income Level by Job Role
 table(Employee_rawdata$JobRole,hr$IncomeLvl)
-
 # Table for Last Promotion by Job Role
 table(Employee_rawdata$JobRole,hr$LastPromote)
-
 # Table for Performance Rating by Job Role
 table(Employee_rawdata$JobRole,hr$PerformRate)
-
 # Table for Employee Job Satisfaction
 table(hr$JobSatis)
-
 ```
 
 ``` {r 4b}
@@ -409,7 +368,6 @@ roles %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(JobRole, -Percen
   theme_classic() +
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Job Role"))
-
 # Percent Attrition by Department
 depts %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Department, -Percents), y = Percents, fill=Department)) + 
   geom_bar(stat = "identity") + 
@@ -418,7 +376,6 @@ depts %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Department, -Per
   theme_classic() +
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Department"))
-
 # Percent Attrition by Travel
 travel %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Travel, -Percents), y = Percents, fill=Travel)) + 
   geom_bar(stat = "identity") + 
@@ -427,7 +384,6 @@ travel %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Travel, -Percen
   theme_classic() +
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Business Travel"))
-
 # Percent Attrition by Education Field
 educfield %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(EduField, -Percents), y = Percents, fill=EduField)) + 
   geom_bar(stat = "identity") + 
@@ -436,7 +392,6 @@ educfield %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(EduField, -P
   theme_classic() +
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Education Field"))
-
 # Percent Attrition by Gender
 gender %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Gender, -Percents), y = Percents, fill=Gender)) + 
   geom_bar(stat = "identity") + 
@@ -445,7 +400,6 @@ gender %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Gender, -Percen
   theme_classic() +
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Gender"))
-
 # Percent Attrition by Years of Education
 educyr %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Education, -Percents), y = Percents, fill=Education)) + 
   geom_bar(stat = "identity") + 
@@ -454,7 +408,6 @@ educyr %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Education, -Per
   theme_classic() +
   theme(plot.title = element_text(size = 20, hjust = 0.5)) +
   guides(fill=guide_legend(title="Years of Education"))
-
 # Percent Attrition by Marital Status
 marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(MaritalStat, -Percents), y = Percents, fill=MaritalStat)) + 
   geom_bar(stat = "identity") + 
@@ -471,7 +424,6 @@ ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) +
             geom_smooth(method = lm, se = FALSE, color = "black") +
             labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
             theme(plot.title = element_text(hjust = 0.5))
-
 # lm() function fits the Monthly Income and Age variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
 # summary() function produces the result summaries of the linear model fit
 # the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
@@ -480,7 +432,6 @@ summary(LinearCorrelation)
 # R_squared <- 0.2479
 Correlation.Age_Income <- sqrt(summary(LinearCorrelation)$r.squared)
 Correlation.Age_Income
-
 # unbalanced data - 1233 No vs 237 Yes
 Attrition <- as.data.frame(table(hr$Attrition))
 colnames(Attrition) <- c("Attrition", "Frequency")
@@ -488,7 +439,6 @@ Attrition
 ```
 
 ``` {r 4d}
-
 ```
 
 
@@ -512,3 +462,99 @@ summary(fit1lm)
 glm_test <- glm(Attrition ~ ., data = hr, family = binomial(link = "logit"))
 summary(glm_test)
 ```
+
+### Decision Tree
+```{r, echo=TRUE}
+
+term_vars <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","Attrition")
+emp_term_train <- subset(emp, Education < 4)
+emp_term_test <- subset(emp, Education >= 4)
+set.seed(99)  # set a pre-defined value for the random seed so that results are repeatable
+# Decision tree model
+rpart_model <- rpart(Attrition ~.,
+                     data = emp_term_train[term_vars],
+                     method = 'class',
+                     parms = list(split='information'),
+                     control = rpart.control(usesurrogate = 0,
+                                             maxsurrogate = 0))
+# Plot the decision tree
+rpart.plot(rpart_model, roundint = FALSE, type = 3)
+```
+
+### Random Forest Analysis
+```{r, echo=TRUE}
+emp$resigned <- as.factor(emp$Attrition)  # create factor for Attrition field
+
+emp_cat <- data.frame(emp$Age,emp$Education,emp$MonthlyIncome,emp$BusinessTravel,emp$Department,emp$DistanceFromHome,emp$EducationField, emp$Gender,emp$JobInvolvement,emp$JobLevel, emp$JobRole, emp$JobSatisfaction, emp$MaritalStatus, emp$MonthlyIncome,emp$NumCompaniesWorked, emp$OverTime,emp$PercentSalaryHike,emp$PerformanceRating, emp$StockOptionLevel, emp$TotalWorkingYears,emp$TrainingTimesLastYear, emp$WorkLifeBalance,emp$RelationshipSatisfaction,emp$YearsAtCompany,emp$YearsInCurrentRole, emp$YearsSinceLastPromotion,emp$YearsWithCurrManager,emp$resigned,emp$EmployeeNumber)
+
+
+col_headings <- c("Age","Education","MonthlyIncome","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","resigned","EmployeeNumber")
+
+names(emp_cat) <- col_headings
+emp_train <- subset(emp_cat, Education < 4)
+emp_test <- subset(emp_cat, Education >= 4)
+
+emp_train_rose <- ROSE(resigned ~ ., data = emp_train, seed=125)$data
+# Tables to show balanced dataset sample sizes
+
+res_vars <- c("Age","Education","BusinessTravel","Department","DistanceFromHome","EducationField", "Gender","JobInvolvement","JobLevel", "JobRole", "JobSatisfaction", "MaritalStatus", "MonthlyIncome","NumCompaniesWorked", "OverTime","PercentSalaryHike","PerformanceRating", "StockOptionLevel", "TotalWorkingYears","TrainingTimesLastYear", "WorkLifeBalance","RelationshipSatisfaction","YearsAtCompany","YearsInCurrentRole", "YearsSinceLastPromotion","YearsWithCurrManager","resigned")
+set.seed(222)
+emp_res_rose_RF <- randomForest(resigned ~ .,
+                           data = emp_train_rose[res_vars],
+                           ntree=500, importance = TRUE,
+                           na.action = na.omit)
+imp <- varImpPlot(emp_res_rose_RF, type=1, n.var = min(20), main="Attrition Variable Importance (Accuracy)", sub = "Random Forest Model", class = NULL, scale=TRUE)
+imp <- as.data.frame(imp[1:20,])
+imp$varnames <- rownames(imp) # row names to column
+rownames(imp) <- NULL  
+col_headings <- c("Importance", "varnames")
+names(imp) <-col_headings
+imp$var_categ <- rep(1:20)
+
+
+ggplot(imp, aes(x=reorder(varnames, Importance), y=Importance, color=as.factor(var_categ))) + 
+  geom_point() +
+  geom_segment(aes(x=varnames,xend=varnames,y=0,yend=Importance)) +
+  scale_color_discrete(name="Variable Group") +
+  ggtitle("Attrition Variable Importance") +
+  ylab("Importance Measurement") +
+  xlab("Variable Name") +
+  theme(legend.position = "none") +
+  coord_flip()
+
+```
+
+### Attrition Prediction using Random Forest
+```{r, echo=TRUE}
+# generate predictions based on test data ("emp_test")
+emp_res_rose_RF_pred <- predict(emp_res_rose_RF, newdata = emp_test)
+confusionMatrix(data = emp_res_rose_RF_pred,
+                reference = emp_test$resigned,
+                positive = "Yes", mode = "prec_recall")
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r, echo=TRUE}
+
+# Calculate prediction probabilites of employees who will resign
+emp_res_rose_RF_pred_probs <- predict(emp_res_rose_RF, emp_test, type="prob")
+Employees_flight_risk <- as.data.frame(cbind(emp_test$EmployeeNumber,emp_res_rose_RF_pred_probs))
+
+# Predition table formatting using kable
+
+col_headings <- c("Employee Num","No","Yes")
+names(Employees_flight_risk) <- col_headings
+Employees_flight_risk <- arrange(Employees_flight_risk, desc(Yes))
+Employees_flight_risk[1:25, 1 ] <- "####"
+write.csv(Employees_flight_risk[1:25, ], file = "FlightRiskData.csv")
+Employees_flight_risk[1:25, 3]  <- paste(round((Employees_flight_risk[1:25, 3])*100,digits=0),"%",sep="")
+Employees_flight_risk[, 2]  <- NULL
+c1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+df <- data.frame(c1, Employees_flight_risk[1:20, 1 ], Employees_flight_risk[1:20, 2])
+col_headings <- c("#", "Employee Number","Predict Attrition %")
+names(df) <- col_headings
+kable(df, caption="Attrition Prediction Table") %>%
+  kable_styling(bootstrap_options = "striped", font_size = 11)
+
+```
+
