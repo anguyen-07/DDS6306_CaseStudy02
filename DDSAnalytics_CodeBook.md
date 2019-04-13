@@ -20,8 +20,7 @@ The dataset examined has the following dimensions:
 
 # Codebook summary table
 
-|  Variable           | Class      |   # unique|  Missing | Description|
-|                     |            |     values|          |              
+|  Variable           | Class      |   # unique values |  Missing | Description|       
 |:---------------------:|:-----------:|:----------:|:---------:|:-------------:|
 |  Age          | numeric    |         43|  0.00 %  | Employee Age|
 |  Attrition    | numeric    |          2|  0.00 %  | Attrition|
