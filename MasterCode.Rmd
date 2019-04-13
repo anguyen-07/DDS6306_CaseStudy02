@@ -27,6 +27,10 @@ library(caret)
 sessionInfo()
 ```
 
+# Introduction
+All organizations experience attrtion through the normal course of business. Natural attrition occurs in many ways, such as retirement, resignation, and termination of individual employees, or through downsizing or restructuring of the company. However, organizations should keep an eye on attrition to ensure they retain experienced talent and don't waste resources replacing good employees. Additionally, attrition can act as a barometer for the organization's overall health and corporate culture.
+So how does the organization know whether its turnover rate is "good" or "bad"? What should the organization's target attrition rate be? To answer that question, the organization needs know two things: 1) What is the organization's current turnover rate, and 2) What is the average turnover rate for the industry.
+
 ### Clean Raw Data
   * There are 1470 rows and 35 columns in the employee raw data frame.
 ``` {r 2a}
@@ -279,6 +283,9 @@ ggplot(hr, aes(x=SalaryIncr)) + geom_histogram(color="black", fill="white",bins=
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
+* The histogram for Employee Monthly Income has a distribution skewed to the right with a long-tail. This makes sense because a few executive position salaries will skew the distribution heavily to the right because they demand salaries greater than the company average.
+* The histogram for Percent Salary Hike in Employee salaries has a nearly normal distribution, but exhibits a slight right-skew.
+
 ``` {r 3c}
 # Frequency Table for Employee Gender
 Gender <- as.data.frame(table(Employee_rawdata$Gender))
@@ -318,23 +325,24 @@ for (i in 1:nrow(hr)) {
 }
 # Table for Attrition by Income Level
 xtabs(~IncomeLvl+Attrition, data = hr)
+hr_TOcost <- hr[which(hr$Attrition == 1),]
 # Approximating Turnover Cost based on CAP Averages
 # 20.4% of annual salary used for mid-high and high positions for a conservative estimate
 # 125% of annual salary used for executive positions for a conservative estimate
 aprxTOcost <- 0
-for (i in 1:nrow(hr)) {
-  if (hr$IncomeLvl[i] == "Entry"){
-    TOcost <- hr$MonIncome[i]*12*0.161
-  } else if (hr$IncomeLvl[i] == "Middle"){
-    TOcost <- hr$MonIncome[i]*12*0.197
-  } else if (hr$IncomeLvl[i] == "Mid-High"){
-    TOcost <- hr$MonIncome[i]*12*0.204
-  } else if (hr$IncomeLvl[i] == "High"){
-    TOcost <- hr$MonIncome[i]*12*0.204
-  } else if (hr$IncomeLvl[i] == "Executive"){
-    TOcost <- hr$MonIncome[i]*12*1.25
+for (i in 1:nrow(hr_TOcost)) {
+  if (hr_TOcost$IncomeLvl[i] == "Entry"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.161
+  } else if (hr_TOcost$IncomeLvl[i] == "Middle"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.197
+  } else if (hr_TOcost$IncomeLvl[i] == "Mid-High"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.204
+  } else if (hr_TOcost$IncomeLvl[i] == "High"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*0.204
+  } else if (hr_TOcost$IncomeLvl[i] == "Executive"){
+    TOcost <- hr_TOcost$MonIncome[i]*12*1.25
   }
-aprxTOcost <- aprxTOcost + TOcost
+  aprxTOcost <- aprxTOcost + TOcost
 }
 aprxTOcost
 # Percent Attrition by Years with Current Manager
@@ -437,6 +445,7 @@ Attrition <- as.data.frame(table(hr$Attrition))
 colnames(Attrition) <- c("Attrition", "Frequency")
 Attrition
 ```
+* There is an apparent relationship between Age and Income. The correlation coefficient of 0.4979 indicates a moderate positive linear correlation between Age and Income.
 
 ``` {r 4d}
 ```
@@ -557,4 +566,10 @@ kable(df, caption="Attrition Prediction Table") %>%
   kable_styling(bootstrap_options = "striped", font_size = 11)
 
 ```
+
+# Conclusion
+
+Data analysis indicates that DDSAnalytics has higher attrition rates among younger people, which according to SHRM (the Society of Human Resource Management) is more common among that demographic in part due to the low unemployment rate in the current economy which makes it a job seeker's market. Another reason younger people may leave jobs is simply because as a demographic, younger people tend to continuously seek better employment opportunities.
+Data analysis indicates that DDSAnalytics also has somewhat high attrition rates among employees with fewer years at the company. This is in line with the industry, and an effective way to curb this is to tweak the company's recruitment process and improve onboarding procedures. Ensuring potential hires have realistic expectations of the company and a good understanding of DDSAnalytics' corporate culture, and helping them develop loyalty to the company through an immersive onboarding process are two ways to reduce attrition for employees with less than two years of service with the company.
+Finally, data analysis indicates that overall employee satisfaction with their job and the work environment, feeling involved in their job role, and a good work/life balance all have a significant impact on overall attrition. DDSAnalytics can reduce attrition rates resulting from these factors by introducing a flexible work schedule, involving employees in relevant decisionmaking processes, and reconfiguring the amount of overtime and/or business travel required.
 
