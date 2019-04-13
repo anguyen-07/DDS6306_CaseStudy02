@@ -35,7 +35,7 @@ So how does the organization know whether its turnover rate is "good" or "bad"? 
   * There are 1470 rows and 35 columns in the employee raw data frame.
 ``` {r 2a}
 require(readxl)
-Employee_rawdata <- as.data.frame(read_excel("CaseStudy2-data.xlsx"))
+Employee_rawdata <- as.data.frame(read_excel("Data/CaseStudy2-data.xlsx"))
 dim(Employee_rawdata)
 emp <- Employee_rawdata
 ```
