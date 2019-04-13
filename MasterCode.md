@@ -1,6 +1,6 @@
 ---
 author: "Andy Nguyen, Amy Markum, Richard Hart, Tom Gianelle"
-date: "3/28/2019"
+date: "March 28, 2019"
 output: 
   html_document:
     keep_md: TRUE
@@ -14,61 +14,59 @@ sessionInfo()
 ```
 
 ```
-## R version 3.5.2 (2018-12-20)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 17763)
+## R version 3.5.0 (2018-04-23)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS  10.14.1
 ## 
 ## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
-## [1] LC_COLLATE=English_United States.1252 
-## [2] LC_CTYPE=English_United States.1252   
-## [3] LC_MONETARY=English_United States.1252
-## [4] LC_NUMERIC=C                          
-## [5] LC_TIME=English_United States.1252    
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] caret_6.0-81               lattice_0.20-38           
+##  [1] caret_6.0-82               lattice_0.20-35           
 ##  [3] randomForest_4.6-14        ROSE_0.0-3                
 ##  [5] rpart.plot_3.0.6           rpart_4.1-13              
 ##  [7] MASS_7.3-51.1              corrplot_0.84             
 ##  [9] pastecs_1.3.21             tidyquant_0.5.5           
-## [11] forcats_0.3.0              stringr_1.4.0             
-## [13] dplyr_0.7.8                purrr_0.2.5               
+## [11] forcats_0.3.0              stringr_1.3.1             
+## [13] dplyr_0.7.8                purrr_0.3.0               
 ## [15] readr_1.3.1                tidyr_0.8.2               
-## [17] tibble_1.4.2               ggplot2_3.1.0             
+## [17] tibble_2.0.0               ggplot2_3.1.0             
 ## [19] tidyverse_1.2.1            quantmod_0.4-14           
 ## [21] TTR_0.23-4                 PerformanceAnalytics_1.5.2
 ## [23] xts_0.11-2                 zoo_1.8-4                 
 ## [25] lubridate_1.7.4            readxl_1.2.0              
-## [27] kableExtra_1.1.0           knitr_1.21                
+## [27] kableExtra_1.1.0           knitr_1.20                
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] nlme_3.1-137       webshot_0.5.1      httr_1.4.0        
-##  [4] tools_3.5.2        backports_1.1.3    R6_2.3.0          
-##  [7] lazyeval_0.2.1     colorspace_1.3-2   nnet_7.3-12       
-## [10] withr_2.1.2        tidyselect_0.2.5   curl_3.2          
-## [13] compiler_3.5.2     cli_1.0.1          rvest_0.3.2       
-## [16] xml2_1.2.0         scales_1.0.0       quadprog_1.5-5    
-## [19] digest_0.6.18      rmarkdown_1.11     pkgconfig_2.0.2   
-## [22] htmltools_0.3.6    rlang_0.3.0.1      rstudioapi_0.8    
-## [25] bindr_0.1.1        generics_0.0.2     jsonlite_1.6      
-## [28] ModelMetrics_1.2.2 magrittr_1.5       Matrix_1.2-15     
-## [31] Rcpp_1.0.0         Quandl_2.9.1       munsell_0.5.0     
-## [34] stringi_1.2.4      yaml_2.2.0         plyr_1.8.4        
-## [37] recipes_0.1.4      grid_3.5.2         crayon_1.3.4      
-## [40] haven_2.0.0        splines_3.5.2      hms_0.4.2         
-## [43] pillar_1.3.1       boot_1.3-20        stats4_3.5.2      
-## [46] reshape2_1.4.3     codetools_0.2-15   glue_1.3.0        
-## [49] evaluate_0.13      data.table_1.12.0  modelr_0.1.4      
-## [52] foreach_1.4.4      cellranger_1.1.0   gtable_0.2.0      
-## [55] assertthat_0.2.0   xfun_0.4           gower_0.1.2       
+##  [4] rprojroot_1.3-2    tools_3.5.0        backports_1.1.2   
+##  [7] R6_2.3.0           lazyeval_0.2.1     colorspace_1.3-2  
+## [10] nnet_7.3-12        withr_2.1.2        tidyselect_0.2.5  
+## [13] curl_3.2           compiler_3.5.0     cli_1.0.1         
+## [16] rvest_0.3.2        xml2_1.2.0         scales_1.0.0      
+## [19] quadprog_1.5-5     digest_0.6.15      rmarkdown_1.9     
+## [22] pkgconfig_2.0.2    htmltools_0.3.6    rlang_0.3.1       
+## [25] rstudioapi_0.9.0   bindr_0.1.1        generics_0.0.2    
+## [28] jsonlite_1.6       ModelMetrics_1.2.2 magrittr_1.5      
+## [31] Matrix_1.2-14      Rcpp_1.0.0         Quandl_2.9.1      
+## [34] munsell_0.5.0      stringi_1.2.2      yaml_2.1.19       
+## [37] plyr_1.8.4         recipes_0.1.5      grid_3.5.0        
+## [40] crayon_1.3.4       haven_2.0.0        splines_3.5.0     
+## [43] hms_0.4.2          pillar_1.3.1       boot_1.3-20       
+## [46] stats4_3.5.0       reshape2_1.4.3     codetools_0.2-15  
+## [49] glue_1.3.0         evaluate_0.10.1    data.table_1.12.0 
+## [52] modelr_0.1.2       foreach_1.4.4      cellranger_1.1.0  
+## [55] gtable_0.2.0       assertthat_0.2.0   gower_0.2.0       
 ## [58] prodlim_2018.04.18 broom_0.5.1        class_7.3-14      
-## [61] survival_2.43-3    viridisLite_0.3.0  timeDate_3043.102 
-## [64] iterators_1.0.10   lava_1.6.4         bindrcpp_0.2.2    
+## [61] survival_2.41-3    viridisLite_0.3.0  timeDate_3043.102 
+## [64] iterators_1.0.10   bindrcpp_0.2.2     lava_1.6.5        
 ## [67] ipred_0.9-8
 ```
 
@@ -82,16 +80,6 @@ So how does the organization know whether its turnover rate is "good" or "bad"? 
 ```r
 require(readxl)
 Employee_rawdata <- as.data.frame(read_excel("Data/CaseStudy2-data.xlsx"))
-```
-
-```
-## readxl works best with a newer version of the tibble package.
-## You currently have tibble v1.4.2.
-## Falling back to column name repair from tibble <= v1.4.2.
-## Message displays once per session.
-```
-
-```r
 dim(Employee_rawdata)
 ```
 
@@ -111,6 +99,7 @@ emp <- Employee_rawdata
 ### General Information
 
 ```r
+# Table for Percent Attrition by Performance Rating
 mytable_performance<- xtabs(~PerformRate+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_performance,1)*100,2)
 ```
@@ -123,6 +112,7 @@ round(prop.table(mytable_performance,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Age
 mytable_age<- xtabs(~Age+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_age,1)*100,2)
 ```
@@ -176,6 +166,7 @@ round(prop.table(mytable_age,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Overtime
 mytable_overtime<- xtabs(~OverTime+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_overtime,1)*100,2)
 ```
@@ -188,6 +179,7 @@ round(prop.table(mytable_overtime,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Work Life Balance
 mytable_worklifebalance<- xtabs(~WorkLifeBal+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_worklifebalance,1)*100,2)
 ```
@@ -202,6 +194,7 @@ round(prop.table(mytable_worklifebalance,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Job Role
 mytable_jobrole<- xtabs(~JobRole+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobrole,1)*100,2)
 ```
@@ -221,6 +214,7 @@ round(prop.table(mytable_jobrole,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Number of Companies Worked
 mytable_numcompaniesworked<- xtabs(~NumCoWork+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_numcompaniesworked,1)*100,2)
 ```
@@ -241,6 +235,7 @@ round(prop.table(mytable_numcompaniesworked,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Marital Status
 mytable_maritalstatus<- xtabs(~MaritalStat+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_maritalstatus,1)*100,2)
 ```
@@ -254,6 +249,7 @@ round(prop.table(mytable_maritalstatus,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Gender
 mytable_gender<- xtabs(~Gender+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_gender,1)*100,2)
 ```
@@ -266,6 +262,7 @@ round(prop.table(mytable_gender,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Environment Satisfaction
 mytable_environmentsatisfaction<- xtabs(~EnvSatis+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_environmentsatisfaction,1)*100,2)
 ```
@@ -280,6 +277,7 @@ round(prop.table(mytable_environmentsatisfaction,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Business Travel
 mytable_businesstravel<- xtabs(~Travel+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_businesstravel,1)*100,2)
 ```
@@ -293,6 +291,7 @@ round(prop.table(mytable_businesstravel,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Field of Education
 mytable_educationfield<- xtabs(~EduField+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_educationfield,1)*100,2)
 ```
@@ -309,6 +308,7 @@ round(prop.table(mytable_educationfield,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Job Satisfaction
 mytable_jobsatisfaction<- xtabs(~JobSatis+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobsatisfaction,1)*100,2)
 ```
@@ -323,6 +323,7 @@ round(prop.table(mytable_jobsatisfaction,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Education Level
 mytable_education<- xtabs(~Education+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_education,1)*100,2)
 ```
@@ -338,6 +339,7 @@ round(prop.table(mytable_education,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Job Involvement
 mytable_jobinvolvement<- xtabs(~JobInvolve+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobinvolvement,1)*100,2)
 ```
@@ -352,6 +354,7 @@ round(prop.table(mytable_jobinvolvement,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Percent Salary Hike
 mytable_salaryincrease<- xtabs(~SalaryIncr+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_salaryincrease,1)*100,2)
 ```
@@ -377,6 +380,7 @@ round(prop.table(mytable_salaryincrease,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Training Times Last Year
 mytable_trainingtime<- xtabs(~TrainTime+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_trainingtime,1)*100,2)
 ```
@@ -394,6 +398,7 @@ round(prop.table(mytable_trainingtime,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Years at Company
 mytable_yearsatcompany<- xtabs(~YearsAtCo+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearsatcompany,1)*100,2)
 ```
@@ -441,6 +446,7 @@ round(prop.table(mytable_yearsatcompany,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Years in Current Role
 mytable_yearsincurrentrole<- xtabs(~DuraCurRole+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearsincurrentrole,1)*100,2)
 ```
@@ -470,6 +476,7 @@ round(prop.table(mytable_yearsincurrentrole,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Years Since Last Promotion
 mytable_lastpromotion<- xtabs(~LastPromote+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_lastpromotion,1)*100,2)
 ```
@@ -496,6 +503,7 @@ round(prop.table(mytable_lastpromotion,1)*100,2)
 ```
 
 ```r
+# Table for Percent Attrition by Years with Current Manager
 mytable_yearswithmanager<- xtabs(~CurManage+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearswithmanager,1)*100,2)
 ```
@@ -646,17 +654,19 @@ corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'ful
 
 ```r
 require(pastecs)
+# Subset data regarding Employee Credentials from complete Employee Dataset
 # Consider Department, EducationBackground, JobRole, and Gender with Credentials
 Credentials <- hr[,(names(hr) %in%
                                    c("Age","Education","JobLevel","PerformRate"))]
-                                 
+# Subset data regarding Employee Satisfaction from complete Employee Dataset                                 
 # Consider Marital Status with Satisfaction
 LifeSatisfaction <- hr[,(names(hr) %in%
                                   c("DisFromHome","EnvSatis","JobInvolve","JobSatis","RelateSatis","WorkLifeBal"))]
-                              
+# Subset data regarding Employee Compensation from complete Employee Dataset                              
 # Consider Overtime with Compensation                                  
 Compensation <- hr[,(names(hr) %in%
                                   c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
+# Subset data regarding Employee Loyalty from complete Employee Dataset
 Loyalty <- hr[,(names(hr) %in%
                              c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
 stat.desc(Credentials)
@@ -901,6 +911,8 @@ xtabs(~IncomeLvl+Attrition, data = hr)
 ```r
 hr_TOcost <- hr[which(hr$Attrition == 1),]
 # Approximating Turnover Cost based on CAP Averages
+# 16.1% of annual salary for entry-level positions
+# 19.7% of annual salary for mid-level positions
 # 20.4% of annual salary used for mid-high and high positions for a conservative estimate
 # 125% of annual salary used for executive positions for a conservative estimate
 aprxTOcost <- 0
@@ -1129,7 +1141,7 @@ round(prop.table(mytable_curmanage.yearsatco,1)*100,2)
 ```
 
 ```r
-# Percet Employy by Number Training Sessions and Job Role
+# Table for Percentage of Employees Completing Number of Training Sessions by Job Role
 mytable_manager.traintime<- xtabs(~JobRole+TrainTime, data=Employee_rawdata)
 round(prop.table(mytable_manager.traintime,1)*100,2)
 ```
@@ -1341,27 +1353,28 @@ marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Marital
 
 
 ```r
+# Scatterplot for the relationship of an Emplyee's Monthly Income and their Age
 ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) + 
-            geom_point() + 
-            geom_smooth(method = lm, se = FALSE, color = "black") +
-            labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
-            theme(plot.title = element_text(hjust = 0.5))
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE, color = "black") +
+  labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ![](MasterCode_files/figure-html/4c-1.png)<!-- -->
 
 ```r
-# lm() function fits the Monthly Income and Age variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+# lm() function fits the Monthly Income and Age variables of the complete Employee dataset with a linear model using Monthly Income as the response variable and Age as the explanatory variable
 # summary() function produces the result summaries of the linear model fit
-# the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
-LinearCorrelation <- lm(MonIncome ~ Age, data = hr)
+# the square root of the R^2 value provides the correlation coefficient for the linear fit model between Monthly Income and Employee's Age
+LinearCorrelation <- lm(MonIncome ~ Age, data = Employee_rawdata)
 summary(LinearCorrelation)
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = MonIncome ~ Age, data = hr)
+## lm(formula = MonIncome ~ Age, data = Employee_rawdata)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
@@ -1387,19 +1400,6 @@ Correlation.Age_Income
 
 ```
 ## [1] 0.4978546
-```
-
-```r
-# unbalanced data - 1233 No vs 237 Yes
-Attrition <- as.data.frame(table(hr$Attrition))
-colnames(Attrition) <- c("Attrition", "Frequency")
-Attrition
-```
-
-```
-##   Attrition Frequency
-## 1         0      1233
-## 2         1       237
 ```
 * There is an apparent relationship between Age and Income. The correlation coefficient of 0.4979 indicates a moderate positive linear correlation between Age and Income.
 
@@ -1605,6 +1605,7 @@ confusionMatrix(data = emp_res_rose_RF_pred,
 ##     P-Value [Acc > NIR] : 0.9999          
 ##                                           
 ##                   Kappa : 0.3456          
+##                                           
 ##  Mcnemar's Test P-Value : 1.069e-05       
 ##                                           
 ##               Precision : 0.36792         
@@ -1632,7 +1633,7 @@ col_headings <- c("Employee Num","No","Yes")
 names(Employees_flight_risk) <- col_headings
 Employees_flight_risk <- arrange(Employees_flight_risk, desc(Yes))
 Employees_flight_risk[1:25, 1 ] <- "####"
-write.csv(Employees_flight_risk[1:25, ], file = "FlightRiskData.csv")
+write.csv(Employees_flight_risk[1:25, ], file = "Data/FlightRiskData.csv")
 Employees_flight_risk[1:25, 3]  <- paste(round((Employees_flight_risk[1:25, 3])*100,digits=0),"%",sep="")
 Employees_flight_risk[, 2]  <- NULL
 c1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)

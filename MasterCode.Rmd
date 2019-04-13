@@ -1,6 +1,6 @@
 ---
 author: "Andy Nguyen, Amy Markum, Richard Hart, Tom Gianelle"
-date: "3/28/2019"
+date: "March 28, 2019"
 output: 
   html_document:
     keep_md: TRUE
@@ -101,44 +101,64 @@ str(Employee_rawdata)
 
 ### General Information
 ``` {r tables}
+# Table for Percent Attrition by Performance Rating
 mytable_performance<- xtabs(~PerformRate+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_performance,1)*100,2)
+# Table for Percent Attrition by Age
 mytable_age<- xtabs(~Age+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_age,1)*100,2)
+# Table for Percent Attrition by Overtime
 mytable_overtime<- xtabs(~OverTime+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_overtime,1)*100,2)
+# Table for Percent Attrition by Work Life Balance
 mytable_worklifebalance<- xtabs(~WorkLifeBal+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_worklifebalance,1)*100,2)
+# Table for Percent Attrition by Job Role
 mytable_jobrole<- xtabs(~JobRole+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobrole,1)*100,2)
+# Table for Percent Attrition by Number of Companies Worked
 mytable_numcompaniesworked<- xtabs(~NumCoWork+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_numcompaniesworked,1)*100,2)
+# Table for Percent Attrition by Marital Status
 mytable_maritalstatus<- xtabs(~MaritalStat+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_maritalstatus,1)*100,2)
+# Table for Percent Attrition by Gender
 mytable_gender<- xtabs(~Gender+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_gender,1)*100,2)
+# Table for Percent Attrition by Environment Satisfaction
 mytable_environmentsatisfaction<- xtabs(~EnvSatis+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_environmentsatisfaction,1)*100,2)
+# Table for Percent Attrition by Business Travel
 mytable_businesstravel<- xtabs(~Travel+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_businesstravel,1)*100,2)
+# Table for Percent Attrition by Field of Education
 mytable_educationfield<- xtabs(~EduField+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_educationfield,1)*100,2)
+# Table for Percent Attrition by Job Satisfaction
 mytable_jobsatisfaction<- xtabs(~JobSatis+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobsatisfaction,1)*100,2)
+# Table for Percent Attrition by Education Level
 mytable_education<- xtabs(~Education+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_education,1)*100,2)
+# Table for Percent Attrition by Job Involvement
 mytable_jobinvolvement<- xtabs(~JobInvolve+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_jobinvolvement,1)*100,2)
+# Table for Percent Attrition by Percent Salary Hike
 mytable_salaryincrease<- xtabs(~SalaryIncr+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_salaryincrease,1)*100,2)
+# Table for Percent Attrition by Training Times Last Year
 mytable_trainingtime<- xtabs(~TrainTime+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_trainingtime,1)*100,2)
+# Table for Percent Attrition by Years at Company
 mytable_yearsatcompany<- xtabs(~YearsAtCo+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearsatcompany,1)*100,2)
+# Table for Percent Attrition by Years in Current Role
 mytable_yearsincurrentrole<- xtabs(~DuraCurRole+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearsincurrentrole,1)*100,2)
+# Table for Percent Attrition by Years Since Last Promotion
 mytable_lastpromotion<- xtabs(~LastPromote+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_lastpromotion,1)*100,2)
+# Table for Percent Attrition by Years with Current Manager
 mytable_yearswithmanager<- xtabs(~CurManage+Attrition, data=Employee_rawdata)
 round(prop.table(mytable_yearswithmanager,1)*100,2)
 ```
@@ -260,17 +280,19 @@ corrplot(hrCorr, method = 'color', number.cex = 0.65, tl.cex = 0.70, type = 'ful
 
 ``` {r 3b}
 require(pastecs)
+# Subset data regarding Employee Credentials from complete Employee Dataset
 # Consider Department, EducationBackground, JobRole, and Gender with Credentials
 Credentials <- hr[,(names(hr) %in%
                                    c("Age","Education","JobLevel","PerformRate"))]
-                                 
+# Subset data regarding Employee Satisfaction from complete Employee Dataset                                 
 # Consider Marital Status with Satisfaction
 LifeSatisfaction <- hr[,(names(hr) %in%
                                   c("DisFromHome","EnvSatis","JobInvolve","JobSatis","RelateSatis","WorkLifeBal"))]
-                              
+# Subset data regarding Employee Compensation from complete Employee Dataset                              
 # Consider Overtime with Compensation                                  
 Compensation <- hr[,(names(hr) %in%
                                   c("DailyRate","HourlyRate","MonthlyRate","MonIncome","SalaryIncr","LastPromote","StockOption"))]
+# Subset data regarding Employee Loyalty from complete Employee Dataset
 Loyalty <- hr[,(names(hr) %in%
                              c("NumComWork","NumWorkYear","YearsAtCo","DuraCurRole","CurManage"))]
 stat.desc(Credentials)
@@ -336,6 +358,8 @@ for (i in 1:nrow(hr)) {
 xtabs(~IncomeLvl+Attrition, data = hr)
 hr_TOcost <- hr[which(hr$Attrition == 1),]
 # Approximating Turnover Cost based on CAP Averages
+# 16.1% of annual salary for entry-level positions
+# 19.7% of annual salary for mid-level positions
 # 20.4% of annual salary used for mid-high and high positions for a conservative estimate
 # 125% of annual salary used for executive positions for a conservative estimate
 aprxTOcost <- 0
@@ -360,7 +384,7 @@ round(prop.table(mytable_curmanage,1)*100,2)
 # Percent Attrition by Years with Current Manager and Years at Company
 mytable_curmanage.yearsatco <- xtabs(~CurManage+YearsAtCo+Attrition, data=Employee_rawdata) 
 round(prop.table(mytable_curmanage.yearsatco,1)*100,2) 
-# Percet Employy by Number Training Sessions and Job Role
+# Table for Percentage of Employees Completing Number of Training Sessions by Job Role
 mytable_manager.traintime<- xtabs(~JobRole+TrainTime, data=Employee_rawdata)
 round(prop.table(mytable_manager.traintime,1)*100,2)
 # Table for Stock Option Income Level
@@ -440,23 +464,20 @@ marital_status %>% filter(Attrition == "Yes") %>% ggplot(aes(x = reorder(Marital
 ### 4C
 
 ``` {r 4c}
+# Scatterplot for the relationship of an Emplyee's Monthly Income and their Age
 ggplot(data=Employee_rawdata,aes(x=Age,y=MonIncome,color=Gender)) + 
-            geom_point() + 
-            geom_smooth(method = lm, se = FALSE, color = "black") +
-            labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
-            theme(plot.title = element_text(hjust = 0.5))
-# lm() function fits the Monthly Income and Age variables of the CraftBeers dataset with a linear model using ABV as the response variable and IBU as the explanatory variable
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE, color = "black") +
+  labs(title = "Correlation between Employee Age and Monthly Income", x = "Age (Years)", y = "Monthly Income ($)") +
+  theme(plot.title = element_text(hjust = 0.5))
+# lm() function fits the Monthly Income and Age variables of the complete Employee dataset with a linear model using Monthly Income as the response variable and Age as the explanatory variable
 # summary() function produces the result summaries of the linear model fit
-# the square root of the R^2 value provides the correlation coefficient for the linear fit model of ABV and IBU
-LinearCorrelation <- lm(MonIncome ~ Age, data = hr)
+# the square root of the R^2 value provides the correlation coefficient for the linear fit model between Monthly Income and Employee's Age
+LinearCorrelation <- lm(MonIncome ~ Age, data = Employee_rawdata)
 summary(LinearCorrelation)
 # R_squared <- 0.2479
 Correlation.Age_Income <- sqrt(summary(LinearCorrelation)$r.squared)
 Correlation.Age_Income
-# unbalanced data - 1233 No vs 237 Yes
-Attrition <- as.data.frame(table(hr$Attrition))
-colnames(Attrition) <- c("Attrition", "Frequency")
-Attrition
 ```
 * There is an apparent relationship between Age and Income. The correlation coefficient of 0.4979 indicates a moderate positive linear correlation between Age and Income.
 
@@ -565,7 +586,7 @@ col_headings <- c("Employee Num","No","Yes")
 names(Employees_flight_risk) <- col_headings
 Employees_flight_risk <- arrange(Employees_flight_risk, desc(Yes))
 Employees_flight_risk[1:25, 1 ] <- "####"
-write.csv(Employees_flight_risk[1:25, ], file = "FlightRiskData.csv")
+write.csv(Employees_flight_risk[1:25, ], file = "Data/FlightRiskData.csv")
 Employees_flight_risk[1:25, 3]  <- paste(round((Employees_flight_risk[1:25, 3])*100,digits=0),"%",sep="")
 Employees_flight_risk[, 2]  <- NULL
 c1 <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
